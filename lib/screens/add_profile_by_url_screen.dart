@@ -45,7 +45,6 @@ class _AddProfileByUrlScreenState
   final _textControllerLink = TextEditingController();
   final _textControllerRemark = TextEditingController();
   Duration? _updateInterval = const Duration(hours: 24);
-  Duration? _updateIntervalByProfile; //todo profile-update-interval
   String _userAgent = "";
   bool _xhwid = false;
   String _decryptPassword = "";

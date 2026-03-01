@@ -239,6 +239,7 @@ class ProfileSetting {
     ps.remark = remark;
     ps.patch = patch;
     ps.updateInterval = updateInterval;
+    ps.updateIntervalByProfile = updateIntervalByProfile;
     ps.update = update;
     ps.url = url;
     ps.userAgent = userAgent;
@@ -758,6 +759,20 @@ class ProfileManager {
         }
       }
       profile.updateSubscriptionTraffic(result.data);
+      if (result.data != null) {
+        final profileUpdateInterval = result.data!.value(
+          "profile-update-interval",
+        );
+        if (profileUpdateInterval != null) {
+          var pui = int.tryParse(profileUpdateInterval);
+          if (pui != null) {
+            if (pui < 1) {
+              pui = 1;
+            }
+            profile.updateIntervalByProfile = Duration(hours: pui);
+          }
+        }
+      }
     }
     await save();
     updating.remove(id);
@@ -772,12 +787,16 @@ class ProfileManager {
   static Future<void> updateByTicker() async {
     DateTime now = DateTime.now();
     for (var profile in _config.profiles) {
-      if (!profile.isRemote() || profile.updateInterval == null) {
+      if (!profile.isRemote()) {
+        continue;
+      }
+      final interval =
+          profile.updateIntervalByProfile ?? profile.updateInterval;
+      if (interval == null) {
         continue;
       }
       if (profile.update == null ||
-          now.difference(profile.update!).inSeconds >=
-              profile.updateInterval!.inSeconds) {
+          now.difference(profile.update!).inSeconds >= interval.inSeconds) {
         update(profile.id);
       }
     }
