@@ -63,6 +63,7 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 		'ar': 'عربي',
 		'ru': 'Русский',
 		'fa': 'فارسی',
+		'es': 'Español',
 	};
 }
 
@@ -135,7 +136,6 @@ class _TranslationsNetCheckScreenKo implements TranslationsNetCheckScreenEn {
 	@override String get directHttpSection => '2. HTTP (TUN 경유, TUN 먼저 활성화 필요)';
 	@override String proxyHttpSection({required Object p}) => '3. HTTP (프록시 경유, 포트: ${p})';
 	@override String get tunNotEnabled => 'TUN이 활성화되지 않았습니다';
-	@override String get routeTableSection => '4. 라우팅 테이블';
 }
 
 // Path: VersionUpdateScreen
@@ -527,7 +527,6 @@ extension on TranslationsKo {
 			'NetCheckScreen.directHttpSection' => '2. HTTP (TUN 경유, TUN 먼저 활성화 필요)',
 			'NetCheckScreen.proxyHttpSection' => ({required Object p}) => '3. HTTP (프록시 경유, 포트: ${p})',
 			'NetCheckScreen.tunNotEnabled' => 'TUN이 활성화되지 않았습니다',
-			'NetCheckScreen.routeTableSection' => '4. 라우팅 테이블',
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => '새 버전 [${p}]이 준비되었습니다',
 			'VersionUpdateScreen.update' => '업데이트를 위해 재시작',
 			'VersionUpdateScreen.cancel' => '나중에',
@@ -803,6 +802,7 @@ extension on TranslationsKo {
 			'locales.ar' => 'عربي',
 			'locales.ru' => 'Русский',
 			'locales.fa' => 'فارسی',
+			'locales.es' => 'Español',
 			_ => null,
 		};
 	}

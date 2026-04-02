@@ -33,8 +33,7 @@
         "dnsSection": "1. پرس‌وجوی DNS",
         "directHttpSection": "2. HTTP (از طریق TUN، ابتدا TUN را فعال کنید)",
         "proxyHttpSection": "3. HTTP (از طریق پروکسی، پورت: $p)",
-        "tunNotEnabled": "TUN فعال نیست",
-        "routeTableSection": "4. جدول مسیریابی"
+        "tunNotEnabled": "TUN فعال نیست"
     },
     "VersionUpdateScreen": {
         "versionReady": "نسخه جدید [$p] آماده است",
@@ -331,6 +330,7 @@
         "ko": "한국어",
         "ar": "عربي",
         "ru": "Русский",
-        "fa": "فارسی"
+        "fa": "فارسی",
+        "es": "Español"
     }
 }

@@ -33,8 +33,7 @@
         "dnsSection": "1. استعلام DNS",
         "directHttpSection": "2. HTTP (عبر TUN، يرجى تفعيل TUN أولاً)",
         "proxyHttpSection": "3. HTTP (عبر الوكيل، المنفذ: $p)",
-        "tunNotEnabled": "TUN غير مفعّل",
-        "routeTableSection": "4. جدول التوجيه"
+        "tunNotEnabled": "TUN غير مفعّل"
     },
     "VersionUpdateScreen": {
         "versionReady": "الإصدار الجديد [$p] جاهز",
@@ -331,6 +330,7 @@
         "ko": "한국어",
         "ar": "عربي",
         "ru": "Русский",
-        "fa": "فارسی"
+        "fa": "فارسی",
+        "es": "Español"
     }
 }

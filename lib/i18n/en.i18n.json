@@ -38,8 +38,7 @@
         "dnsSection": "1. DNS Query",
         "directHttpSection": "2. HTTP (via TUN, enable TUN first)",
         "proxyHttpSection": "3. HTTP (via Proxy, port: $p)",
-        "tunNotEnabled": "TUN is not enabled",
-        "routeTableSection": "4. Route Table"
+        "tunNotEnabled": "TUN is not enabled"
     },
     "main": {
         "tray": {
@@ -331,6 +330,7 @@
         "ko": "한국어",
         "ar": "عربي",
         "ru": "Русский",
-        "fa": "فارسی"
+        "fa": "فارسی",
+        "es": "Español"
     }
 }

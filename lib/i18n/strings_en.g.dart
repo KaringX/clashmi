@@ -73,6 +73,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 		'ar': 'عربي',
 		'ru': 'Русский',
 		'fa': 'فارسی',
+		'es': 'Español',
 	};
 }
 
@@ -215,9 +216,6 @@ class TranslationsNetCheckScreenEn {
 
 	/// en: 'TUN is not enabled'
 	String get tunNotEnabled => 'TUN is not enabled';
-
-	/// en: '4. Route Table'
-	String get routeTableSection => '4. Route Table';
 }
 
 // Path: main
@@ -1122,7 +1120,6 @@ extension on Translations {
 			'NetCheckScreen.directHttpSection' => '2. HTTP (via TUN, enable TUN first)',
 			'NetCheckScreen.proxyHttpSection' => ({required Object p}) => '3. HTTP (via Proxy, port: ${p})',
 			'NetCheckScreen.tunNotEnabled' => 'TUN is not enabled',
-			'NetCheckScreen.routeTableSection' => '4. Route Table',
 			'main.tray.menuOpen' => 'Open',
 			'main.tray.menuExit' => 'Exit',
 			'meta.enable' => 'Enable',
@@ -1395,6 +1392,7 @@ extension on Translations {
 			'locales.ar' => 'عربي',
 			'locales.ru' => 'Русский',
 			'locales.fa' => 'فارسی',
+			'locales.es' => 'Español',
 			_ => null,
 		};
 	}
