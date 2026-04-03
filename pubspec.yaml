@@ -2,7 +2,7 @@ name: clashmi
 description: clashmi
 
 publish_to: none 
-version: 1.0.20+605
+version: 1.0.20+606
 environment:
   sdk: ">=3.9.0 <4.0.0"
   flutter: ">=3.35.0"

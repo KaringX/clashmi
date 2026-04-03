@@ -241,6 +241,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
                               await Clipboard.setData(
                                 ClipboardData(
                                   text: [
+                                    "OS: ${Platform.operatingSystem}",
                                     '1. DNS:',
                                     _dnsResult,
                                     '2. HTTP Via TUN:',
@@ -298,6 +299,8 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
                       Expanded(
                         child: ListView(
                           children: [
+                            Text(" OS: ${Platform.operatingSystem}"),
+                            const SizedBox(height: 12),
                             _buildSection(
                               tcontext.NetCheckScreen.dnsSection,
                               _dnsResult,

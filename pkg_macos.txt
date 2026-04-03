@@ -1,1 +1,1 @@
-appdmg macos/packaging/appdmg_make_config.json dist/clashmi_1.0.20.605_macos_universal.dmg
+appdmg macos/packaging/appdmg_make_config.json dist/clashmi_1.0.20.606_macos_universal.dmg

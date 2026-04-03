@@ -433,127 +433,84 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         ),
       );
       widgets.add(
-        ListTile(
-          title: Text(tcontext.meta.board),
-          trailing: Icon(Icons.keyboard_arrow_right, size: 20),
-          minVerticalPadding: 20,
-          onTap: () async {
-            var setting = SettingManager.getConfig();
-            if (setting.boardOnline && setting.boardUrl.isNotEmpty) {
-              final uri = Uri.tryParse(setting.boardUrl);
-              if (uri == null) {
-                final msg = "${tcontext.meta.urlInvalid}:${setting.boardUrl}";
-                DialogUtils.showAlertDialog(context, msg, withVersion: true);
-                return;
-              }
-              final shortUrl = Uri(
-                scheme: uri.scheme,
-                userInfo: uri.userInfo,
-                host: uri.host,
-                port: uri.port,
-              );
-              String host = Platform.isIOS
-                  ? await _getLocalAddress()
-                  : "127.0.0.1";
-              String secret = await ClashHttpApi.getSecret();
-              final url =
-                  '${shortUrl.toString()}/?hostname=$host&port=${ClashSettingManager.getControlPort()}&secret=$secret&http=true';
-              if (!context.mounted) {
-                return;
-              }
-              await WebviewHelper.loadUrl(
-                context,
-                url,
-                "onlineboard",
-                title: tcontext.meta.board,
-                inappWebViewOpenExternal: false,
-              );
-              return;
-            }
-            ReturnResult result = await Zashboard.start();
-            if (result.error != null) {
-              if (!context.mounted) {
-                return;
-              }
-              DialogUtils.showAlertDialog(
-                context,
-                result.error!.message,
-                withVersion: true,
-              );
-              return;
-            }
-            String url = result.data!;
-            if (!context.mounted) {
-              return;
-            }
-            await WebviewHelper.loadUrl(
-              context,
-              url,
-              "board",
-              title: tcontext.meta.board,
-              inappWebViewOpenExternal: false,
-            );
-            if (PlatformUtils.isMobile()) {
-              await Zashboard.stop();
-            }
-            _updateProxyNow();
-          },
-        ),
-      );
-
-      widgets.add(
-        ListTile(
-          title: Text(tcontext.meta.runtimeProfile),
-          trailing: Icon(Icons.keyboard_arrow_right, size: 20),
-          minVerticalPadding: 20,
-          onTap: () async {
-            late String content;
-            try {
-              final path = await PathUtils.serviceCoreRuntimeProfileFilePath();
-              content = await File(path).readAsString();
-            } catch (err) {
-              if (!context.mounted) {
-                return;
-              }
-              DialogUtils.showAlertDialog(
-                context,
-                err.toString(),
-                showCopy: true,
-                showFAQ: true,
-                withVersion: true,
-              );
-              return;
-            }
-            if (!context.mounted) {
-              return;
-            }
-            await Navigator.push(
-              context,
-              MaterialPageRoute(
-                settings: FileViewScreen.routSettings(),
-                builder: (context) => FileViewScreen(
-                  title: tcontext.meta.runtimeProfile,
-                  content: content,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    _onTapBoard();
+                  },
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 5),
+                      Icon(Icons.dashboard_outlined),
+                      const SizedBox(height: 5),
+                      SizedBox(
+                        height: 40,
+                        child: Text(
+                          tcontext.meta.board,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            );
-          },
-        ),
-      );
-      widgets.add(
-        ListTile(
-          title: Text(tcontext.meta.networkCheck),
-          trailing: Icon(Icons.keyboard_arrow_right, size: 20),
-          minVerticalPadding: 22,
-          onTap: () async {
-            await Navigator.push(
-              context,
-              MaterialPageRoute(
-                settings: NetCheckScreen.routSettings(),
-                builder: (context) => const NetCheckScreen(),
+              SizedBox(width: 5),
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    _onTapRunTimeProfile();
+                  },
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 5),
+                      Icon(Icons.file_present),
+                      const SizedBox(height: 5),
+                      SizedBox(
+                        height: 40,
+                        child: Text(
+                          tcontext.meta.runtimeProfile,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            );
-          },
+              SizedBox(width: 5),
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    _onTapNetCheck();
+                  },
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 5),
+                      Icon(Icons.network_check_outlined),
+                      const SizedBox(height: 5),
+                      SizedBox(
+                        height: 40,
+                        child: Text(
+                          tcontext.meta.networkCheck,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }
@@ -933,6 +890,112 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     } else {
       _proxyNow.value = "";
     }
+  }
+
+  Future<void> _onTapBoard() async {
+    final tcontext = Translations.of(context);
+    var setting = SettingManager.getConfig();
+    if (setting.boardOnline && setting.boardUrl.isNotEmpty) {
+      final uri = Uri.tryParse(setting.boardUrl);
+      if (uri == null) {
+        final msg = "${tcontext.meta.urlInvalid}:${setting.boardUrl}";
+        DialogUtils.showAlertDialog(context, msg, withVersion: true);
+        return;
+      }
+      final shortUrl = Uri(
+        scheme: uri.scheme,
+        userInfo: uri.userInfo,
+        host: uri.host,
+        port: uri.port,
+      );
+      String host = Platform.isIOS ? await _getLocalAddress() : "127.0.0.1";
+      String secret = await ClashHttpApi.getSecret();
+      final url =
+          '${shortUrl.toString()}/?hostname=$host&port=${ClashSettingManager.getControlPort()}&secret=$secret&http=true';
+
+      if (!mounted) {
+        return;
+      }
+      await WebviewHelper.loadUrl(
+        context,
+        url,
+        "onlineboard",
+        title: tcontext.meta.board,
+        inappWebViewOpenExternal: false,
+      );
+      return;
+    }
+    ReturnResult result = await Zashboard.start();
+    if (result.error != null) {
+      if (!mounted) {
+        return;
+      }
+      DialogUtils.showAlertDialog(
+        context,
+        result.error!.message,
+        withVersion: true,
+      );
+      return;
+    }
+    String url = result.data!;
+    if (!mounted) {
+      return;
+    }
+    await WebviewHelper.loadUrl(
+      context,
+      url,
+      "board",
+      title: tcontext.meta.board,
+      inappWebViewOpenExternal: false,
+    );
+    if (PlatformUtils.isMobile()) {
+      await Zashboard.stop();
+    }
+    _updateProxyNow();
+  }
+
+  Future<void> _onTapRunTimeProfile() async {
+    final tcontext = Translations.of(context);
+    late String content;
+    try {
+      final path = await PathUtils.serviceCoreRuntimeProfileFilePath();
+      content = await File(path).readAsString();
+    } catch (err) {
+      if (!mounted) {
+        return;
+      }
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: FileViewScreen.routSettings(),
+        builder: (context) => FileViewScreen(
+          title: tcontext.meta.runtimeProfile,
+          content: content,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onTapNetCheck() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: NetCheckScreen.routSettings(),
+        builder: (context) => const NetCheckScreen(),
+      ),
+    );
   }
 }
 
