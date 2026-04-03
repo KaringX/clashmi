@@ -33,8 +33,7 @@
         "dnsSection": "1. DNS 조회",
         "directHttpSection": "2. HTTP (TUN 경유, TUN 먼저 활성화 필요)",
         "proxyHttpSection": "3. HTTP (프록시 경유, 포트: $p)",
-        "tunNotEnabled": "TUN이 활성화되지 않았습니다",
-        "routeTableSection": "4. 라우팅 테이블"
+        "tunNotEnabled": "TUN이 활성화되지 않았습니다"
     },
     "VersionUpdateScreen": {
         "versionReady": "새 버전 [$p]이 준비되었습니다",
@@ -331,6 +330,7 @@
         "ko": "한국어",
         "ar": "عربي",
         "ru": "Русский",
-        "fa": "فارسی"
+        "fa": "فارسی",
+        "es": "Español"
     }
 }

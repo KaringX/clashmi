@@ -63,6 +63,7 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 		'ar': 'عربي',
 		'ru': 'Русский',
 		'fa': 'فارسی',
+		'es': 'Español',
 	};
 }
 
@@ -135,7 +136,6 @@ class _TranslationsNetCheckScreenAr implements TranslationsNetCheckScreenEn {
 	@override String get directHttpSection => '2. HTTP (عبر TUN، يرجى تفعيل TUN أولاً)';
 	@override String proxyHttpSection({required Object p}) => '3. HTTP (عبر الوكيل، المنفذ: ${p})';
 	@override String get tunNotEnabled => 'TUN غير مفعّل';
-	@override String get routeTableSection => '4. جدول التوجيه';
 }
 
 // Path: VersionUpdateScreen
@@ -527,7 +527,6 @@ extension on TranslationsAr {
 			'NetCheckScreen.directHttpSection' => '2. HTTP (عبر TUN، يرجى تفعيل TUN أولاً)',
 			'NetCheckScreen.proxyHttpSection' => ({required Object p}) => '3. HTTP (عبر الوكيل، المنفذ: ${p})',
 			'NetCheckScreen.tunNotEnabled' => 'TUN غير مفعّل',
-			'NetCheckScreen.routeTableSection' => '4. جدول التوجيه',
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'الإصدار الجديد [${p}] جاهز',
 			'VersionUpdateScreen.update' => 'أعد التشغيل للتحديث',
 			'VersionUpdateScreen.cancel' => 'ليس الآن',
@@ -803,6 +802,7 @@ extension on TranslationsAr {
 			'locales.ar' => 'عربي',
 			'locales.ru' => 'Русский',
 			'locales.fa' => 'فارسی',
+			'locales.es' => 'Español',
 			_ => null,
 		};
 	}

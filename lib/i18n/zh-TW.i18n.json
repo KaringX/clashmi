@@ -33,8 +33,7 @@
         "dnsSection": "1. DNS查詢",
         "directHttpSection": "2. HTTP (經由TUN,請先啟用TUN)",
         "proxyHttpSection": "3. HTTP (經由代理,連接埠:$p)",
-        "tunNotEnabled": "TUN 未啟用",
-        "routeTableSection": "4. 路由表"
+        "tunNotEnabled": "TUN 未啟用"
     },
     "VersionUpdateScreen": {
         "versionReady": "新版本[$p]已就緒",
@@ -331,6 +330,7 @@
         "ko": "한국어",
         "ar": "عربي",
         "ru": "Русский",
-        "fa": "فارسی"
+        "fa": "فارسی",
+        "es": "Español"
     }
 }
