@@ -21,7 +21,7 @@ if (project.hasProperty("dart-defines")) {
 
 android {
     namespace = "com.nebula.clashmi"
-    compileSdkVersion = "android-36"
+    compileSdkVersion = "android-35"
     buildToolsVersion = "36.0.0"
     ndkVersion = "28.2.13676358" // flutter.ndkVersion
 
@@ -36,7 +36,7 @@ android {
     defaultConfig {
         applicationId = "com.nebula.clashmi"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
@@ -82,4 +82,17 @@ android {
 
 flutter { source = "../.." }
 
-dependencies { coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3") }
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    implementation("androidx.browser:browser:1.8.0")
+}
+
+configurations.configureEach {
+    resolutionStrategy.force(
+            "androidx.browser:browser:1.8.0",
+            "androidx.core:core:1.15.0",
+            "androidx.core:core-ktx:1.15.0",
+            "androidx.activity:activity:1.9.3",
+            "androidx.activity:activity-ktx:1.9.3",
+    )
+}
