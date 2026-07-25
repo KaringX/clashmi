@@ -322,7 +322,7 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
           },
         ),
       ],
-      if (provider?.hideNodeDetails == false) ...[
+      if (provider?.hideNodeDetails != true) ...[
         ListTile(
           title: Text(
             setting.isRemote() ? tcontext.meta.view : tcontext.meta.edit,
@@ -372,7 +372,7 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
             }
           },
         ),
-        if (provider?.hideNodeDetails == false) ...[
+        if (provider?.hideNodeDetails != true) ...[
           ListTile(
             title: Text(tcontext.meta.copyUrl),
             onTap: () async {
