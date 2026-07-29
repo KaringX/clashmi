@@ -9,6 +9,7 @@ import 'package:http/io_client.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 //import 'package:http/http.dart' as http;
 import 'package:clashmi/app/utils/app_utils.dart';
+import 'package:clashmi/app/utils/hwid_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:punycode_converter/punycode_converter.dart';
 import 'package:tuple/tuple.dart';
@@ -32,15 +33,19 @@ abstract final class HttpUtils {
   static Future<ReturnResult<Tuple2<int, HttpHeaders>>> httpHeadRequest(
     Uri uri,
     int? proxyPort,
+    String? userAgent,
+    bool xhwid,
     Duration? timeout,
   ) async {
     timeout ??= const Duration(seconds: 20);
     var client = HttpClient();
     client.badCertificateCallback = _certificateCheck;
-    client.userAgent = await getUserAgent();
+    client.userAgent = userAgent == null || userAgent.isEmpty
+        ? await getUserAgent()
+        : userAgent;
     client.connectionTimeout = timeout;
     if ((proxyPort != null) && (proxyPort != 0)) {
-      client.findProxy = (Uri uri) => "PROXY 127.0.0.1:$proxyPort";
+      setProxy(client, proxyPort);
     }
     try {
       uri = uri.punyEncoded;
@@ -48,6 +53,10 @@ abstract final class HttpUtils {
     try {
       HttpClientRequest request = await client.headUrl(uri).timeout(timeout);
       request.headers.set(HttpHeaders.acceptHeader, "*/*");
+      if (xhwid) {
+        final hwidHeaders = await HwidUtils.getHwidHeaders();
+        hwidHeaders.forEach((key, value) => request.headers.set(key, value));
+      }
       HttpClientResponse? response = await Future.any([
         waitResponseDone(request, null),
         waitResponseTimeout(request, timeout),
@@ -123,7 +132,7 @@ abstract final class HttpUtils {
         ? await getUserAgent()
         : userAgent;
     if ((proxyPort != null) && (proxyPort != 0)) {
-      client.findProxy = (Uri uri) => "PROXY 127.0.0.1:$proxyPort";
+      setProxy(client, proxyPort);
     }
     try {
       uri = uri.punyEncoded;
@@ -179,7 +188,7 @@ abstract final class HttpUtils {
         ? await getUserAgent()
         : userAgent;
     if ((proxyPort != null) && (proxyPort != 0)) {
-      client.findProxy = (Uri uri) => "PROXY 127.0.0.1:$proxyPort";
+      setProxy(client, proxyPort);
     }
 
     try {
@@ -219,7 +228,7 @@ abstract final class HttpUtils {
         : userAgent;
     client.connectionTimeout = timeout;
     if ((proxyPort != null) && (proxyPort != 0)) {
-      client.findProxy = (Uri uri) => "PROXY 127.0.0.1:$proxyPort";
+      setProxy(client, proxyPort);
     }
     var uri = Uri.parse(url);
     try {
@@ -286,7 +295,7 @@ abstract final class HttpUtils {
         : userAgent;
     client.connectionTimeout = timeout;
     if ((proxyPort != null) && (proxyPort != 0)) {
-      client.findProxy = (Uri uri) => "PROXY 127.0.0.1:$proxyPort";
+      setProxy(client, proxyPort);
     }
     var uri = Uri.parse(url);
     try {
@@ -375,7 +384,7 @@ abstract final class HttpUtils {
         : userAgent;
     client.connectionTimeout = timeout;
     if ((proxyPort != null) && (proxyPort != 0)) {
-      client.findProxy = (Uri uri) => "PROXY 127.0.0.1:$proxyPort";
+      setProxy(client, proxyPort);
     }
     var uri = Uri.parse(url);
     try {
@@ -454,7 +463,7 @@ abstract final class HttpUtils {
         : userAgent;
     client.connectionTimeout = timeout;
     if ((proxyPort != null) && (proxyPort != 0)) {
-      client.findProxy = (Uri uri) => "PROXY 127.0.0.1:$proxyPort";
+      setProxy(client, proxyPort);
     }
     var uri = Uri.parse(url);
     try {
@@ -532,7 +541,7 @@ abstract final class HttpUtils {
         : userAgent;
     client.connectionTimeout = timeout;
     if ((proxyPort != null) && (proxyPort != 0)) {
-      client.findProxy = (Uri uri) => "PROXY 127.0.0.1:$proxyPort";
+      setProxy(client, proxyPort);
     }
     var uri = Uri.parse(url);
     try {
@@ -665,4 +674,8 @@ abstract final class HttpUtils {
 
   static bool _certificateCheck(X509Certificate cert, String host, int port) =>
       true;
+
+  static void setProxy(HttpClient client, int proxyPort) {
+    client.findProxy = (Uri uri) => "PROXY 127.0.0.1:$proxyPort";
+  }
 }
