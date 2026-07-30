@@ -28,6 +28,7 @@ class BoardProviderNoticeItem {
   String url = "";
 
   Map<String, dynamic> toJson() => {
+    "provider_id": providerId,
     "readed": readed,
     'update_time': updateTime,
     'expire_time': expireTime,
@@ -39,6 +40,7 @@ class BoardProviderNoticeItem {
     if (map == null) {
       return;
     }
+    providerId = map["provider_id"] ?? "";
     readed = map["readed"] ?? true;
     updateTime = map["update_time"] ?? "";
     expireTime = map["expire_time"] ?? "";
