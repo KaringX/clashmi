@@ -49,10 +49,11 @@ class BoardProviderConfig {
   bool web = true;
   bool overwrite = true;
   bool overwriteDns = true;
-  String outboundDns = "";
+  List<String> outboundDns = const [];
   String version;
   String userAgreement;
   String clientServiceUrl;
+  String faqUrl;
   String subscriptionChannelUrl;
   String loginUrl;
   String bindJs;
@@ -89,10 +90,11 @@ class BoardProviderConfig {
     this.web = true,
     this.overwrite = true,
     this.overwriteDns = true,
-    this.outboundDns = '',
+    this.outboundDns = const [],
     this.version = '',
     this.userAgreement = '',
     this.clientServiceUrl = '',
+    this.faqUrl = '',
     this.subscriptionChannelUrl = '',
     this.loginUrl = '',
     this.bindJs = '',
@@ -132,6 +134,7 @@ class BoardProviderConfig {
     'version': version,
     'user_agreement': userAgreement,
     'client_service_url': clientServiceUrl,
+    'faq': faqUrl,
     'subscription_channel_url': subscriptionChannelUrl,
     'login_url': loginUrl,
     'bind_js': bindJs,
@@ -176,10 +179,18 @@ class BoardProviderConfig {
     web = map["web"] ?? true;
     overwrite = map["overwrite"] ?? true;
     overwriteDns = map["overwrite_dns"] ?? true;
-    outboundDns = map["outbound_dns"] ?? "";
+    final dns = map["outbound_dns"];
+    if (dns != null) {
+      if (dns is String && dns.isNotEmpty) {
+        outboundDns = dns.split(",");
+      } else if (dns is List) {
+        outboundDns = List<String>.from(dns);
+      }
+    }
     version = map["version"] ?? "";
     userAgreement = map["user_agreement"] ?? "";
     clientServiceUrl = map["client_service_url"] ?? "";
+    faqUrl = map["faq"] ?? "";
     subscriptionChannelUrl = map["subscription_channel_url"] ?? "";
     loginUrl = map["login_url"] ?? "";
     bindJs = map["bind_js"] ?? "";
@@ -217,8 +228,26 @@ class BoardProviderManager {
 
   static String get unknownProviderId => "000";
   static String get unknownProviderIdPrefix => "${unknownProviderId}_";
+  static void clear() {
+    _providers.clear();
+    _providerTypeCache.clear();
+    _notifyProviderIntegrationCache.clear();
+  }
+
   static List<BoardProviderConfig> getProviders() {
     return _providers;
+  }
+
+  static BoardProviderConfig? firstProvider() {
+    return _providers.isEmpty ? null : _providers.first;
+  }
+
+  static void makeFirst(String providerId) {
+    int index = _providers.indexWhere((item) => item.id == providerId);
+    if (index <= 0) {
+      return;
+    }
+    _providers.insert(0, _providers.removeAt(index));
   }
 
   static Future<ReturnResult<BoardProviderType>> getProviderTypeById(

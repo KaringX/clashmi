@@ -244,7 +244,7 @@ class AutoUpdateManager {
     if (_downloading) {
       return;
     }
-
+    List<int?> ports = await VPNService.getPortsByPrefer(true);
     String version = AppUtils.getBuildinVersion();
     if (VersionCompareUtils.compareVersion(version, _versionCheck.version) <
         0) {
@@ -272,7 +272,6 @@ class AutoUpdateManager {
         return;
       }
       _downloading = true;
-      List<int?> ports = await VPNService.getPortsByPrefer(true);
       late ReturnResult<HttpHeaders> result;
       for (var port in ports) {
         result = await DownloadUtils.downloadWithPort(

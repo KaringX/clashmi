@@ -2,6 +2,7 @@
 
 import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/auto_update_manager.dart';
+import 'package:clashmi/app/modules/board_provider_notice_manager.dart';
 import 'package:clashmi/app/modules/clash_setting_manager.dart';
 import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/app/modules/profile_patch_manager.dart';
@@ -39,9 +40,11 @@ class Biz {
     initAllFinish();
 
     AppLifecycleStateNofity.init();
+    BoardProviderNoticeManager.init();
   }
 
   static Future<void> uninit() async {
+    BoardProviderNoticeManager.uninit();
     await AutoUpdateManager.uninit();
     AppLifecycleStateNofity.uninit();
 
