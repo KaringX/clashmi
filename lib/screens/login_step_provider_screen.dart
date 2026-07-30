@@ -213,7 +213,7 @@ class _LoginStepProviderScreenState extends State<LoginStepProviderScreen> {
                                   ),
                                 )
                               : Text(
-                                  tcontext.meta.go,
+                                  tcontext.meta.next,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -251,9 +251,9 @@ class _LoginStepProviderScreenState extends State<LoginStepProviderScreen> {
     if (!mounted) {
       return;
     }
+    _fetching = false;
+    setState(() {});
     if (result.error != null) {
-      _fetching = false;
-      setState(() {});
       DialogUtils.showAlertDialog(
         context,
         result.error!.message,
@@ -263,24 +263,8 @@ class _LoginStepProviderScreenState extends State<LoginStepProviderScreen> {
       );
       return;
     }
-
-    if (!BoardProviderType.support(result.data!.type.name)) {
-      _fetching = false;
-      setState(() {});
-      final tcontext = Translations.of(context);
-      DialogUtils.showAlertDialog(
-        context,
-        "${tcontext.loginScreen.unsupportedProviderType}: $serviceName",
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
-      return;
-    }
-
-    if (!result.data!.panelLogin) {
-      _fetching = false;
-      setState(() {});
+    final provider = result.data!;
+    if (!provider.panelLogin) {
       final tcontext = Translations.of(context);
       DialogUtils.showAlertDialog(
         context,
@@ -291,9 +275,19 @@ class _LoginStepProviderScreenState extends State<LoginStepProviderScreen> {
       );
       return;
     }
-    _fetching = false;
-    setState(() {});
-    final provider = result.data!;
+    if (!provider.web) {
+      if (!BoardProviderType.support(provider.type.name)) {
+        final tcontext = Translations.of(context);
+        DialogUtils.showAlertDialog(
+          context,
+          "${tcontext.loginScreen.unsupportedProviderType}: $serviceName",
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
+        return;
+      }
+    }
     BoardProviderManager.notifyProviderIntegration(
       provider.id,
       provider.domain,
