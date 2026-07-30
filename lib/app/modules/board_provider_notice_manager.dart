@@ -74,6 +74,9 @@ class BoardProviderNotice {
     var now = DateTime.now();
     for (var i in its) {
       BoardProviderNoticeItem item = BoardProviderNoticeItem.fromJsonStatic(i);
+      if (item.providerId.isEmpty) {
+        continue;
+      }
       DateTime? et = DateTime.tryParse(item.expireTime);
       DateTime? ut = DateTime.tryParse(item.updateTime);
       if (et != null && now.isAfter(et)) {
