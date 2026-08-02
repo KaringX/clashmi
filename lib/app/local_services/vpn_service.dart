@@ -354,10 +354,8 @@ class VPNService {
       await stop();
       return ReturnResultError(content);
     }
-    if (Platform.isIOS || Platform.isMacOS) {
-      if (setting.alwayOn) {
-        await FlutterVpnService.setAlwaysOn(setting.alwayOn);
-      }
+    if (Platform.isIOS || (Platform.isMacOS && setting.alwayOn)) {
+      await FlutterVpnService.setAlwaysOn(true);
     }
 
     if (enable) {
@@ -408,10 +406,8 @@ class VPNService {
       await stop();
       return ReturnResultError(content);
     }
-    if (Platform.isIOS || Platform.isMacOS) {
-      if (setting.alwayOn) {
-        await FlutterVpnService.setAlwaysOn(setting.alwayOn);
-      }
+    if (Platform.isIOS || (Platform.isMacOS && setting.alwayOn)) {
+      await FlutterVpnService.setAlwaysOn(true);
     }
 
     if (SettingManager.getConfig().autoSetSystemProxy) {

@@ -25,6 +25,27 @@ struct clashmiWidgetControl: ControlWidget {
         VpnServiceHandler.shared.uiLocalizedDescription = "Clash Mi"
         VpnServiceHandler.shared.getState(result: {_ in })
     }
+
+    static func setOnDemandEnabled(_ enabled: Bool) async throws {
+        let managers = try await NETunnelProviderManager.loadAllFromPreferences()
+        guard let manager = managers.first(where: { manager in
+            let tunnelProtocol = manager.protocolConfiguration as? NETunnelProviderProtocol
+            return tunnelProtocol?.providerBundleIdentifier == bundleIdentifier
+        }) else {
+            return
+        }
+
+        if enabled {
+            let rule = NEOnDemandRuleConnect()
+            rule.interfaceTypeMatch = .any
+            manager.onDemandRules = [rule]
+        } else {
+            manager.onDemandRules = nil
+        }
+        manager.isOnDemandEnabled = enabled
+        try await manager.saveToPreferences()
+    }
+
     var body: some ControlWidgetConfiguration {
         StaticControlConfiguration(
             kind: Self.controlKind,
@@ -70,10 +91,20 @@ struct StartVPNServiceIntent: SetValueIntent {
     func perform() async throws -> some IntentResult {
         if await FileManager.default.fileExists(atPath: clashmiWidgetControl.configFile.path()) {
             if value {
-                VpnServiceHandler.shared.start(timeoutInSeconds: 30) { err in
+                let started = await withCheckedContinuation { continuation in
+                    VpnServiceHandler.shared.start(timeoutInSeconds: 30) { err in
+                        continuation.resume(returning: err == nil)
+                    }
+                }
+                if started {
+                    try? await clashmiWidgetControl.setOnDemandEnabled(true)
                 }
             } else {
-                VpnServiceHandler.shared.stop { err in
+                try? await clashmiWidgetControl.setOnDemandEnabled(false)
+                await withCheckedContinuation { continuation in
+                    VpnServiceHandler.shared.stop { _ in
+                        continuation.resume()
+                    }
                 }
             }
         }
