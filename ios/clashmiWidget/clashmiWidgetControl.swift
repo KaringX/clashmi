@@ -76,7 +76,7 @@ struct StartVPNServiceIntent: SetValueIntent {
                     }
                 } else {
                     VpnServiceHandler.shared.stop { err in
-                         continuation.resume()
+                         continuation.resume(returning: err == nil)
                     }
                 }
             }
