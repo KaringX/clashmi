@@ -898,6 +898,17 @@ class GroupHelper {
       List<GroupItemOptions> options8 = [
         GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.alwayOnVPN,
+            switchValue: setting.alwayOn,
+            onSwitch: (bool value) async {
+              setting.alwayOn = value;
+            },
+          ),
+        ),
+      ];
+      List<GroupItemOptions> options9 = [
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
             name: tcontext.meta.hideDockIcon,
             tips: tcontext.meta.restartTakesEffect,
             switchValue: setting.hideDockIcon,
@@ -937,8 +948,11 @@ class GroupHelper {
       if (Platform.isAndroid) {
         gitems.add(GroupItem(options: options7));
       }
-      if (Platform.isMacOS) {
+      if (Platform.isIOS || Platform.isMacOS) {
         gitems.add(GroupItem(options: options8));
+      }
+      if (Platform.isMacOS) {
+        gitems.add(GroupItem(options: options9));
       }
 
       return gitems;

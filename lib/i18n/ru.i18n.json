@@ -239,6 +239,7 @@
         "boardOnline": "Использование онлайн-панели",
         "boardOnlineUrl": "URL-адрес онлайн-панели",
         "boardLocalPort": "Порт локальной панели",
+        "alwayOnVPN": "VPN всегда включен",
         "disableFontScaler": "Отключить масштабирование шрифта",
         "autoOrientation": "Следовать за поворотом экрана",
         "restartTakesEffect": "Требуется перезапуск",

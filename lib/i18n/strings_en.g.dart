@@ -816,6 +816,9 @@ class Translations$meta$en {
 	/// en: 'Local Board Port'
 	String get boardLocalPort => 'Local Board Port';
 
+	/// en: 'Always-on Connection'
+	String get alwayOnVPN => 'Always-on Connection';
+
 	/// en: 'Disable Font scaling(Restart takes effect)'
 	String get disableFontScaler => 'Disable Font scaling(Restart takes effect)';
 
@@ -1433,6 +1436,7 @@ extension on Translations {
 			'meta.boardOnline' => 'Use Online Board',
 			'meta.boardOnlineUrl' => 'Online Board URL',
 			'meta.boardLocalPort' => 'Local Board Port',
+			'meta.alwayOnVPN' => 'Always-on Connection',
 			'meta.disableFontScaler' => 'Disable Font scaling(Restart takes effect)',
 			'meta.autoOrientation' => 'Rotate with the screen',
 			'meta.restartTakesEffect' => 'Restart takes effect',

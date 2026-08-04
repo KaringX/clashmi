@@ -239,6 +239,7 @@
         "boardOnline": "オンラインボードを使用",
         "boardOnlineUrl": "オンラインボードURL",
         "boardLocalPort": "ローカルボードポート",
+        "alwayOnVPN": "常時接続",
         "disableFontScaler": "フォントスケーリングを無効にする（再起動後に有効）",
         "autoOrientation": "画面に合わせて回転",
         "restartTakesEffect": "再起動後に有効",

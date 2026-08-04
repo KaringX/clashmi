@@ -239,6 +239,7 @@
         "boardOnline": "استخدام اللوحة عبر الإنترنت",
         "boardOnlineUrl": "عنوان URL للوحة عبر الإنترنت",
         "boardLocalPort": "منفذ اللوحة المحلية",
+        "alwayOnVPN": "اتصال مفتوح دائمًا",
         "disableFontScaler": "تعطيل تحجيم الخط(يسري مفعوله بعد إعادة التشغيل)",
         "autoOrientation": "Rotate with the screen",
         "restartTakesEffect": "Restart takes effect",

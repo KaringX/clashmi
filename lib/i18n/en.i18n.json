@@ -239,6 +239,7 @@
         "boardOnline": "Use Online Board",
         "boardOnlineUrl": "Online Board URL",
         "boardLocalPort": "Local Board Port",
+        "alwayOnVPN": "Always-on Connection",
         "disableFontScaler": "Disable Font scaling(Restart takes effect)",
         "autoOrientation": "Rotate with the screen",
         "restartTakesEffect": "Restart takes effect",

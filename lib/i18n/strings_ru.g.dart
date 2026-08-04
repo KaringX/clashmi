@@ -367,6 +367,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get boardOnline => 'Использование онлайн-панели';
 	@override String get boardOnlineUrl => 'URL-адрес онлайн-панели';
 	@override String get boardLocalPort => 'Порт локальной панели';
+	@override String get alwayOnVPN => 'VPN всегда включен';
 	@override String get disableFontScaler => 'Отключить масштабирование шрифта';
 	@override String get autoOrientation => 'Следовать за поворотом экрана';
 	@override String get restartTakesEffect => 'Требуется перезапуск';
@@ -769,6 +770,7 @@ extension on TranslationsRu {
 			'meta.boardOnline' => 'Использование онлайн-панели',
 			'meta.boardOnlineUrl' => 'URL-адрес онлайн-панели',
 			'meta.boardLocalPort' => 'Порт локальной панели',
+			'meta.alwayOnVPN' => 'VPN всегда включен',
 			'meta.disableFontScaler' => 'Отключить масштабирование шрифта',
 			'meta.autoOrientation' => 'Следовать за поворотом экрана',
 			'meta.restartTakesEffect' => 'Требуется перезапуск',

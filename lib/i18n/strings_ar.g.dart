@@ -367,6 +367,7 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get boardOnline => 'استخدام اللوحة عبر الإنترنت';
 	@override String get boardOnlineUrl => 'عنوان URL للوحة عبر الإنترنت';
 	@override String get boardLocalPort => 'منفذ اللوحة المحلية';
+	@override String get alwayOnVPN => 'اتصال مفتوح دائمًا';
 	@override String get disableFontScaler => 'تعطيل تحجيم الخط(يسري مفعوله بعد إعادة التشغيل)';
 	@override String get autoOrientation => 'Rotate with the screen';
 	@override String get restartTakesEffect => 'Restart takes effect';
@@ -769,6 +770,7 @@ extension on TranslationsAr {
 			'meta.boardOnline' => 'استخدام اللوحة عبر الإنترنت',
 			'meta.boardOnlineUrl' => 'عنوان URL للوحة عبر الإنترنت',
 			'meta.boardLocalPort' => 'منفذ اللوحة المحلية',
+			'meta.alwayOnVPN' => 'اتصال مفتوح دائمًا',
 			'meta.disableFontScaler' => 'تعطيل تحجيم الخط(يسري مفعوله بعد إعادة التشغيل)',
 			'meta.autoOrientation' => 'Rotate with the screen',
 			'meta.restartTakesEffect' => 'Restart takes effect',

@@ -367,6 +367,7 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get boardOnline => 'Usar Tablero en Línea';
 	@override String get boardOnlineUrl => 'URL del Tablero en Línea';
 	@override String get boardLocalPort => 'Puerto del Tablero Local';
+	@override String get alwayOnVPN => 'Conexión permanente';
 	@override String get disableFontScaler => 'Deshabilitar escala de fuente (el reinicio surte efecto)';
 	@override String get autoOrientation => 'Girar con la pantalla';
 	@override String get restartTakesEffect => 'El reinicio surte efecto';
@@ -769,6 +770,7 @@ extension on TranslationsEs {
 			'meta.boardOnline' => 'Usar Tablero en Línea',
 			'meta.boardOnlineUrl' => 'URL del Tablero en Línea',
 			'meta.boardLocalPort' => 'Puerto del Tablero Local',
+			'meta.alwayOnVPN' => 'Conexión permanente',
 			'meta.disableFontScaler' => 'Deshabilitar escala de fuente (el reinicio surte efecto)',
 			'meta.autoOrientation' => 'Girar con la pantalla',
 			'meta.restartTakesEffect' => 'El reinicio surte efecto',

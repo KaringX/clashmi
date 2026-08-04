@@ -367,6 +367,7 @@ class Translations$meta$zh_CN implements Translations$meta$en {
 	@override String get boardOnline => '使用在线面板';
 	@override String get boardOnlineUrl => '在线面板URL';
 	@override String get boardLocalPort => '本地面板端口';
+	@override String get alwayOnVPN => '始终开启连接';
 	@override String get disableFontScaler => '禁用字体缩放';
 	@override String get autoOrientation => '跟随屏幕旋转';
 	@override String get restartTakesEffect => '重启生效';
@@ -769,6 +770,7 @@ extension on TranslationsZhCn {
 			'meta.boardOnline' => '使用在线面板',
 			'meta.boardOnlineUrl' => '在线面板URL',
 			'meta.boardLocalPort' => '本地面板端口',
+			'meta.alwayOnVPN' => '始终开启连接',
 			'meta.disableFontScaler' => '禁用字体缩放',
 			'meta.autoOrientation' => '跟随屏幕旋转',
 			'meta.restartTakesEffect' => '重启生效',

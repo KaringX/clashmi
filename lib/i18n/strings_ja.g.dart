@@ -367,6 +367,7 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get boardOnline => 'オンラインボードを使用';
 	@override String get boardOnlineUrl => 'オンラインボードURL';
 	@override String get boardLocalPort => 'ローカルボードポート';
+	@override String get alwayOnVPN => '常時接続';
 	@override String get disableFontScaler => 'フォントスケーリングを無効にする（再起動後に有効）';
 	@override String get autoOrientation => '画面に合わせて回転';
 	@override String get restartTakesEffect => '再起動後に有効';
@@ -769,6 +770,7 @@ extension on TranslationsJa {
 			'meta.boardOnline' => 'オンラインボードを使用',
 			'meta.boardOnlineUrl' => 'オンラインボードURL',
 			'meta.boardLocalPort' => 'ローカルボードポート',
+			'meta.alwayOnVPN' => '常時接続',
 			'meta.disableFontScaler' => 'フォントスケーリングを無効にする（再起動後に有効）',
 			'meta.autoOrientation' => '画面に合わせて回転',
 			'meta.restartTakesEffect' => '再起動後に有効',

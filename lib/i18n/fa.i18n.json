@@ -239,6 +239,7 @@
         "boardOnline": "با استفاده از پنل آنلاین",
         "boardOnlineUrl": "آدرس پنل آنلاین",
         "boardLocalPort": "پورت پانل محلی",
+        "alwayOnVPN": "اتصال همیشه باز",
         "disableFontScaler": "غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)",
         "autoOrientation": "چرخش صفحه را دنبال کنید",
         "restartTakesEffect": "با راه‌اندازی مجدد اعمال می‌شود",

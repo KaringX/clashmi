@@ -367,6 +367,7 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get boardOnline => 'با استفاده از پنل آنلاین';
 	@override String get boardOnlineUrl => 'آدرس پنل آنلاین';
 	@override String get boardLocalPort => 'پورت پانل محلی';
+	@override String get alwayOnVPN => 'اتصال همیشه باز';
 	@override String get disableFontScaler => 'غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)';
 	@override String get autoOrientation => 'چرخش صفحه را دنبال کنید';
 	@override String get restartTakesEffect => 'با راه‌اندازی مجدد اعمال می‌شود';
@@ -769,6 +770,7 @@ extension on TranslationsFa {
 			'meta.boardOnline' => 'با استفاده از پنل آنلاین',
 			'meta.boardOnlineUrl' => 'آدرس پنل آنلاین',
 			'meta.boardLocalPort' => 'پورت پانل محلی',
+			'meta.alwayOnVPN' => 'اتصال همیشه باز',
 			'meta.disableFontScaler' => 'غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)',
 			'meta.autoOrientation' => 'چرخش صفحه را دنبال کنید',
 			'meta.restartTakesEffect' => 'با راه‌اندازی مجدد اعمال می‌شود',

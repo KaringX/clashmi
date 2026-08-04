@@ -239,6 +239,7 @@
         "boardOnline": "Usar Tablero en Línea",
         "boardOnlineUrl": "URL del Tablero en Línea",
         "boardLocalPort": "Puerto del Tablero Local",
+        "alwayOnVPN": "Conexión permanente",
         "disableFontScaler": "Deshabilitar escala de fuente (el reinicio surte efecto)",
         "autoOrientation": "Girar con la pantalla",
         "restartTakesEffect": "El reinicio surte efecto",

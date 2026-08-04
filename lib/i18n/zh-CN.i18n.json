@@ -239,6 +239,7 @@
         "boardOnline": "使用在线面板",
         "boardOnlineUrl": "在线面板URL",
         "boardLocalPort": "本地面板端口",
+        "alwayOnVPN": "始终开启连接",
         "disableFontScaler": "禁用字体缩放",
         "autoOrientation": "跟随屏幕旋转",
         "restartTakesEffect": "重启生效",
