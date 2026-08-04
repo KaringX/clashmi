@@ -8,6 +8,7 @@ import 'package:clashmi/app/clash/clash_config.dart';
 import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/auto_update_manager.dart';
 import 'package:clashmi/app/modules/board_provider_manager.dart';
+import 'package:clashmi/app/modules/board_provider_notice_manager.dart';
 import 'package:clashmi/app/modules/board_session_persistent_manager.dart'
     show BoardSession;
 import 'package:clashmi/app/modules/clash_setting_manager.dart';
@@ -40,6 +41,7 @@ import 'package:clashmi/screens/list_add_screen.dart';
 import 'package:clashmi/screens/map_string_and_string_add_screen.dart';
 import 'package:clashmi/screens/perapp_android_screen.dart';
 import 'package:clashmi/screens/profiles_patch_board_screen.dart';
+import 'package:clashmi/screens/richtext_viewer.screen.dart';
 import 'package:clashmi/screens/rule_providers_screen.dart';
 import 'package:clashmi/screens/rule_templates_screen.dart';
 import 'package:clashmi/screens/proxygroup_templates_screen.dart';
@@ -2501,6 +2503,8 @@ class GroupHelper {
     BoardSession? session,
   ) async {
     final tcontext = Translations.of(context);
+    bool notice =
+        BoardProviderNoticeManager.getFirstUnread(provider.id) != null;
     var widgets = [
       ListTile(
         title: Row(
@@ -2549,6 +2553,17 @@ class GroupHelper {
           },
         ),
       ],
+      ListTile(
+        leading: Icon(Icons.notification_important_outlined),
+        trailing: notice
+            ? Icon(Icons.fiber_manual_record, color: Colors.red, size: 12)
+            : null,
+        title: Text(tcontext.meta.notice),
+        onTap: () async {
+          Navigator.pop(context);
+          onTapNotice(context, provider);
+        },
+      ),
     ];
 
     showSheet(
@@ -2569,6 +2584,71 @@ class GroupHelper {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  static Future<void> onTapNotice(
+    BuildContext context,
+    BoardProviderConfig provider,
+  ) async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      List<GroupItemOptions> options = [];
+      final notices = BoardProviderNoticeManager.getNotices(provider.id);
+      for (var item in notices) {
+        options.add(
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+              name: item.title,
+              reddot: !item.readed,
+              text: item.updateTime,
+              textWidthPercent: 0.65,
+              onPush: () async {
+                item.readed = true;
+                BoardProviderNoticeManager.setReaded();
+                BoardProviderNoticeManager.save();
+                setstate?.call();
+
+                if (item.url.isNotEmpty) {
+                  await WebviewHelper.loadUrl(
+                    context,
+                    item.url,
+                    "provider_notice",
+                    title: item.title,
+                    useInappWebViewForPC: true,
+                  );
+                } else {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      settings: RichtextViewScreen.routSettings(),
+                      builder: (context) => RichtextViewScreen(
+                        title: item.title,
+                        file: "",
+                        content: item.content,
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
+        );
+      }
+
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("notice"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.notice, getOptions: getOptions),
       ),
     );
   }

@@ -8,6 +8,7 @@ import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/auto_update_manager.dart';
 import 'package:clashmi/app/modules/biz.dart';
 import 'package:clashmi/app/modules/board_provider_manager.dart';
+import 'package:clashmi/app/modules/board_provider_notice_manager.dart';
 import 'package:clashmi/app/modules/board_session_persistent_manager.dart';
 import 'package:clashmi/app/modules/clash_setting_manager.dart';
 import 'package:clashmi/app/modules/profile_manager.dart';
@@ -90,6 +91,8 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     AppLifecycleStateNofity.onStatePaused(hashCode, _onStatePaused);
     ProfileManager.onEventCurrentChanged.add(_onCurrentChanged);
     ProfileManager.onEventUpdate.add(_onUpdate);
+    BoardProviderNoticeManager.onEventCheck.add(_onNoticeUpdate);
+    BoardProviderNoticeManager.onEventReaded.add(_onNoticeReaded);
     if (!AppLifecycleStateNofity.isPaused()) {
       _onStateResumed();
     }
@@ -113,6 +116,8 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     AppLifecycleStateNofity.onStatePaused(hashCode, null);
     ProfileManager.onEventCurrentChanged.remove(_onCurrentChanged);
     ProfileManager.onEventUpdate.remove(_onUpdate);
+    BoardProviderNoticeManager.onEventCheck.remove(_onNoticeUpdate);
+    BoardProviderNoticeManager.onEventReaded.remove(_onNoticeReaded);
     _focusNodeConnect.dispose();
     super.dispose();
   }
@@ -203,6 +208,8 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         tranfficExpire = currentProfile.getExpireTime(settings.languageTag);
       }
     }
+    bool notice =
+        BoardProviderNoticeManager.getFirstUnread(provider?.id ?? "") != null;
     var widgets = [
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -396,24 +403,45 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
                     onTap: () async {
                       final session = BoardSessionPersistentManager.instance()
                           .getBySubscribeUrl(currentProfile?.url ?? "");
-                      GroupHelper.showVpnProvider(context, provider, session);
+                      await GroupHelper.showVpnProvider(
+                        context,
+                        provider,
+                        session,
+                      );
                     },
-                    child:
+                    child: Stack(
+                      children: [
                         provider.appIconUrl.isNotEmpty && provider.logoBranding
-                        ? FastCachedImage(
-                            url: provider.appIconUrl,
-                            width: 32,
-                            height: 32,
-                            cacheWidth: 64,
-                            cacheHeight: 64,
-                            loadingBuilder: (context, loadingProgress) {
-                              return SizedBox.shrink();
-                            },
-                            errorBuilder: (context, error, stackTrace) {
-                              return Icon(Icons.business, size: 32);
-                            },
-                          )
-                        : Icon(Icons.business, size: 32),
+                            ? FastCachedImage(
+                                url: provider.appIconUrl,
+                                width: 32,
+                                height: 32,
+                                cacheWidth: 64,
+                                cacheHeight: 64,
+                                loadingBuilder: (context, loadingProgress) {
+                                  return SizedBox.shrink();
+                                },
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Icon(Icons.business, size: 32);
+                                },
+                              )
+                            : Icon(Icons.business, size: 32),
+                        if (notice) ...[
+                          Positioned(
+                            left: 0,
+                            top: 0,
+                            child: Container(
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -822,6 +850,14 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
   }
 
   Future<void> _onUpdate(String id, bool finish) async {
+    setState(() {});
+  }
+
+  Future<void> _onNoticeUpdate() async {
+    setState(() {});
+  }
+
+  Future<void> _onNoticeReaded() async {
     setState(() {});
   }
 

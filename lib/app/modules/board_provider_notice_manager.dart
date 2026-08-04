@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:clashmi/app/local_services/vpn_service.dart';
+import 'package:clashmi/app/modules/board_provider_manager.dart';
+import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/app/private/app_url_utils_private.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
 import 'package:clashmi/app/utils/app_utils.dart';
@@ -109,6 +111,16 @@ class BoardProviderNotice {
     return null;
   }
 
+  List<BoardProviderNoticeItem> getNotice(String providerId) {
+    List<BoardProviderNoticeItem> result = [];
+    for (var i in items) {
+      if (i.providerId == providerId) {
+        result.add(i);
+      }
+    }
+    return result;
+  }
+
   BoardProviderNoticeItem? getFirstUnread(String providerId) {
     for (var i in items) {
       if (i.providerId == providerId && i.readed == false) {
@@ -184,9 +196,12 @@ class BoardProviderNoticeLoadAndCheck {
   }
 
   Future<void> check() async {
-    final providerId = "";
+    final currentProfile = ProfileManager.getCurrent();
+    final provider = BoardProviderManager.getProviderById(
+      currentProfile?.boardProviderId ?? "",
+    );
+    final providerId = provider?.id ?? "";
     if (providerId.isEmpty) {
-      //todo
       return;
     }
     var last = DateTime.tryParse(_notice.latestCheck);
@@ -260,7 +275,7 @@ class BoardProviderNoticeLoadAndCheck {
       newItem.readed = false;
       newItem.updateTime = gnotice.updateTime;
       newItem.expireTime = gnotice.expireTime;
-      newItem.title = name.isEmpty ? gnotice.title : "[$name]${gnotice.title}";
+      newItem.title = gnotice.title;
       newItem.content = gnotice.content;
       newItem.url = gnotice.url;
       _notice.items.insert(0, newItem);
@@ -282,6 +297,7 @@ class BoardProviderNoticeLoadAndCheck {
 
 class BoardProviderNoticeManager {
   static final List<void Function()> onEventCheck = [];
+  static final List<void Function()> onEventReaded = [];
   static Timer? _timerChecker;
   static final BoardProviderNoticeLoadAndCheck _selfNotice =
       BoardProviderNoticeLoadAndCheck();
@@ -314,6 +330,9 @@ class BoardProviderNoticeManager {
         _selfNotice.check();
       });
     }
+    ProfileManager.onEventCurrentChanged.add((id) {
+      _selfNotice.check();
+    });
   }
 
   static Future<void> uninit() async {
@@ -321,13 +340,25 @@ class BoardProviderNoticeManager {
     _timerChecker = null;
   }
 
-  static List<BoardProviderNotice> getNotices() {
-    return [_selfNotice.notice];
+  static List<BoardProviderNoticeItem> getNotices(String providerId) {
+    return _selfNotice.notice.getNotice(providerId);
+  }
+
+  static BoardProviderNoticeItem? getFirstUnread(String providerId) {
+    return _selfNotice.notice.getFirstUnread(providerId);
   }
 
   static void _onCheckUpdate() {
     Future.delayed(const Duration(milliseconds: 300), () async {
       for (var callback in onEventCheck) {
+        callback();
+      }
+    });
+  }
+
+  static void setReaded() {
+    Future.delayed(const Duration(milliseconds: 300), () async {
+      for (var callback in onEventReaded) {
         callback();
       }
     });
