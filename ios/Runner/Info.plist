@@ -118,12 +118,12 @@
 		<string>zh-TW</string>
 	</array>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Karing uses the Location permission to provide users with routing based on WIFI SSID and BSSID rules, without reading your location.</string>
+	<string>Clash Mi uses the Location permission to provide users with routing based on WIFI SSID and BSSID rules, without reading your location.</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Karing uses the Location permission to provide users with routing based on WIFI SSID and BSSID rules, without reading your location.</string>
+	<string>Clash Mi uses the Location permission to provide users with routing based on WIFI SSID and BSSID rules, without reading your location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Karing uses the Location permission to provide users with routing based on WIFI SSID and BSSID rules, without reading your location.</string>
+	<string>Clash Mi uses the Location permission to provide users with routing based on WIFI SSID and BSSID rules, without reading your location.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Karing uses the Location permission to provide users with routing based on WIFI SSID and BSSID rules, without reading your location.</string>
+	<string>Clash Mi uses the Location permission to provide users with routing based on WIFI SSID and BSSID rules, without reading your location.</string>
 </dict>
 </plist>
