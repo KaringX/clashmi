@@ -284,7 +284,6 @@ class _ProfilesSettingsEditScreenState
           textWidthPercent: 0.6,
           onChanged: (String value) {
             _profile.decryptPassword = value;
-            setState(() {});
           },
         ),
       ),
