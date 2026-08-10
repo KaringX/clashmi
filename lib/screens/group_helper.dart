@@ -1515,6 +1515,20 @@ class GroupHelper {
           ),
         ),
         GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: "MTU",
+            text: tun.MTU?.toString() ?? "4096",
+            textWidthPercent: 0.6,
+            onChanged: (String value) {
+              final mtu = int.tryParse(value);
+              if (mtu == null || mtu <= 0) {
+                return;
+              }
+              tun.MTU = mtu;
+            },
+          ),
+        ),
+        GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
             name: tcontext.tun.dnsHijack,
             tips: "dns-hijack",
