@@ -9,6 +9,13 @@ set(BINARY_NAME "clashmi")
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
 cmake_policy(SET CMP0063 NEW)
+# Keep compatibility with plugins that still pass DEPENDS to
+# add_custom_command(TARGET ...). Guard in case older CMake does not know it.
+if(POLICY CMP0175)
+  cmake_policy(SET CMP0175 OLD)
+endif()
+# Ensure subdirectories (including plugin CMake projects) inherit this default.
+set(CMAKE_POLICY_DEFAULT_CMP0175 OLD)
 
 # Define build configuration option.
 get_property(IS_MULTICONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
