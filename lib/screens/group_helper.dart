@@ -1517,7 +1517,7 @@ class GroupHelper {
         GroupItemOptions(
           textFormFieldOptions: GroupItemTextFieldOptions(
             name: "MTU",
-            text: tun.MTU?.toString() ?? "4096",
+            text: tun.MTU?.toString() ?? "1280",
             textWidthPercent: 0.6,
             onChanged: (String value) {
               final mtu = int.tryParse(value);

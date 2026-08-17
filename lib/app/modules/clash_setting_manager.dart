@@ -163,7 +163,7 @@ class ClashSettingManager {
       OverWrite: true,
       Enable: !Platform.isWindows,
       Stack: ClashTunStack.gvisor.name,
-      MTU: 4064,
+      MTU: 1280,
       Inet4Address: [iNet4Address],
       Inet6Address: [iNet6Address],
       //RouteAddress: routeAddress,
