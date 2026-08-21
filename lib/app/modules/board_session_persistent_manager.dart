@@ -10,6 +10,7 @@ import 'package:board_service/xboard/xboard_client.dart' as xboard_client;
 import 'package:clashmi/app/modules/board_provider_manager.dart';
 import 'package:clashmi/app/modules/clash_setting_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
+import 'package:clashmi/app/utils/file_utils.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:libclash_vpn_service/state.dart';
 
@@ -183,7 +184,7 @@ class BoardSessionPersistentManager implements BoardSessionPersistent {
       BoardSessionPersistentManager();
   final BoardSessionConfig _config = BoardSessionConfig();
 
-  bool _isSaving = false;
+  static final FileSaver _fileSaver = FileSaver();
   List<Function()> onEventReloginRequired = [];
 
   @override
@@ -268,6 +269,7 @@ class BoardSessionPersistentManager implements BoardSessionPersistent {
   }
 
   static Future<void> init() async {
+    _fileSaver.setSavePath(await PathUtils.boardSessionFilePath());
     await _instance._load();
     _instance.onVpnStateChanged();
   }
@@ -486,14 +488,7 @@ class BoardSessionPersistentManager implements BoardSessionPersistent {
   }
 
   Future<void> _save() async {
-    if (_isSaving) return;
-    _isSaving = true;
-    final filePath = await PathUtils.boardSessionFilePath();
-    final file = File(filePath);
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_config);
-    await file.writeAsString(content);
-    _isSaving = false;
+    await _fileSaver.saveAsJson(_config);
   }
 
   Future<void> _load() async {

@@ -994,6 +994,12 @@ class GroupHelper {
       final ipv6Tuple = BoolToTuple.toTupleList(context);
       final ipv6Selected = BoolToTuple.getSelectedString(context, setting.IPv6);
 
+      final unifiedDelayTuple = BoolToTuple.toTupleList(context);
+      final unifiedDelaySelected = BoolToTuple.getSelectedString(
+        context,
+        setting.UnifiedDelay,
+      );
+
       final tcpConcurrentTuple = BoolToTuple.toTupleList(context);
       final tcpConcurrentSelected = BoolToTuple.getSelectedString(
         context,
@@ -1125,6 +1131,20 @@ class GroupHelper {
       ];
 
       List<GroupItemOptions> options2 = [
+        GroupItemOptions(
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: "Unified Delay",
+            tips: "unified-delay",
+            selected: unifiedDelaySelected,
+            tupleStrings: unifiedDelayTuple,
+            onPicker: (String? selected) async {
+              setting.UnifiedDelay = BoolToTuple.getSelectedKey(
+                context,
+                selected,
+              );
+            },
+          ),
+        ),
         if (!Platform.isIOS) ...[
           GroupItemOptions(
             stringPickerOptions: GroupItemStringPickerOptions(

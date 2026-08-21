@@ -12,6 +12,7 @@ import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_utils.dart';
 import 'package:clashmi/app/utils/did.dart';
+import 'package:clashmi/app/utils/file_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
@@ -26,6 +27,7 @@ class ClashSettingManager {
   static const iNet6Address = "fdfe:dcbe:9876::1/126";
   static const dnsHijack = "0.0.0.0:53";
   static RawConfig _setting = defaultConfig();
+  static final FileSaver _fileSaver = FileSaver();
 
   static Future<void> init() async {
     ClashHttpApi.getControlPort = () {
@@ -34,6 +36,7 @@ class ClashSettingManager {
     ClashHttpApi.getSecret = () {
       return _setting.Secret ?? "";
     };
+    _fileSaver.setSavePath(await PathUtils.serviceCoreSettingFilePath());
     await load();
     await initGeo();
   }
@@ -403,16 +406,9 @@ class ClashSettingManager {
   static Future<void> uninit() async {}
 
   static Future<void> save() async {
-    String filePath = await PathUtils.serviceCoreSettingFilePath();
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
     final map = _setting.toJson();
     MapHelper.removeNullOrEmpty(map, false, false);
-    String content = encoder.convert(map);
-    try {
-      await File(filePath).writeAsString(content, flush: true);
-    } catch (err, stacktrace) {
-      Log.w("ClashSettingManager.save exception  $filePath ${err.toString()}");
-    }
+    await _fileSaver.saveAsJson(map);
   }
 
   static Future<ReturnResult<String>> getPatchContent(

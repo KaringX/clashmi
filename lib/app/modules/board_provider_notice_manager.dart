@@ -11,7 +11,6 @@ import 'package:clashmi/app/private/app_url_utils_private.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
 import 'package:clashmi/app/utils/app_utils.dart';
 import 'package:clashmi/app/utils/did.dart';
-import 'package:clashmi/app/utils/error_reporter_utils.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
 import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
@@ -140,6 +139,7 @@ class BoardProviderNotice {
 
 class BoardProviderNoticeLoadAndCheck {
   bool _checking = false;
+  final FileSaver _fileSaver = FileSaver();
   final Duration _checkDuration = const Duration(hours: 3);
   Duration _duration = const Duration(hours: 3);
   BoardProviderNotice _notice = BoardProviderNotice();
@@ -183,16 +183,8 @@ class BoardProviderNoticeLoadAndCheck {
     if (filePath.isEmpty) {
       return;
     }
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_notice.toJson());
-    try {
-      await File(filePath).writeAsString(content, flush: true);
-      if (!await FileUtils.validJsonFile(filePath)) {
-        await File(filePath).writeAsString(content, flush: true);
-      }
-    } catch (err, stacktrace) {
-      ErrorReporterUtils.tryReportNoSpace(err.toString());
-    }
+    _fileSaver.setSavePath(filePath);
+    await _fileSaver.saveAsJson(_notice);
   }
 
   Future<void> check() async {

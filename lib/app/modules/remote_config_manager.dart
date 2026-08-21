@@ -20,10 +20,12 @@ class RemoteConfigManager {
   static final List<void Function()> onEventCheck = [];
   static Timer? _timerChecker;
   static bool _checking = false;
+  static final FileSaver _fileSaver = FileSaver();
   static Duration _duration = const Duration(hours: 1);
   static RemoteConfig _config = RemoteConfig();
 
   static Future<void> init() async {
+    _fileSaver.setSavePath(await PathUtils.remoteConfigFilePath());
     await _loadConfig();
     VPNService.onEventStateChanged.add((
       FlutterVpnServiceState state,
@@ -79,16 +81,8 @@ class RemoteConfigManager {
     } catch (err, stacktrace) {}
   }
 
-  static void _saveConfig() async {
-    String filePath = await PathUtils.remoteConfigFilePath();
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_config.toJson());
-    try {
-      await File(filePath).writeAsString(content, flush: true);
-      if (!await FileUtils.validJsonFile(filePath)) {
-        await File(filePath).writeAsString(content, flush: true);
-      }
-    } catch (err, stacktrace) {}
+  static Future<void> _saveConfig() async {
+    await _fileSaver.saveAsJson(_config);
   }
 
   static Future<void> _check() async {

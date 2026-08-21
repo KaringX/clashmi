@@ -70,6 +70,7 @@ class BoardProviderConfig {
   bool logoBranding = false;
   bool renewalReminder = false;
   bool hideRecommendMenu = false;
+  bool hideSubscriptionLink = false;
   bool hideNodeDetails = false;
   bool partialPanelRenewal = false;
   bool unbanSubscription = true;
@@ -109,6 +110,7 @@ class BoardProviderConfig {
     this.logoBranding = false,
     this.renewalReminder = false,
     this.hideRecommendMenu = false,
+    this.hideSubscriptionLink = false,
     this.hideNodeDetails = false,
     this.partialPanelRenewal = false,
     this.unbanSubscription = true,
@@ -149,6 +151,7 @@ class BoardProviderConfig {
     'logo_branding': logoBranding,
     'renewal_reminder': renewalReminder,
     'hide_recommend_menu': hideRecommendMenu,
+    'hide_subscription_link': hideSubscriptionLink,
     'hide_node_details': hideNodeDetails,
     'partial_panel_renewal': partialPanelRenewal,
     'unban_subscription': unbanSubscription,
@@ -205,6 +208,7 @@ class BoardProviderConfig {
     logoBranding = map["logo_branding"] ?? false;
     renewalReminder = map["renewal_reminder"] ?? false;
     hideRecommendMenu = map["hide_recommend_menu"] ?? false;
+    hideSubscriptionLink = map["hide_subscription_link"] ?? false;
     hideNodeDetails = map["hide_node_details"] ?? false;
     partialPanelRenewal = map["partial_panel_renewal"] ?? false;
     unbanSubscription = map["unban_subscription"] ?? true;
