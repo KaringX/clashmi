@@ -328,9 +328,10 @@ class ProfileManager {
   static final List<void Function(String, bool)> onEventUpdate = [];
   static final Set<String> updating = {};
   static Timer? _timerChecker;
-  static bool _saving = false;
+  static final FileSaver _fileSaver = FileSaver();
 
   static Future<void> init() async {
+    _fileSaver.setSavePath(await PathUtils.profilesConfigFilePath());
     await load();
     VPNService.onEventStateChanged.add((
       FlutterVpnServiceState state,
@@ -390,19 +391,7 @@ class ProfileManager {
   }
 
   static Future<void> save() async {
-    if (_saving) {
-      return;
-    }
-    _saving = true;
-    String filePath = await PathUtils.profilesConfigFilePath();
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_config);
-    try {
-      await File(filePath).writeAsString(content, flush: true);
-    } catch (err, stacktrace) {
-      Log.w("ProfileManager.save exception  $filePath ${err.toString()}");
-    }
-    _saving = false;
+    await _fileSaver.saveAsJson(_config);
   }
 
   static Future<void> load() async {

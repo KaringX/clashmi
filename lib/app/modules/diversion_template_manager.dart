@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:clashmi/app/clash/clash_config.dart' show ClashProtocolType;
+import 'package:clashmi/app/utils/file_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:path/path.dart' as path;
@@ -341,9 +342,10 @@ class DiversionTemplateManager {
   static final List<void Function(String)> onEventRuleTemplateRemove = [];
   static final List<void Function(String)> onEventProxyGroupAdd = [];
   static final List<void Function(String)> onEventProxyGroupRemove = [];
-  static bool _saving = false;
+  static final FileSaver _fileSaver = FileSaver();
 
   static Future<void> init() async {
+    _fileSaver.setSavePath(await PathUtils.diversionTemplateConfigFilePath());
     await load();
   }
 
@@ -356,21 +358,7 @@ class DiversionTemplateManager {
   }
 
   static Future<void> save() async {
-    if (_saving) {
-      return;
-    }
-    _saving = true;
-    String filePath = await PathUtils.diversionTemplateConfigFilePath();
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_diversionTemplates);
-    try {
-      await File(filePath).writeAsString(content, flush: true);
-    } catch (err, stacktrace) {
-      Log.w(
-        "DiversionTemplateManager.save exception  $filePath ${err.toString()}",
-      );
-    }
-    _saving = false;
+    await _fileSaver.saveAsJson(_diversionTemplates);
   }
 
   static Future<void> load() async {

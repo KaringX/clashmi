@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:clashmi/app/utils/log.dart';
 import 'package:path/path.dart' as path;
 import 'package:open_dir/open_dir.dart';
 import 'package:tuple/tuple.dart';
@@ -392,5 +393,42 @@ abstract final class FileUtils {
     );
     await completer.future;
     return content.isEmpty ? null : content;
+  }
+}
+
+class FileSaver {
+  bool _saving = false;
+  Object? _dirtyObject;
+  String _savePath = "";
+  void setSavePath(String path) {
+    _savePath = path;
+  }
+
+  Future<void> saveAsJson(Object object, {bool report = true}) async {
+    if (_savePath.isEmpty) {
+      return;
+    }
+    if (_saving) {
+      _dirtyObject = object;
+      return;
+    }
+    bool hasErr = false;
+    _saving = true;
+    try {
+      const JsonEncoder encoder = JsonEncoder.withIndent('  ');
+      String content = encoder.convert(object);
+      await File(_savePath).writeAsString(content, flush: true);
+    } catch (err, stacktrace) {
+      hasErr = true;
+      Log.w("FileSaver.saveJson exception $_savePath ${err.toString()} ");
+    }
+    _saving = false;
+    if (_dirtyObject != null) {
+      Future.delayed(const Duration(milliseconds: 50), () async {
+        final Object dirtyObject = _dirtyObject!;
+        _dirtyObject = null;
+        await saveAsJson(dirtyObject, report: !hasErr);
+      });
+    }
   }
 }
