@@ -214,6 +214,7 @@ class ClashProxiesNode {
   String type = "";
   String icon = "";
   int? delay;
+  String? delayErr;
   bool hidden = false;
 
   Map<String, dynamic> toJson() => {
@@ -320,10 +321,7 @@ class ClashProxies {
   }
 
   int? updateGroupDelay(ClashProxiesNode node) {
-    if (node.type != ClashProtocolType.urltest.name &&
-        node.type != ClashProtocolType.selector.name &&
-        node.type != ClashProtocolType.fallback.name &&
-        node.type != ClashProtocolType.loadBalance.name) {
+    if (ClashProtocolType.GroupToList().contains(node.type)) {
       return node.delay;
     }
     if (node.now.isEmpty) {
@@ -403,7 +401,7 @@ class ClashHttpApi {
       "$host:${getControlPort?.call()}/proxies/$encodeNode/delay?url=$encodeUrl&timeout=${timeout.inMilliseconds}",
       null,
       headers,
-      const Duration(seconds: timeoutSeconds),
+      timeout,
       null,
       null,
     );
@@ -413,7 +411,7 @@ class ClashHttpApi {
     try {
       var decodedResponse = jsonDecode(result.data!.item2);
       int? delay = decodedResponse["delay"];
-      String? err = decodedResponse["message"];
+      String? err = decodedResponse["err"];
       if (err != null) {
         return ReturnResult(error: ReturnResultError(err));
       }
@@ -498,10 +496,7 @@ class ClashHttpApi {
     }
     List<ClashProxiesNode> filtered = [];
     for (var node in result.data!) {
-      if (node.type == ClashProtocolType.urltest.name ||
-          node.type == ClashProtocolType.selector.name ||
-          node.type == ClashProtocolType.fallback.name ||
-          node.type == ClashProtocolType.loadBalance.name) {
+      if (ClashProtocolType.GroupToList().contains(node.type)) {
         filtered.add(node);
       }
     }
@@ -560,7 +555,7 @@ class ClashHttpApi {
       "$host:${getControlPort?.call()}/dns/query?name=$domain&type=$queryType",
       null,
       headers,
-      const Duration(seconds: timeoutSeconds),
+      const Duration(seconds: 10),
       null,
       null,
     );

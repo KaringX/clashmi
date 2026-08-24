@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:clashmi/app/clash/clash_config.dart';
 import 'package:clashmi/app/clash/clash_http_api.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
+import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/sheet.dart';
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ProxyScreenProxiesNodeWidgetController {
   void Function()? onTesting;
@@ -65,10 +67,7 @@ class _ProxyScreenProxiesNodeWidget
     double iconSize = 20;
     var widgets = [];
     for (var node in _nodes) {
-      if (node.type != ClashProtocolType.urltest.name &&
-          node.type != ClashProtocolType.selector.name &&
-          node.type != ClashProtocolType.fallback.name &&
-          node.type != ClashProtocolType.loadBalance.name) {
+      if (!ClashProtocolType.GroupToList().contains(node.type)) {
         continue;
       }
       if (node.hidden) {
@@ -224,6 +223,9 @@ class _ProxyScreenProxiesNodeWidget
         } else {
           color = Colors.red;
         }
+      } else if (node.delayErr != null && node.delayErr!.isNotEmpty) {
+        subtitle = "(${node.delayErr})";
+        color = Colors.red;
       }
 
       widgets.add(
@@ -267,7 +269,24 @@ class _ProxyScreenProxiesNodeWidget
                   children: [
                     Text(node.type),
                     SizedBox(width: 5),
-                    Text(subtitle, style: TextStyle(color: color)),
+                    Tooltip(
+                      message: node.delayErr ?? "",
+                      child: InkWell(
+                        child: Text(subtitle, style: TextStyle(color: color)),
+                        onTap: () async {
+                          Navigator.of(context).pop();
+                          delayTest(nodeName: node.name);
+                          if (node.delayErr != null &&
+                              node.delayErr!.isNotEmpty) {
+                            try {
+                              await Clipboard.setData(
+                                ClipboardData(text: node.delayErr!),
+                              );
+                            } catch (e) {}
+                          }
+                        },
+                      ),
+                    ),
                   ],
                 ),
           selected: selectNode.now == node.name,
@@ -314,29 +333,54 @@ class _ProxyScreenProxiesNodeWidget
     );
   }
 
-  Future<void> delayTest() async {
+  Future<void> delayTest({String nodeName = ""}) async {
     final setting = SettingManager.getConfig();
     _nodesTesting.clear();
     for (var node in _nodes) {
-      _nodesTesting.add(node.name);
+      if (nodeName.isNotEmpty) {
+        if (node.name == nodeName) {
+          _nodesTesting.add(node.name);
+        }
+      } else {
+        _nodesTesting.add(node.name);
+      }
     }
     widget.controller?.onTesting?.call();
 
-    for (var i = 0; i < _nodes.length; ++i) {
-      final result = await ClashHttpApi.getDelay(
-        _nodes[i].name,
-        url: setting.delayTestUrl,
-        timeout: Duration(milliseconds: setting.delayTestTimeout),
-      );
+    var nextIndex = 0;
+    Future<void> testNext() async {
+      while (nextIndex < _nodes.length) {
+        final node = _nodes[nextIndex++];
+        if (nodeName.isNotEmpty) {
+          if (node.name != nodeName) {
+            continue;
+          }
+        }
 
-      _nodes[i].delay = result.data;
-      _nodesTesting.remove(_nodes[i].name);
-      if (!mounted) {
-        return;
+        if (!ClashProtocolType.RuleToList().contains(node.type)) {
+          final result = await ClashHttpApi.getDelay(
+            node.name,
+            url: setting.delayTestUrl,
+            timeout: Duration(milliseconds: setting.delayTestTimeout),
+          );
+
+          node.delay = result.data;
+          node.delayErr = result.error?.message;
+        }
+
+        _nodesTesting.remove(node.name);
+        if (!mounted) {
+          return;
+        }
+
+        widget.controller?.onTesting?.call();
       }
-
-      widget.controller?.onTesting?.call();
     }
+
+    int maxConcurrentTests = PlatformUtils.isPC() ? 10 : 5;
+    await Future.wait([
+      for (var i = 0; i < maxConcurrentTests; ++i) testNext(),
+    ]);
     widget.controller?.onTesting?.call();
   }
 }
