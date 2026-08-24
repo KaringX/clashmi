@@ -321,9 +321,6 @@ class ClashProxies {
   }
 
   int? updateGroupDelay(ClashProxiesNode node) {
-    if (ClashProtocolType.GroupToList().contains(node.type)) {
-      return node.delay;
-    }
     if (node.now.isEmpty) {
       return node.delay;
     }
@@ -334,15 +331,14 @@ class ClashProxies {
         break;
       }
     }
-
     if (nextNode == null) {
       return node.delay;
     }
     final delay = updateGroupDelay(nextNode);
-    if (delay != null) {
-      return delay;
+    if (delay == null) {
+      return node.delay;
     }
-    return node.delay;
+    return delay;
   }
 }
 
@@ -473,6 +469,7 @@ class ClashHttpApi {
     for (var proxy in proxies) {
       if (proxy.name == node.now) {
         List<ClashProxiesNode> nodes = getNowChain(proxies, proxy, mode);
+        node.delay ??= proxy.delay;
         nodes.add(node);
         return nodes;
       }

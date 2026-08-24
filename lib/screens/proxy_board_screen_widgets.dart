@@ -126,7 +126,28 @@ class _ProxyScreenProxiesNodeWidget
                         children: [
                           Text(node.type),
                           SizedBox(width: 5),
-                          Text(subtitle, style: TextStyle(color: color)),
+                          Tooltip(
+                            message: node.delayErr ?? "",
+                            child: InkWell(
+                              onTap: !canDelayTest(node.type)
+                                  ? null
+                                  : () async {
+                                      delayTest(nodeName: node.name);
+                                      if (node.delayErr != null &&
+                                          node.delayErr!.isNotEmpty) {
+                                        try {
+                                          await Clipboard.setData(
+                                            ClipboardData(text: node.delayErr!),
+                                          );
+                                        } catch (e) {}
+                                      }
+                                    },
+                              child: Text(
+                                subtitle,
+                                style: TextStyle(color: color),
+                              ),
+                            ),
+                          ),
                         ],
                       ))
               : Row(
@@ -272,19 +293,21 @@ class _ProxyScreenProxiesNodeWidget
                     Tooltip(
                       message: node.delayErr ?? "",
                       child: InkWell(
+                        onTap: !canDelayTest(node.type)
+                            ? null
+                            : () async {
+                                Navigator.of(context).pop();
+                                delayTest(nodeName: node.name);
+                                if (node.delayErr != null &&
+                                    node.delayErr!.isNotEmpty) {
+                                  try {
+                                    await Clipboard.setData(
+                                      ClipboardData(text: node.delayErr!),
+                                    );
+                                  } catch (e) {}
+                                }
+                              },
                         child: Text(subtitle, style: TextStyle(color: color)),
-                        onTap: () async {
-                          Navigator.of(context).pop();
-                          delayTest(nodeName: node.name);
-                          if (node.delayErr != null &&
-                              node.delayErr!.isNotEmpty) {
-                            try {
-                              await Clipboard.setData(
-                                ClipboardData(text: node.delayErr!),
-                              );
-                            } catch (e) {}
-                          }
-                        },
                       ),
                     ),
                   ],
@@ -305,6 +328,12 @@ class _ProxyScreenProxiesNodeWidget
             }
 
             selectNode.now = node.name;
+            selectNode.delay = getGroupDelay(selectNode.now);
+            for (var group in _nodes) {
+              if (ClashProtocolType.GroupToList().contains(group.type)) {
+                group.delay = getGroupDelay(group.now);
+              }
+            }
             Navigator.of(context).pop();
             setState(() {});
           },
@@ -357,7 +386,7 @@ class _ProxyScreenProxiesNodeWidget
           }
         }
 
-        if (!ClashProtocolType.RuleToList().contains(node.type)) {
+        if (canDelayTest(node.type)) {
           final result = await ClashHttpApi.getDelay(
             node.name,
             url: setting.delayTestUrl,
@@ -366,6 +395,15 @@ class _ProxyScreenProxiesNodeWidget
 
           node.delay = result.data;
           node.delayErr = result.error?.message;
+
+          for (var group in _nodes) {
+            if (ClashProtocolType.GroupToList().contains(group.type)) {
+              if (group.now == node.name) {
+                group.delay = node.delay;
+                break;
+              }
+            }
+          }
         }
 
         _nodesTesting.remove(node.name);
@@ -381,6 +419,31 @@ class _ProxyScreenProxiesNodeWidget
     await Future.wait([
       for (var i = 0; i < maxConcurrentTests; ++i) testNext(),
     ]);
+    for (var group in _nodes) {
+      if (ClashProtocolType.GroupToList().contains(group.type)) {
+        group.delay = getGroupDelay(group.now);
+      }
+    }
     widget.controller?.onTesting?.call();
+  }
+
+  int? getGroupDelay(String groupName) {
+    for (var group in _nodes) {
+      if (group.name == groupName) {
+        if (group.delay != null) {
+          return group.delay;
+        }
+        if (ClashProtocolType.GroupToList().contains(group.type)) {
+          return getGroupDelay(group.now);
+        }
+        return group.delay;
+      }
+    }
+    return null;
+  }
+
+  bool canDelayTest(String nodeType) {
+    return ClashProtocolType.direct.name == nodeType ||
+        !ClashProtocolType.toList().contains(nodeType);
   }
 }
