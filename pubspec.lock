@@ -489,12 +489,11 @@ packages:
   flutter_js:
     dependency: "direct main"
     description:
-      path: "."
-      ref: master
-      resolved-ref: c0e10a5dab0e22cd616ec92ae71471d76369cbfe
-      url: "https://github.com/chen08209/flutter_js"
-    source: git
-    version: "0.8.3"
+      name: flutter_js
+      sha256: "046428059ac7bef71e305dc35fc24be933b684684a43e83eab7ebd0dc407ad85"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.8.7"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
