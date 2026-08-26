@@ -80,6 +80,7 @@ android {
     }
 }
 
+androidComponents {
 flutter { source = "../.." }
 
 dependencies {
