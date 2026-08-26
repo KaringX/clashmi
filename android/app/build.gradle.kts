@@ -81,6 +81,13 @@ android {
 }
 
 androidComponents {
+    onVariants { variant ->
+        if (variant.buildType == "release") {
+            variant.packaging.jniLibs.excludes.add("**/x86_64/**")
+        }
+    }
+}
+
 flutter { source = "../.." }
 
 dependencies {
