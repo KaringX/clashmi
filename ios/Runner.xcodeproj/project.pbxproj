@@ -442,7 +442,7 @@
 					};
 					CEE0DC2D2AF49B5F00C4E874 = {
 						CreatedOnToolsVersion = 14.3.1;
-						LastSwiftMigration = 1500;
+						LastSwiftMigration = 1501;
 					};
 				};
 			};
@@ -1082,7 +1082,7 @@
 				CODE_SIGN_ENTITLEMENTS = clashmiService/clashmiService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1500;
+				CURRENT_PROJECT_VERSION = 1501;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1127,7 +1127,7 @@
 				CODE_SIGN_ENTITLEMENTS = clashmiService/clashmiService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1500;
+				CURRENT_PROJECT_VERSION = 1501;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1168,7 +1168,7 @@
 				CODE_SIGN_ENTITLEMENTS = clashmiService/clashmiService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1500;
+				CURRENT_PROJECT_VERSION = 1501;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

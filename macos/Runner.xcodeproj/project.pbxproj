@@ -439,7 +439,7 @@
 					};
 					CEEC19F72B142FA90076CA70 = {
 						CreatedOnToolsVersion = 15.0.1;
-						LastSwiftMigration = 1500;
+						LastSwiftMigration = 1501;
 					};
 				};
 			};
@@ -916,7 +916,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1500;
+				CURRENT_PROJECT_VERSION = 1501;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
@@ -968,7 +968,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1500;
+				CURRENT_PROJECT_VERSION = 1501;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1017,7 +1017,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1500;
+				CURRENT_PROJECT_VERSION = 1501;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
 				ENABLE_HARDENED_RUNTIME = YES;
