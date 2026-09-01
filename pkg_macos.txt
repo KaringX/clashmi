@@ -1,1 +1,2 @@
+chmod +x macos/packaging/start.command
 appdmg macos/packaging/appdmg_make_config.json dist/clashmi_1.0.29.1502_macos_universal.dmg
