@@ -12,6 +12,13 @@
       "y": 200,
       "type": "file",
       "path": "../../dist/macos/Clash Mi.app"
+    },
+    {
+      "x": 320,
+      "y": 360,
+      "type": "file",
+      "path": "start.command",
+      "name": "Launch.command"
     }
   ]
 }
