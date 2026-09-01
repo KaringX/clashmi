@@ -7,6 +7,5 @@ if [[ ! -d "$app_path" ]]; then
   exit 1
 fi
 
-xattr -rd com.apple.quarantine "$app_path" 2>/dev/null || true
-xattr -rd com.apple.provenance "$app_path" 2>/dev/null || true
+xattr -cr "$app_path" 2>/dev/null || true
 open "$app_path"
