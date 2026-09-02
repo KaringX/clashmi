@@ -28,7 +28,7 @@ class WebdavClientUtils {
   }
 
   static Future<ReturnResult<WebdavClient>> connect(
-    int? proxyPort,
+    String? proxyUrl,
     String url,
     String user,
     String password,
@@ -46,16 +46,17 @@ class WebdavClientUtils {
       url: uri.toString(),
       auth: BasicAuth(user: user.trim(), pwd: password.trim()),
     );
-    if (proxyPort != null && proxyPort != 0) {
+    if (proxyUrl != null && proxyUrl.isNotEmpty) {
       final adapter = IOHttpClientAdapter(
         createHttpClient: () {
           final client = HttpClient()..idleTimeout = const Duration(seconds: 3);
-          client.findProxy = (Uri uri) => "PROXY 127.0.0.1:$proxyPort";
+          client.findProxy = (Uri uri) => proxyUrl;
           return client;
         },
       );
       client.setHttpClientAdapter(adapter);
     }
+    client.setFollowRedirects(true);
 
     client.setHeaders({'accept-charset': 'utf-8'});
 

@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:after_layout/after_layout.dart';
 import 'package:clashmi/app/local_services/vpn_service.dart';
+import 'package:clashmi/app/modules/clash_setting_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/backup_and_sync_utils.dart';
@@ -297,16 +298,20 @@ class _BackupAndSyncWebdavScreenState
     _webdavClient = null;
     _fileList.clear();
     setState(() {});
-    List<int?> ports = await VPNService.getPortsByPrefer(false);
-    if (!ports.contains(null)) {
-      ports.insert(0, null);
+    List<String?> proxyUrls = [null];
+
+    var started = await VPNService.getStarted();
+    if (started) {
+      proxyUrls = [
+        null,
+        "PROXY 127.0.0.1:${ClashSettingManager.getMixedPort()}",
+      ];
     }
+
     late ReturnResult<WebdavClient> result;
-    int? currentPort;
-    for (var port in ports) {
-      currentPort = port;
+    for (var proxyUrl in proxyUrls) {
       result = await WebdavClientUtils.connect(
-        port,
+        proxyUrl,
         settingConfig.webdav.url,
         settingConfig.webdav.user,
         settingConfig.webdav.password,
@@ -330,7 +335,7 @@ class _BackupAndSyncWebdavScreenState
       final tcontext = Translations.of(context);
       DialogUtils.showAlertDialog(
         context,
-        "${tcontext.BackupAndSyncWebdavScreen.webdavLoginFailed} ${result.error!.message} port:$currentPort",
+        "${tcontext.BackupAndSyncWebdavScreen.webdavLoginFailed} ${result.error!.message}",
         showCopy: true,
         showFAQ: true,
         withVersion: true,
@@ -395,7 +400,7 @@ class _BackupAndSyncWebdavScreenState
         filePath,
       );
       if (!mounted) {
-        FileUtils.deletePath(filePath);
+        await FileUtils.deletePath(filePath);
         return;
       }
       if (error != null) {
@@ -414,7 +419,7 @@ class _BackupAndSyncWebdavScreenState
         localPath: filePath,
       );
 
-      FileUtils.deletePath(filePath);
+      await FileUtils.deletePath(filePath);
       if (!mounted) {
         return;
       }
