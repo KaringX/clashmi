@@ -303,8 +303,8 @@
         "profileRulesAppendProxyTips": "規則將自動設為原始設定中 [proxy-groups] 內第一個類型為 [url-test] 或 [select] 的代理",
         "profileImport": "匯入設定檔",
         "profileAddUrlOrContent": "添加設定連結",
-        "profileUrlOrContent": "Clash設定連結",
-        "profileUrlOrContentHit": "Clash設定連結[必填]",
+        "profileUrlOrContent": "$p設定連結",
+        "profileUrlOrContentHit": "@:{meta.profileUrlOrContent} [必填]",
         "profileUrlOrContentCannotEmpty": "設定連結不能為空"
     },
     "permission": {

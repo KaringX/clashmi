@@ -433,8 +433,8 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get profileRulesAppendProxyTips => 'ルールは元の設定の [proxy-groups] 内で、タイプが [url-test] または [select] の最初のプロキシに自動設定されます';
 	@override String get profileImport => 'プロファイルファイルをインポート';
 	@override String get profileAddUrlOrContent => 'プロファイルリンクを追加';
-	@override String get profileUrlOrContent => 'Clash設定リンク';
-	@override String get profileUrlOrContentHit => 'Clash設定リンク [必須]';
+	@override String profileUrlOrContent({required Object p}) => '${p}設定リンク';
+	@override String profileUrlOrContentHit({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [必須]';
 	@override String get profileUrlOrContentCannotEmpty => 'プロファイルリンクを空にすることはできません';
 }
 
@@ -836,8 +836,8 @@ extension on TranslationsJa {
 			'meta.profileRulesAppendProxyTips' => 'ルールは元の設定の [proxy-groups] 内で、タイプが [url-test] または [select] の最初のプロキシに自動設定されます',
 			'meta.profileImport' => 'プロファイルファイルをインポート',
 			'meta.profileAddUrlOrContent' => 'プロファイルリンクを追加',
-			'meta.profileUrlOrContent' => 'Clash設定リンク',
-			'meta.profileUrlOrContentHit' => 'Clash設定リンク [必須]',
+			'meta.profileUrlOrContent' => ({required Object p}) => '${p}設定リンク',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [必須]',
 			'meta.profileUrlOrContentCannotEmpty' => 'プロファイルリンクを空にすることはできません',
 			'permission.camera' => 'カメラ',
 			'permission.screen' => '画面録画',

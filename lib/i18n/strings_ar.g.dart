@@ -433,8 +433,8 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get profileRulesAppendProxyTips => 'سيتم تعيين القواعد تلقائيًا إلى أول وكيل في [proxy-groups] من التكوين الأصلي يكون نوعه [url-test] أو [select]';
 	@override String get profileImport => 'استيراد ملف الملف الشخصي';
 	@override String get profileAddUrlOrContent => 'إضافة رابط ملف التعريف';
-	@override String get profileUrlOrContent => 'رابط إعداد Clash';
-	@override String get profileUrlOrContentHit => 'رابط إعداد Clash [مطلوب]';
+	@override String profileUrlOrContent({required Object p}) => 'رابط إعداد ${p}';
+	@override String profileUrlOrContentHit({required Object p}) => 'رابط إعدا${_root.meta.profileUrlOrContent(p: p)} [مطلوب]';
 	@override String get profileUrlOrContentCannotEmpty => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا';
 }
 
@@ -836,8 +836,8 @@ extension on TranslationsAr {
 			'meta.profileRulesAppendProxyTips' => 'سيتم تعيين القواعد تلقائيًا إلى أول وكيل في [proxy-groups] من التكوين الأصلي يكون نوعه [url-test] أو [select]',
 			'meta.profileImport' => 'استيراد ملف الملف الشخصي',
 			'meta.profileAddUrlOrContent' => 'إضافة رابط ملف التعريف',
-			'meta.profileUrlOrContent' => 'رابط إعداد Clash',
-			'meta.profileUrlOrContentHit' => 'رابط إعداد Clash [مطلوب]',
+			'meta.profileUrlOrContent' => ({required Object p}) => 'رابط إعداد ${p}',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => 'رابط إعدا${_root.meta.profileUrlOrContent(p: p)} [مطلوب]',
 			'meta.profileUrlOrContentCannotEmpty' => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا',
 			'permission.camera' => 'الكاميرا',
 			'permission.screen' => 'تسجيل الشاشة',

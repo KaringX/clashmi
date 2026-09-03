@@ -303,8 +303,8 @@
         "profileRulesAppendProxyTips": "규칙은 원본 설정의 [proxy-groups]에서 [url-test] 또는 [select] 유형의 첫 번째 프록시로 자동 설정됩니다",
         "profileImport": "프로필 파일 가져오기",
         "profileAddUrlOrContent": "프로필 링크 추가",
-        "profileUrlOrContent": "Clash 설정 링크",
-        "profileUrlOrContentHit": "Clash 설정 링크 [필수]",
+        "profileUrlOrContent": "$p 설정 링크",
+        "profileUrlOrContentHit": "@:{meta.profileUrlOrContent} [필수]",
         "profileUrlOrContentCannotEmpty": "프로필 링크는 비워둘 수 없습니다"
     },
     "permission": {

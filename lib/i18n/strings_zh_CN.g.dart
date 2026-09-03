@@ -433,8 +433,8 @@ class Translations$meta$zh_CN implements Translations$meta$en {
 	@override String get profileRulesAppendProxyTips => '规则将自动设置为原始配置里[proxy-groups]中的第一个类型为[url-test]或[select]的代理';
 	@override String get profileImport => '导入配置文件';
 	@override String get profileAddUrlOrContent => '添加配置链接';
-	@override String get profileUrlOrContent => 'Clash配置链接';
-	@override String get profileUrlOrContentHit => 'Clash配置链接[必填]';
+	@override String profileUrlOrContent({required Object p}) => '${p}配置链接';
+	@override String profileUrlOrContentHit({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [必填]';
 	@override String get profileUrlOrContentCannotEmpty => '配置链接不能为空';
 }
 
@@ -836,8 +836,8 @@ extension on TranslationsZhCn {
 			'meta.profileRulesAppendProxyTips' => '规则将自动设置为原始配置里[proxy-groups]中的第一个类型为[url-test]或[select]的代理',
 			'meta.profileImport' => '导入配置文件',
 			'meta.profileAddUrlOrContent' => '添加配置链接',
-			'meta.profileUrlOrContent' => 'Clash配置链接',
-			'meta.profileUrlOrContentHit' => 'Clash配置链接[必填]',
+			'meta.profileUrlOrContent' => ({required Object p}) => '${p}配置链接',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [必填]',
 			'meta.profileUrlOrContentCannotEmpty' => '配置链接不能为空',
 			'permission.camera' => '摄像头',
 			'permission.screen' => '屏幕录制',

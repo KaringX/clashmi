@@ -433,8 +433,8 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get profileRulesAppendProxyTips => 'قوانین به‌صورت خودکار روی نخستین پراکسی با نوع [url-test] یا [select] در [proxy-groups] پیکربندی اصلی تنظیم می‌شوند';
 	@override String get profileImport => 'وارد‌کردن فایل پروفایل';
 	@override String get profileAddUrlOrContent => 'افزودن لینک پروفایل';
-	@override String get profileUrlOrContent => 'پیوند پیکربندی Clash';
-	@override String get profileUrlOrContentHit => 'پیوند پیکربندی Clash [الزامی]';
+	@override String profileUrlOrContent({required Object p}) => 'پیوند پیکربندی ${p}';
+	@override String profileUrlOrContentHit({required Object p}) => 'پیوند پیکربند${_root.meta.profileUrlOrContent(p: p)} [الزامی]';
 	@override String get profileUrlOrContentCannotEmpty => 'لینک پروفایل نمی‌تواند خالی باشد';
 }
 
@@ -836,8 +836,8 @@ extension on TranslationsFa {
 			'meta.profileRulesAppendProxyTips' => 'قوانین به‌صورت خودکار روی نخستین پراکسی با نوع [url-test] یا [select] در [proxy-groups] پیکربندی اصلی تنظیم می‌شوند',
 			'meta.profileImport' => 'وارد‌کردن فایل پروفایل',
 			'meta.profileAddUrlOrContent' => 'افزودن لینک پروفایل',
-			'meta.profileUrlOrContent' => 'پیوند پیکربندی Clash',
-			'meta.profileUrlOrContentHit' => 'پیوند پیکربندی Clash [الزامی]',
+			'meta.profileUrlOrContent' => ({required Object p}) => 'پیوند پیکربندی ${p}',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => 'پیوند پیکربند${_root.meta.profileUrlOrContent(p: p)} [الزامی]',
 			'meta.profileUrlOrContentCannotEmpty' => 'لینک پروفایل نمی‌تواند خالی باشد',
 			'permission.camera' => 'دوربین',
 			'permission.screen' => 'ضبط صفحه',

@@ -1014,11 +1014,11 @@ class Translations$meta$en {
 	/// en: 'Add Profile Link'
 	String get profileAddUrlOrContent => 'Add Profile Link';
 
-	/// en: 'Clash Profile Link'
-	String get profileUrlOrContent => 'Clash Profile Link';
+	/// en: '$p Profile Link'
+	String profileUrlOrContent({required Object p}) => '${p} Profile Link';
 
-	/// en: 'Clash Profile Link [Required]'
-	String get profileUrlOrContentHit => 'Clash Profile Link [Required]';
+	/// en: '$p Profile Link [Required]'
+	String profileUrlOrContentHit({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [Required]';
 
 	/// en: 'Profile Link can not be empty'
 	String get profileUrlOrContentCannotEmpty => 'Profile Link can not be empty';
@@ -1506,8 +1506,8 @@ extension on Translations {
 			'meta.profileRulesAppendProxyTips' => 'Rules will be automatically set to the first proxy in [proxy-groups] of the original config with type [url-test] or [select]',
 			'meta.profileImport' => 'Import Profile File',
 			'meta.profileAddUrlOrContent' => 'Add Profile Link',
-			'meta.profileUrlOrContent' => 'Clash Profile Link',
-			'meta.profileUrlOrContentHit' => 'Clash Profile Link [Required]',
+			'meta.profileUrlOrContent' => ({required Object p}) => '${p} Profile Link',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [Required]',
 			'meta.profileUrlOrContentCannotEmpty' => 'Profile Link can not be empty',
 			'permission.camera' => 'Camera',
 			'permission.screen' => 'Screen Recording',

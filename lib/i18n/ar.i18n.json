@@ -303,8 +303,8 @@
         "profileRulesAppendProxyTips": "سيتم تعيين القواعد تلقائيًا إلى أول وكيل في [proxy-groups] من التكوين الأصلي يكون نوعه [url-test] أو [select]",
         "profileImport": "استيراد ملف الملف الشخصي",
         "profileAddUrlOrContent": "إضافة رابط ملف التعريف",
-        "profileUrlOrContent": "رابط إعداد Clash",
-        "profileUrlOrContentHit": "رابط إعداد Clash [مطلوب]",
+        "profileUrlOrContent": "رابط إعداد $p",
+        "profileUrlOrContentHit": "رابط إعدا@:{meta.profileUrlOrContent} [مطلوب]",
         "profileUrlOrContentCannotEmpty": "لا يمكن أن يكون رابط الملف الشخصي فارغًا"
     },
     "permission": {

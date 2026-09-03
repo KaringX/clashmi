@@ -303,8 +303,8 @@
         "profileRulesAppendProxyTips": "ルールは元の設定の [proxy-groups] 内で、タイプが [url-test] または [select] の最初のプロキシに自動設定されます",
         "profileImport": "プロファイルファイルをインポート",
         "profileAddUrlOrContent": "プロファイルリンクを追加",
-        "profileUrlOrContent": "Clash設定リンク",
-        "profileUrlOrContentHit": "Clash設定リンク [必須]",
+        "profileUrlOrContent": "$p設定リンク",
+        "profileUrlOrContentHit": "@:{meta.profileUrlOrContent} [必須]",
         "profileUrlOrContentCannotEmpty": "プロファイルリンクを空にすることはできません"
     },
     "permission": {

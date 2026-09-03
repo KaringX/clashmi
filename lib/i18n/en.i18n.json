@@ -303,8 +303,8 @@
         "profileRulesAppendProxyTips": "Rules will be automatically set to the first proxy in [proxy-groups] of the original config with type [url-test] or [select]",
         "profileImport": "Import Profile File",
         "profileAddUrlOrContent": "Add Profile Link",
-        "profileUrlOrContent": "Clash Profile Link",
-        "profileUrlOrContentHit": "Clash Profile Link [Required]",
+        "profileUrlOrContent": "$p Profile Link",
+        "profileUrlOrContentHit": "@:{meta.profileUrlOrContent} [Required]",
         "profileUrlOrContentCannotEmpty": "Profile Link can not be empty"
     },
     "permission": {

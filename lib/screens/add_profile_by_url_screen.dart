@@ -211,9 +211,11 @@ class _AddProfileByUrlScreenState
                                 maxLines: 5,
                                 controller: _textControllerLink,
                                 decoration: InputDecoration(
-                                  labelText: tcontext.meta.profileUrlOrContent,
-                                  hintText:
-                                      tcontext.meta.profileUrlOrContentHit,
+                                  labelText: tcontext.meta.profileUrlOrContent(
+                                    p: "Clash",
+                                  ),
+                                  hintText: tcontext.meta
+                                      .profileUrlOrContentHit(p: "Clash"),
                                 ),
                                 onChanged: (text) {},
                                 onEditingComplete: () async {

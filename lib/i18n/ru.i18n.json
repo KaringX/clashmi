@@ -303,8 +303,8 @@
         "profileRulesAppendProxyTips": "Правила будут автоматически установлены на первый прокси в [proxy-groups] исходной конфигурации с типом [url-test] или [select]",
         "profileImport": "Импорт файла конфигурации",
         "profileAddUrlOrContent": "Добавление подписки",
-        "profileUrlOrContent": "Ссылка на профиль Clash",
-        "profileUrlOrContentHit": "Ссылка на профиль Clash [обязательно]",
+        "profileUrlOrContent": "Ссылка на профиль $p",
+        "profileUrlOrContentHit": "@:{meta.profileUrlOrContent} [обязательно]",
         "profileUrlOrContentCannotEmpty": "Ссылка на подписку не может быть пустой"
     },
     "permission": {

@@ -433,8 +433,8 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get profileRulesAppendProxyTips => 'Las reglas se establecerán automáticamente en el primer proxy de tipo [url-test] o [select] en [proxy-groups] de la configuración original';
 	@override String get profileImport => 'Importar Archivo de Perfil';
 	@override String get profileAddUrlOrContent => 'Añadir Enlace de Perfil';
-	@override String get profileUrlOrContent => 'Enlace de Perfil Clash';
-	@override String get profileUrlOrContentHit => 'Enlace de Perfil Clash [Requerido]';
+	@override String profileUrlOrContent({required Object p}) => 'Enlace de Perfil ${p}';
+	@override String profileUrlOrContentHit({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [Requerido]';
 	@override String get profileUrlOrContentCannotEmpty => 'El enlace del perfil no puede estar vacío';
 }
 
@@ -836,8 +836,8 @@ extension on TranslationsEs {
 			'meta.profileRulesAppendProxyTips' => 'Las reglas se establecerán automáticamente en el primer proxy de tipo [url-test] o [select] en [proxy-groups] de la configuración original',
 			'meta.profileImport' => 'Importar Archivo de Perfil',
 			'meta.profileAddUrlOrContent' => 'Añadir Enlace de Perfil',
-			'meta.profileUrlOrContent' => 'Enlace de Perfil Clash',
-			'meta.profileUrlOrContentHit' => 'Enlace de Perfil Clash [Requerido]',
+			'meta.profileUrlOrContent' => ({required Object p}) => 'Enlace de Perfil ${p}',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [Requerido]',
 			'meta.profileUrlOrContentCannotEmpty' => 'El enlace del perfil no puede estar vacío',
 			'permission.camera' => 'Cámara',
 			'permission.screen' => 'Grabación de Pantalla',

@@ -303,8 +303,8 @@
         "profileRulesAppendProxyTips": "قوانین به‌صورت خودکار روی نخستین پراکسی با نوع [url-test] یا [select] در [proxy-groups] پیکربندی اصلی تنظیم می‌شوند",
         "profileImport": "وارد‌کردن فایل پروفایل",
         "profileAddUrlOrContent": "افزودن لینک پروفایل",
-        "profileUrlOrContent": "پیوند پیکربندی Clash",
-        "profileUrlOrContentHit": "پیوند پیکربندی Clash [الزامی]",
+        "profileUrlOrContent": "پیوند پیکربندی $p",
+        "profileUrlOrContentHit": "پیوند پیکربند@:{meta.profileUrlOrContent} [الزامی]",
         "profileUrlOrContentCannotEmpty": "لینک پروفایل نمی‌تواند خالی باشد"
     },
     "permission": {

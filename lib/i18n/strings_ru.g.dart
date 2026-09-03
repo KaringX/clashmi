@@ -433,8 +433,8 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get profileRulesAppendProxyTips => 'Правила будут автоматически установлены на первый прокси в [proxy-groups] исходной конфигурации с типом [url-test] или [select]';
 	@override String get profileImport => 'Импорт файла конфигурации';
 	@override String get profileAddUrlOrContent => 'Добавление подписки';
-	@override String get profileUrlOrContent => 'Ссылка на профиль Clash';
-	@override String get profileUrlOrContentHit => 'Ссылка на профиль Clash [обязательно]';
+	@override String profileUrlOrContent({required Object p}) => 'Ссылка на профиль ${p}';
+	@override String profileUrlOrContentHit({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [обязательно]';
 	@override String get profileUrlOrContentCannotEmpty => 'Ссылка на подписку не может быть пустой';
 }
 
@@ -836,8 +836,8 @@ extension on TranslationsRu {
 			'meta.profileRulesAppendProxyTips' => 'Правила будут автоматически установлены на первый прокси в [proxy-groups] исходной конфигурации с типом [url-test] или [select]',
 			'meta.profileImport' => 'Импорт файла конфигурации',
 			'meta.profileAddUrlOrContent' => 'Добавление подписки',
-			'meta.profileUrlOrContent' => 'Ссылка на профиль Clash',
-			'meta.profileUrlOrContentHit' => 'Ссылка на профиль Clash [обязательно]',
+			'meta.profileUrlOrContent' => ({required Object p}) => 'Ссылка на профиль ${p}',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [обязательно]',
 			'meta.profileUrlOrContentCannotEmpty' => 'Ссылка на подписку не может быть пустой',
 			'permission.camera' => 'Камера',
 			'permission.screen' => 'Запись экрана',
