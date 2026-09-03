@@ -361,6 +361,8 @@
     },
     "protocolSniff": "协议探测",
     "protocolSniffOverrideDestination": "探测的域名覆盖连接目标地址",
+    "sendOrReceiveNotMatch": "请使用[$p]",
+    "targetConnectFailed": "连接[$p]失败,请确保设备在同一个局域网内",
     "edgeRuntimeNotInstalled": "当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试",
     "locales(map)": {
         "en": "English",

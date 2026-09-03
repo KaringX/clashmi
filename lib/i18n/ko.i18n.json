@@ -361,6 +361,8 @@
     },
     "protocolSniff": "프로토콜 스니핑",
     "protocolSniffOverrideDestination": "스니핑된 도메인 이름으로 연결 대상 주소 덮어쓰기",
+    "sendOrReceiveNotMatch": "[$p]를 사용하십시오",
+    "targetConnectFailed": "[$p] 연결 실패. 장치가 동일한 LAN에 있는지 확인하십시오",
     "edgeRuntimeNotInstalled": "현재 장치에 Edge WebView2 런타임이 설치되어 있지 않아 페이지를 표시할 수 없습니다. Edge WebView2 런타임(x64)을 다운로드하여 설치하고 앱을 다시 시작한 후 다시 시도하십시오。",
     "locales(map)": {
         "en": "English",

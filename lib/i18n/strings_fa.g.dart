@@ -54,6 +54,8 @@ class TranslationsFa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$profilePatchMode$fa profilePatchMode = _Translations$profilePatchMode$fa._(_root);
 	@override String get protocolSniff => 'تشخیص پروتکل';
 	@override String get protocolSniffOverrideDestination => 'نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد';
+	@override String sendOrReceiveNotMatch({required Object p}) => 'لطفا از [${p}] استفاده کنید';
+	@override String targetConnectFailed({required Object p}) => 'اتصال به [${p}] ناموفق بود، لطفاً مطمئن شوید که دستگاه در همان LAN است';
 	@override String get edgeRuntimeNotInstalled => 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -879,6 +881,8 @@ extension on TranslationsFa {
 			'profilePatchMode.noOverwrite' => 'داخلی - رونویسی نشده است',
 			'protocolSniff' => 'تشخیص پروتکل',
 			'protocolSniffOverrideDestination' => 'نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد',
+			'sendOrReceiveNotMatch' => ({required Object p}) => 'لطفا از [${p}] استفاده کنید',
+			'targetConnectFailed' => ({required Object p}) => 'اتصال به [${p}] ناموفق بود، لطفاً مطمئن شوید که دستگاه در همان LAN است',
 			'edgeRuntimeNotInstalled' => 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',

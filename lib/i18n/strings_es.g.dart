@@ -54,6 +54,8 @@ class TranslationsEs with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$profilePatchMode$es profilePatchMode = _Translations$profilePatchMode$es._(_root);
 	@override String get protocolSniff => 'Sniff de Protocolo';
 	@override String get protocolSniffOverrideDestination => 'El nombre de dominio Sniff sobrescribe la dirección de destino de la conexión';
+	@override String sendOrReceiveNotMatch({required Object p}) => 'Utilice [${p}]';
+	@override String targetConnectFailed({required Object p}) => 'Error al conectar con [${p}]. Asegúrese de que los dispositivos estén en la misma LAN';
 	@override String get edgeRuntimeNotInstalled => 'El dispositivo actual no ha instalado el motor de ejecución Edge WebView2, por lo que la página no se puede mostrar. Descargue e instale el motor de ejecución Edge WebView2 (x64), reinicie la App e inténtelo de nuevo.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -879,6 +881,8 @@ extension on TranslationsEs {
 			'profilePatchMode.noOverwrite' => 'Integrado - sin sobrescritura',
 			'protocolSniff' => 'Sniff de Protocolo',
 			'protocolSniffOverrideDestination' => 'El nombre de dominio Sniff sobrescribe la dirección de destino de la conexión',
+			'sendOrReceiveNotMatch' => ({required Object p}) => 'Utilice [${p}]',
+			'targetConnectFailed' => ({required Object p}) => 'Error al conectar con [${p}]. Asegúrese de que los dispositivos estén en la misma LAN',
 			'edgeRuntimeNotInstalled' => 'El dispositivo actual no ha instalado el motor de ejecución Edge WebView2, por lo que la página no se puede mostrar. Descargue e instale el motor de ejecución Edge WebView2 (x64), reinicie la App e inténtelo de nuevo.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',

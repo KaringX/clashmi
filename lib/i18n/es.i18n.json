@@ -361,6 +361,8 @@
     },
     "protocolSniff": "Sniff de Protocolo",
     "protocolSniffOverrideDestination": "El nombre de dominio Sniff sobrescribe la dirección de destino de la conexión",
+    "sendOrReceiveNotMatch": "Utilice [$p]",
+    "targetConnectFailed": "Error al conectar con [$p]. Asegúrese de que los dispositivos estén en la misma LAN",
     "edgeRuntimeNotInstalled": "El dispositivo actual no ha instalado el motor de ejecución Edge WebView2, por lo que la página no se puede mostrar. Descargue e instale el motor de ejecución Edge WebView2 (x64), reinicie la App e inténtelo de nuevo.",
     "locales(map)": {
         "en": "English",

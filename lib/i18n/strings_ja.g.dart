@@ -54,6 +54,8 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$profilePatchMode$ja profilePatchMode = _Translations$profilePatchMode$ja._(_root);
 	@override String get protocolSniff => 'プロトコル検知';
 	@override String get protocolSniffOverrideDestination => '検知されたドメイン名で接続先アドレスを上書きする';
+	@override String sendOrReceiveNotMatch({required Object p}) => '[${p}] を使用してください';
+	@override String targetConnectFailed({required Object p}) => '[${p}] への接続に失敗しました。デバイスが同じ LAN 内にあることを確認してください';
 	@override String get edgeRuntimeNotInstalled => '現在のデバイスには Edge WebView2 ランタイムがインストールされていないため、ページを表示できません。Edge WebView2 ランタイム (x64) をダウンロードしてインストールし、アプリを再起動してからもう一度お試しください。';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -879,6 +881,8 @@ extension on TranslationsJa {
 			'profilePatchMode.noOverwrite' => '内蔵 - 上書きなし',
 			'protocolSniff' => 'プロトコル検知',
 			'protocolSniffOverrideDestination' => '検知されたドメイン名で接続先アドレスを上書きする',
+			'sendOrReceiveNotMatch' => ({required Object p}) => '[${p}] を使用してください',
+			'targetConnectFailed' => ({required Object p}) => '[${p}] への接続に失敗しました。デバイスが同じ LAN 内にあることを確認してください',
 			'edgeRuntimeNotInstalled' => '現在のデバイスには Edge WebView2 ランタイムがインストールされていないため、ページを表示できません。Edge WebView2 ランタイム (x64) をダウンロードしてインストールし、アプリを再起動してからもう一度お試しください。',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',

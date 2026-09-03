@@ -18,10 +18,12 @@ import 'package:clashmi/app/modules/remote_config_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/modules/zashboard.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
+import 'package:clashmi/app/utils/app_scheme_actions.dart';
 import 'package:clashmi/app/utils/backup_and_sync_utils.dart';
 import 'package:clashmi/app/utils/device_utils.dart';
 import 'package:clashmi/app/utils/did.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
+import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/network_utils.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
@@ -29,6 +31,7 @@ import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/app/utils/url_launcher_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/backup_and_sync_icloud_screen.dart';
+import 'package:clashmi/screens/backup_and_sync_lan_sync_screen.dart';
 import 'package:clashmi/screens/backup_and_sync_webdav_screen.dart';
 import 'package:clashmi/screens/backup_helper.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
@@ -41,6 +44,7 @@ import 'package:clashmi/screens/list_add_screen.dart';
 import 'package:clashmi/screens/map_string_and_string_add_screen.dart';
 import 'package:clashmi/screens/perapp_android_screen.dart';
 import 'package:clashmi/screens/profiles_patch_board_screen.dart';
+import 'package:clashmi/screens/qrcode_scan_screen.dart';
 import 'package:clashmi/screens/richtext_viewer.screen.dart';
 import 'package:clashmi/screens/rule_providers_screen.dart';
 import 'package:clashmi/screens/rule_templates_screen.dart';
@@ -135,6 +139,14 @@ class GroupHelper {
         ),
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.lanSync,
+            onPush: () async {
+              onTapLanSync(context);
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
             name: tcontext.meta.importAndExport,
             onPush: () async {
               onTapImportExport(context);
@@ -158,6 +170,355 @@ class GroupHelper {
       ),
     );
     SettingManager.save();
+  }
+
+  static Future<void> onTapLanSyncSendTo(BuildContext context) async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.qrcode,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: BackupAndSyncLanSyncScreen.routeSettings(),
+                  builder: (context) => BackupAndSyncLanSyncScreen(
+                    title: tcontext.meta.send,
+                    syncUpload: false,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        if (PlatformUtils.isMobile()) ...[
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.qrcodeScan,
+              onPush: () async {
+                onTapSyncByScanQRcode(context, true);
+              },
+            ),
+          ),
+        ],
+      ];
+      return [GroupItem(options: options)];
+    }
+
+    if (!context.mounted) {
+      return;
+    }
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routeSettings("send"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.send, getOptions: getOptions),
+      ),
+    );
+  }
+
+  static Future<void> onTapLanSyncReceiveFrom(BuildContext context) async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.qrcode,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: BackupAndSyncLanSyncScreen.routeSettings(),
+                  builder: (context) => BackupAndSyncLanSyncScreen(
+                    title: tcontext.meta.receive,
+                    syncUpload: true,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        if (PlatformUtils.isMobile()) ...[
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.qrcodeScan,
+              onPush: () async {
+                onTapSyncByScanQRcode(context, false);
+              },
+            ),
+          ),
+        ],
+      ];
+      return [GroupItem(options: options)];
+    }
+
+    if (!context.mounted) {
+      return;
+    }
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routeSettings("receive"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.receive, getOptions: getOptions),
+      ),
+    );
+  }
+
+  static Future<void> onTapLanSync(BuildContext context) async {
+    final tcontext = Translations.of(context);
+
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.send,
+            onPush: () async {
+              onTapLanSyncSendTo(context);
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.receive,
+            onPush: () async {
+              onTapLanSyncReceiveFrom(context);
+            },
+          ),
+        ),
+      ];
+      return [GroupItem(options: options)];
+    }
+
+    if (!context.mounted) {
+      return;
+    }
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routeSettings("BackupAndSyncLanSyncScreen"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.lanSync, getOptions: getOptions),
+      ),
+    );
+  }
+
+  static Future<void> syncByScanQRcode(
+    BuildContext context,
+    String qrcode,
+    bool send,
+  ) async {
+    final tcontext = Translations.of(context);
+    if (qrcode.isEmpty) {
+      return;
+    }
+    Uri? uri = Uri.tryParse(qrcode);
+    if (uri == null || uri.scheme != AppSchemeActions.scheme()) {
+      return;
+    }
+
+    if (uri.host != AppSchemeActions.syncDownloadAction() &&
+        uri.host != AppSchemeActions.syncUploadAction()) {
+      return;
+    }
+
+    String ips = uri.queryParameters['ips'] ?? '';
+    String port = uri.queryParameters['port'] ?? '';
+    String filename = uri.queryParameters['filename'] ?? '';
+    if (ips.isEmpty || port.isEmpty) {
+      return;
+    }
+
+    List<String> hosts = ips.split(",");
+    int targetPort = int.parse(port);
+    String? targetHost;
+    ReturnResult<Tuple2<int, String>>? result;
+
+    for (String host in hosts) {
+      if (host.isNotEmpty) {
+        if (NetworkUtils.isIpv4(host)) {
+          result = await HttpUtils.httpGetRequest(
+            "http://$host:$targetPort/",
+            null,
+            null,
+            const Duration(seconds: 3),
+            null,
+            null,
+          );
+          if (result.error == null || result.error!.message.contains("404")) {
+            targetHost = host;
+            break;
+          }
+        }
+      }
+    }
+    if (!context.mounted) {
+      return;
+    }
+    if (targetHost == null) {
+      if (result != null && result.error != null) {
+        DialogUtils.showAlertDialog(
+          context,
+          tcontext.targetConnectFailed(p: result.error!.message),
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
+      } else {
+        DialogUtils.showAlertDialog(
+          context,
+          tcontext.targetConnectFailed(p: ips),
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
+      }
+      return;
+    }
+    if (!context.mounted) {
+      return;
+    }
+
+    if (uri.host == AppSchemeActions.syncDownloadAction()) {
+      if (send) {
+        DialogUtils.showAlertDialog(
+          context,
+          tcontext.sendOrReceiveNotMatch(p: tcontext.meta.receive),
+          showCopy: false,
+          showFAQ: true,
+          withVersion: true,
+        );
+        return;
+      }
+      if (filename.isEmpty) {
+        return;
+      }
+
+      String dir = await PathUtils.cacheDir();
+      String zipPath = path.join(dir, filename);
+      String url = "http://$targetHost:$targetPort/${uri.host}";
+      ReturnResult<HttpHeaders> result = await HttpUtils.httpDownload(
+        Uri.parse(url),
+        zipPath,
+        null,
+        null,
+        false,
+        null,
+      );
+      if (result.error != null) {
+        if (!context.mounted) {
+          return;
+        }
+        DialogUtils.showAlertDialog(
+          context,
+          result.error!.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
+        return;
+      }
+      if (!context.mounted) {
+        return;
+      }
+      await BackupHelper.backupRestoreFromZip(context, zipPath);
+    } else if (uri.host == AppSchemeActions.syncUploadAction()) {
+      if (!send) {
+        DialogUtils.showAlertDialog(
+          context,
+          tcontext.sendOrReceiveNotMatch(p: tcontext.meta.send),
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
+        return;
+      }
+      bool? ok = await DialogUtils.showConfirmDialog(
+        context,
+        tcontext.meta.sendConfirm,
+      );
+      if (ok != true) {
+        return;
+      }
+      String dir = await PathUtils.cacheDir();
+      if (!context.mounted) {
+        return;
+      }
+      String zipPath = path.join(dir, BackupAndSyncUtils.getZipFileName());
+      ReturnResultError? error = await BackupHelper.backupToZip(
+        context,
+        zipPath,
+      );
+      if (error != null) {
+        if (!context.mounted) {
+          return;
+        }
+        DialogUtils.showAlertDialog(
+          context,
+          error.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
+        return;
+      }
+      String url = "http://$targetHost:$targetPort/${uri.host}";
+      ReturnResultError? err = await HttpUtils.httpUpload(
+        Uri.parse(url),
+        zipPath,
+        null,
+        null,
+      );
+      await FileUtils.deletePath(zipPath);
+      if (!context.mounted) {
+        return;
+      }
+      if (err != null) {
+        DialogUtils.showAlertDialog(
+          context,
+          err.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
+      } else {
+        DialogUtils.showAlertDialog(context, tcontext.meta.done);
+      }
+    }
+  }
+
+  static Future<void> onTapSyncByScanQRcode(
+    BuildContext context,
+    bool send,
+  ) async {
+    var qrcode = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: QrcodeScanScreen.routeSettings(),
+        builder: (context) => const QrcodeScanScreen(),
+      ),
+    );
+    if (!context.mounted) {
+      return;
+    }
+    if (qrcode == null) {
+      return;
+    }
+    if (qrcode is String) {
+      await syncByScanQRcode(context, qrcode, send);
+    }
   }
 
   static Future<void> onTapImportExport(BuildContext context) async {

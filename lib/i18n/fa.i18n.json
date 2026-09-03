@@ -361,6 +361,8 @@
     },
     "protocolSniff": "تشخیص پروتکل",
     "protocolSniffOverrideDestination": "نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد",
+    "sendOrReceiveNotMatch": "لطفا از [$p] استفاده کنید",
+    "targetConnectFailed": "اتصال به [$p] ناموفق بود، لطفاً مطمئن شوید که دستگاه در همان LAN است",
     "edgeRuntimeNotInstalled": "زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.",
     "locales(map)": {
         "en": "English",

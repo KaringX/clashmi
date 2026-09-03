@@ -54,6 +54,8 @@ class TranslationsZhTw with BaseTranslations<AppLocale, Translations> implements
 	@override late final Translations$profilePatchMode$zh_TW profilePatchMode = Translations$profilePatchMode$zh_TW.internal(_root);
 	@override String get protocolSniff => '協議探測';
 	@override String get protocolSniffOverrideDestination => '探測的域名覆蓋連接目標地址';
+	@override String sendOrReceiveNotMatch({required Object p}) => '請使用 [${p}]';
+	@override String targetConnectFailed({required Object p}) => '連線 [${p}] 失敗, 請確保設備在同一個區域網路內';
 	@override String get edgeRuntimeNotInstalled => '當前設備尚未安裝Edge WebView2運行時,無法展示頁面,請下載安裝Edge WebView2運行時(x64)後,重啟App再試';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -879,6 +881,8 @@ extension on TranslationsZhTw {
 			'profilePatchMode.noOverwrite' => '內置-不覆寫',
 			'protocolSniff' => '協議探測',
 			'protocolSniffOverrideDestination' => '探測的域名覆蓋連接目標地址',
+			'sendOrReceiveNotMatch' => ({required Object p}) => '請使用 [${p}]',
+			'targetConnectFailed' => ({required Object p}) => '連線 [${p}] 失敗, 請確保設備在同一個區域網路內',
 			'edgeRuntimeNotInstalled' => '當前設備尚未安裝Edge WebView2運行時,無法展示頁面,請下載安裝Edge WebView2運行時(x64)後,重啟App再試',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',

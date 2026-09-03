@@ -361,6 +361,8 @@
     },
     "protocolSniff": "الكشف عن البروتوكول",
     "protocolSniffOverrideDestination": "يغطي اسم المجال المكتشف عنوان هدف الاتصال",
+    "sendOrReceiveNotMatch": "الرجاء استخدام [$p]",
+    "targetConnectFailed": "فشل الاتصال بـ [$p]، يرجى التأكد من وجود الجهاز في نفس الشبكة المحلية (LAN)",
     "edgeRuntimeNotInstalled": "لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.",
     "locales(map)": {
         "en": "English",

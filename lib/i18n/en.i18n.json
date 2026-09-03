@@ -361,6 +361,8 @@
     },
     "protocolSniff": "Protocol Sniff",
     "protocolSniffOverrideDestination": "The Sniff domain name override the connection target address",
+    "sendOrReceiveNotMatch": "Please use [$p]",
+    "targetConnectFailed": "Failed to connect to [$p]. Please make sure the devices are in the same LAN",
     "edgeRuntimeNotInstalled": "The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.",
     "locales(map)": {
         "en": "English",

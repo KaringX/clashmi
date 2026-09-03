@@ -54,6 +54,8 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$profilePatchMode$ar profilePatchMode = _Translations$profilePatchMode$ar._(_root);
 	@override String get protocolSniff => 'الكشف عن البروتوكول';
 	@override String get protocolSniffOverrideDestination => 'يغطي اسم المجال المكتشف عنوان هدف الاتصال';
+	@override String sendOrReceiveNotMatch({required Object p}) => 'الرجاء استخدام [${p}]';
+	@override String targetConnectFailed({required Object p}) => 'فشل الاتصال بـ [${p}]، يرجى التأكد من وجود الجهاز في نفس الشبكة المحلية (LAN)';
 	@override String get edgeRuntimeNotInstalled => 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -879,6 +881,8 @@ extension on TranslationsAr {
 			'profilePatchMode.noOverwrite' => 'مُدمج - غير قابل للكتابة فوقه',
 			'protocolSniff' => 'الكشف عن البروتوكول',
 			'protocolSniffOverrideDestination' => 'يغطي اسم المجال المكتشف عنوان هدف الاتصال',
+			'sendOrReceiveNotMatch' => ({required Object p}) => 'الرجاء استخدام [${p}]',
+			'targetConnectFailed' => ({required Object p}) => 'فشل الاتصال بـ [${p}]، يرجى التأكد من وجود الجهاز في نفس الشبكة المحلية (LAN)',
 			'edgeRuntimeNotInstalled' => 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',

@@ -1,9 +1,9 @@
 abstract final class AppSchemeActions {
-  static String scheme() {
+  static String clashScheme() {
     return "clash";
   }
 
-  static String miScheme() {
+  static String scheme() {
     return "clashmi";
   }
 

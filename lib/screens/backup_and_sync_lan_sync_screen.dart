@@ -133,7 +133,7 @@ class _BackupAndSyncLanSyncScreenState
           : AppSchemeActions.syncDownloadAction());
 
       String url =
-          "clashmi://$action/?ips=${Uri.encodeComponent(ips.join(","))}&port=$listenPort";
+          "${AppSchemeActions.scheme()}://$action/?ips=${Uri.encodeComponent(ips.join(","))}&port=$listenPort";
       if (widget.syncUpload != true) {
         url += "&filename=${Uri.encodeComponent(path.basename(_zipPath!))}";
       }

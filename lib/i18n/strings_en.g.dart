@@ -62,6 +62,12 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'The Sniff domain name override the connection target address'
 	String get protocolSniffOverrideDestination => 'The Sniff domain name override the connection target address';
 
+	/// en: 'Please use [$p]'
+	String sendOrReceiveNotMatch({required Object p}) => 'Please use [${p}]';
+
+	/// en: 'Failed to connect to [$p]. Please make sure the devices are in the same LAN'
+	String targetConnectFailed({required Object p}) => 'Failed to connect to [${p}]. Please make sure the devices are in the same LAN';
+
 	/// en: 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.'
 	String get edgeRuntimeNotInstalled => 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.';
 
@@ -1545,6 +1551,8 @@ extension on Translations {
 			'profilePatchMode.noOverwrite' => 'Built-in - no Overwrite',
 			'protocolSniff' => 'Protocol Sniff',
 			'protocolSniffOverrideDestination' => 'The Sniff domain name override the connection target address',
+			'sendOrReceiveNotMatch' => ({required Object p}) => 'Please use [${p}]',
+			'targetConnectFailed' => ({required Object p}) => 'Failed to connect to [${p}]. Please make sure the devices are in the same LAN',
 			'edgeRuntimeNotInstalled' => 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',

@@ -361,6 +361,8 @@
     },
     "protocolSniff": "プロトコル検知",
     "protocolSniffOverrideDestination": "検知されたドメイン名で接続先アドレスを上書きする",
+    "sendOrReceiveNotMatch": "[$p] を使用してください",
+    "targetConnectFailed": "[$p] への接続に失敗しました。デバイスが同じ LAN 内にあることを確認してください",
     "edgeRuntimeNotInstalled": "現在のデバイスには Edge WebView2 ランタイムがインストールされていないため、ページを表示できません。Edge WebView2 ランタイム (x64) をダウンロードしてインストールし、アプリを再起動してからもう一度お試しください。",
     "locales(map)": {
         "en": "English",
