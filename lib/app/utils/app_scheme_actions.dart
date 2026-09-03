@@ -22,4 +22,12 @@ abstract final class AppSchemeActions {
   static String reconnectAction() {
     return "reconnect";
   }
+
+  static String syncDownloadAction() {
+    return "sync-download";
+  }
+
+  static String syncUploadAction() {
+    return "sync-upload";
+  }
 }
