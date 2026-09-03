@@ -14,7 +14,7 @@ import 'package:clashmi/screens/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
 class ProxyGroupScreenScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "ProxyGroupScreenScreen");
   }
 

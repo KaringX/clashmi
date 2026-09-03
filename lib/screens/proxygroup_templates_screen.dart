@@ -8,7 +8,7 @@ import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class ProxyGroupsTemplatesScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return RouteSettings(name: "ProxyGroupsTemplatesScreen");
   }
 
@@ -201,7 +201,7 @@ class _ProxyGroupsScreenState
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: ProxyGroupTemplatesAddOrEditScreen.routSettings(),
+        settings: ProxyGroupTemplatesAddOrEditScreen.routeSettings(),
         builder: (context) => ProxyGroupTemplatesAddOrEditScreen(),
       ),
     );
@@ -218,7 +218,7 @@ class _ProxyGroupsScreenState
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: ProxyGroupTemplatesAddOrEditScreen.routSettings(),
+        settings: ProxyGroupTemplatesAddOrEditScreen.routeSettings(),
         builder: (context) => ProxyGroupTemplatesAddOrEditScreen(name: name),
       ),
     );

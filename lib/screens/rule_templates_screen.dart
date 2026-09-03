@@ -7,7 +7,7 @@ import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class RuleTemplatesScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return RouteSettings(name: "RuleTemplatesScreen");
   }
 
@@ -185,7 +185,7 @@ class _RuleTemplatesScreenState
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: RuleTemplatesAddOrEditScreen.routSettings(),
+        settings: RuleTemplatesAddOrEditScreen.routeSettings(),
         builder: (context) => RuleTemplatesAddOrEditScreen(),
       ),
     );
@@ -202,7 +202,7 @@ class _RuleTemplatesScreenState
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: RuleTemplatesAddOrEditScreen.routSettings(),
+        settings: RuleTemplatesAddOrEditScreen.routeSettings(),
         builder: (context) => RuleTemplatesAddOrEditScreen(name: name),
       ),
     );

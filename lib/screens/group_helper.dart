@@ -80,7 +80,7 @@ class GroupHelper {
         await Navigator.push(
           context,
           MaterialPageRoute(
-            settings: VersionUpdateScreen.routSettings(),
+            settings: VersionUpdateScreen.routeSettings(),
             builder: (context) => const VersionUpdateScreen(),
           ),
         );
@@ -111,7 +111,7 @@ class GroupHelper {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    settings: BackupAndSyncIcloudScreen.routSettings(),
+                    settings: BackupAndSyncIcloudScreen.routeSettings(),
                     builder: (context) => const BackupAndSyncIcloudScreen(),
                   ),
                 );
@@ -126,7 +126,7 @@ class GroupHelper {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  settings: BackupAndSyncWebdavScreen.routSettings(),
+                  settings: BackupAndSyncWebdavScreen.routeSettings(),
                   builder: (context) => const BackupAndSyncWebdavScreen(),
                 ),
               );
@@ -150,7 +150,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("backupAndSync"),
+        settings: GroupScreen.routeSettings("backupAndSync"),
         builder: (context) => GroupScreen(
           title: tcontext.meta.backupAndSync,
           getOptions: getOptions,
@@ -203,7 +203,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("importAndExport"),
+        settings: GroupScreen.routeSettings("importAndExport"),
         builder: (context) => GroupScreen(
           title: tcontext.meta.importAndExport,
           getOptions: getOptions,
@@ -513,7 +513,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("help"),
+        settings: GroupScreen.routeSettings("help"),
         builder: (context) =>
             GroupScreen(title: tcontext.meta.help, getOptions: getOptions),
       ),
@@ -557,7 +557,7 @@ class GroupHelper {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  settings: LanguageSettingsScreen.routSettings(),
+                  settings: LanguageSettingsScreen.routeSettings(),
                   builder: (context) => const LanguageSettingsScreen(
                     canPop: true,
                     canGoBack: true,
@@ -823,7 +823,7 @@ class GroupHelper {
                       await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          settings: ListAddScreen.routSettings(
+                          settings: ListAddScreen.routeSettings(
                             "systemProxyBypassDomain",
                           ),
                           builder: (context) => ListAddScreen(
@@ -964,7 +964,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("appSettings"),
+        settings: GroupScreen.routeSettings("appSettings"),
         builder: (context) => GroupScreen(
           title: tcontext.meta.settingApp,
           getOptions: getOptions,
@@ -1095,7 +1095,7 @@ class GroupHelper {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    settings: PerAppAndroidScreen.routSettings(),
+                    settings: PerAppAndroidScreen.routeSettings(),
                     builder: (context) => const PerAppAndroidScreen(),
                   ),
                 );
@@ -1214,7 +1214,7 @@ class GroupHelper {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  settings: ProfilesPatchBoardScreen.routSettings(),
+                  settings: ProfilesPatchBoardScreen.routeSettings(),
                   builder: (context) => ProfilesPatchBoardScreen(),
                 ),
               );
@@ -1350,7 +1350,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("coreSettings"),
+        settings: GroupScreen.routeSettings("coreSettings"),
         builder: (context) => GroupScreen(
           title: tcontext.meta.settingCore,
           getOptions: getOptions,
@@ -1385,7 +1385,7 @@ class GroupHelper {
             Navigator.push(
               context,
               MaterialPageRoute(
-                settings: FileViewScreen.routSettings(),
+                settings: FileViewScreen.routeSettings(),
                 builder: (context) => FileViewScreen(
                   title: PathUtils.serviceCorePatchFinalFileName(),
                   content: result.data!,
@@ -1460,7 +1460,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("lanAccess"),
+        settings: GroupScreen.routeSettings("lanAccess"),
         builder: (context) => GroupScreen(
           title: tcontext.meta.allowLanAccess,
           getOptions: getOptions,
@@ -1718,7 +1718,7 @@ class GroupHelper {
                       await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          settings: ListAddScreen.routSettings(
+                          settings: ListAddScreen.routeSettings(
                             "HttpProxyBypassDomain",
                           ),
                           builder: (context) => ListAddScreen(
@@ -1753,7 +1753,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("tun"),
+        settings: GroupScreen.routeSettings("tun"),
         builder: (context) =>
             GroupScreen(title: tcontext.meta.tun, getOptions: getOptions),
       ),
@@ -1921,7 +1921,7 @@ class GroupHelper {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        settings: ListAddScreen.routSettings("FakeIPFilter"),
+                        settings: ListAddScreen.routeSettings("FakeIPFilter"),
                         builder: (context) => ListAddScreen(
                           title: tcontext.dns.fakeIPFilter,
                           data: dns.FakeIPFilter!,
@@ -1956,7 +1956,7 @@ class GroupHelper {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        settings: ListAddScreen.routSettings(
+                        settings: ListAddScreen.routeSettings(
                           "DefaultNameserver",
                         ),
                         builder: (context) => ListAddScreen(
@@ -1979,7 +1979,7 @@ class GroupHelper {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        settings: ListAddScreen.routSettings("NameServer"),
+                        settings: ListAddScreen.routeSettings("NameServer"),
                         builder: (context) => ListAddScreen(
                           title: tcontext.dns.nameServer,
                           data: dns.NameServer!,
@@ -2000,7 +2000,7 @@ class GroupHelper {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        settings: ListAddScreen.routSettings(
+                        settings: ListAddScreen.routeSettings(
                           "ProxyServerNameserver",
                         ),
                         builder: (context) => ListAddScreen(
@@ -2023,7 +2023,7 @@ class GroupHelper {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        settings: ListAddScreen.routSettings(
+                        settings: ListAddScreen.routeSettings(
                           "DirectNameServer",
                         ),
                         builder: (context) => ListAddScreen(
@@ -2046,7 +2046,7 @@ class GroupHelper {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        settings: ListAddScreen.routSettings("Fallback"),
+                        settings: ListAddScreen.routeSettings("Fallback"),
                         builder: (context) => ListAddScreen(
                           title: tcontext.dns.fallbackNameServer,
                           data: dns.Fallback!,
@@ -2095,7 +2095,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("dns"),
+        settings: GroupScreen.routeSettings("dns"),
         builder: (context) =>
             GroupScreen(title: tcontext.meta.dns, getOptions: getOptions),
       ),
@@ -2135,7 +2135,7 @@ class GroupHelper {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        settings: MapStringAndStringAddScreen.routSettings(),
+                        settings: MapStringAndStringAddScreen.routeSettings(),
                         builder: (context) => MapStringAndStringAddScreen(
                           title: "hosts",
                           data: hs,
@@ -2157,7 +2157,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("hosts"),
+        settings: GroupScreen.routeSettings("hosts"),
         builder: (context) =>
             GroupScreen(title: "hosts", getOptions: getOptions),
       ),
@@ -2229,7 +2229,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("ntp"),
+        settings: GroupScreen.routeSettings("ntp"),
         builder: (context) =>
             GroupScreen(title: tcontext.meta.ntp, getOptions: getOptions),
       ),
@@ -2289,7 +2289,9 @@ class GroupHelper {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        settings: ListAddScreen.routSettings("CustomTrustCert"),
+                        settings: ListAddScreen.routeSettings(
+                          "CustomTrustCert",
+                        ),
                         builder: (context) => ListAddScreen(
                           title: tcontext.tls.customTrustCert,
                           data: tls.CustomTrustCert!,
@@ -2307,7 +2309,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("tls"),
+        settings: GroupScreen.routeSettings("tls"),
         builder: (context) =>
             GroupScreen(title: tcontext.meta.tls, getOptions: getOptions),
       ),
@@ -2364,7 +2366,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("sniffer"),
+        settings: GroupScreen.routeSettings("sniffer"),
         builder: (context) =>
             GroupScreen(title: tcontext.meta.sniffer, getOptions: getOptions),
       ),
@@ -2388,7 +2390,7 @@ class GroupHelper {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  settings: RuleProvidersScreen.routSettings(),
+                  settings: RuleProvidersScreen.routeSettings(),
                   builder: (context) => RuleProvidersScreen(),
                 ),
               );
@@ -2403,7 +2405,7 @@ class GroupHelper {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  settings: RuleTemplatesScreen.routSettings(),
+                  settings: RuleTemplatesScreen.routeSettings(),
                   builder: (context) => RuleTemplatesScreen(),
                 ),
               );
@@ -2418,7 +2420,7 @@ class GroupHelper {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  settings: ProxyGroupsTemplatesScreen.routSettings(),
+                  settings: ProxyGroupsTemplatesScreen.routeSettings(),
                   builder: (context) => ProxyGroupsTemplatesScreen(),
                 ),
               );
@@ -2433,7 +2435,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("diversionTemplates"),
+        settings: GroupScreen.routeSettings("diversionTemplates"),
         builder: (context) => GroupScreen(
           title: tcontext.meta.diversionTemplates,
           getOptions: getOptions,
@@ -2518,7 +2520,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("geo"),
+        settings: GroupScreen.routeSettings("geo"),
         builder: (context) =>
             GroupScreen(title: "Geo RuleSet", getOptions: getOptions),
       ),
@@ -2659,7 +2661,7 @@ class GroupHelper {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      settings: RichtextViewScreen.routSettings(),
+                      settings: RichtextViewScreen.routeSettings(),
                       builder: (context) => RichtextViewScreen(
                         title: item.title,
                         file: "",
@@ -2680,7 +2682,7 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("notice"),
+        settings: GroupScreen.routeSettings("notice"),
         builder: (context) =>
             GroupScreen(title: tcontext.meta.notice, getOptions: getOptions),
       ),

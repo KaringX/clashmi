@@ -10,7 +10,7 @@ import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class RuleTemplatesAddOrEditScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return RouteSettings(name: "RuleTemplateAddOrEditScreen");
   }
 
@@ -146,7 +146,7 @@ class _RuleTemplatesAddOrEditScreenState
     String? newRule = await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: RuleTemplatesRuleAddOrEditScreen.routSettings(),
+        settings: RuleTemplatesRuleAddOrEditScreen.routeSettings(),
         builder: (context) => RuleTemplatesRuleAddOrEditScreen(),
       ),
     );
@@ -300,7 +300,7 @@ class _RuleTemplatesAddOrEditScreenState
     String? newRule = await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: RuleTemplatesRuleAddOrEditScreen.routSettings(),
+        settings: RuleTemplatesRuleAddOrEditScreen.routeSettings(),
         builder: (context) =>
             RuleTemplatesRuleAddOrEditScreen(rule: _data.rules[index]),
       ),

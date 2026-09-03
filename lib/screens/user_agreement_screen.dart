@@ -7,7 +7,7 @@ import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class UserAgreementScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "UserAgreementScreen");
   }
 

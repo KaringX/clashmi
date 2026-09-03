@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 
 class BackupAndSyncIcloudScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "BackupAndSyncIcloudScreen");
   }
 

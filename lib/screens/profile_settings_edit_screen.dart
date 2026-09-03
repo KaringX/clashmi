@@ -24,7 +24,7 @@ import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
 class ProfilesSettingsEditScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "ProfilesSettingsEditScreen");
   }
 
@@ -408,7 +408,7 @@ class _ProfilesSettingsEditScreenState
     Navigator.push(
       context,
       MaterialPageRoute(
-        settings: ProxyGroupsScreen.routSettings(),
+        settings: ProxyGroupsScreen.routeSettings(),
         builder: (context) =>
             ProxyGroupsScreen(profile: _profile, nodes: newNodes),
       ),
@@ -472,7 +472,7 @@ class _ProfilesSettingsEditScreenState
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("rules"),
+        settings: GroupScreen.routeSettings("rules"),
         builder: (context) =>
             GroupScreen(title: tcontext.meta.rule, getOptions: getOptions),
       ),

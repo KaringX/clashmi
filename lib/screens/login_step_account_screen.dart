@@ -16,7 +16,7 @@ import 'package:clashmi/screens/xboard/xboard_login.dart';
 import 'package:flutter/material.dart';
 
 class LoginStepAccountScreen extends StatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "LoginStepAccountScreen");
   }
 

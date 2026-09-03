@@ -33,7 +33,7 @@ import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
 class HomeScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "/");
   }
 
@@ -127,7 +127,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         await Navigator.push(
             context,
             MaterialPageRoute(
-                settings: VersionUpdateScreen.routSettings(),
+                settings: VersionUpdateScreen.routeSettings(),
                 fullscreenDialog: true,
                 builder: (context) => const VersionUpdateScreen(
                       force: true,
@@ -139,7 +139,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       await Navigator.push(
         context,
         MaterialPageRoute(
-          settings: UserAgreementScreen.routSettings(),
+          settings: UserAgreementScreen.routeSettings(),
           fullscreenDialog: true,
           builder: (context) => const UserAgreementScreen(),
         ),
@@ -150,7 +150,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: LanguageSettingsScreen.routSettings(),
+        settings: LanguageSettingsScreen.routeSettings(),
         fullscreenDialog: true,
         builder: (context) => LanguageSettingsScreen(
           canPop: false,

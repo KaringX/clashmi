@@ -9,7 +9,7 @@ import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class ProxyGroupTemplatesAddOrEditScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return RouteSettings(name: "ProxyGroupTemplateAddOrEditScreen");
   }
 

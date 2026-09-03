@@ -20,7 +20,7 @@ import 'package:libclash_vpn_service/vpn_service.dart';
 import 'theme_define.dart';
 
 class InAppWebViewScreen extends StatefulWidget {
-  static RouteSettings routSettings(String viewTag) {
+  static RouteSettings routeSettings(String viewTag) {
     return RouteSettings(name: "InAppWebViewScreen:$viewTag");
   }
 

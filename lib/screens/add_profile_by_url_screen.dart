@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
 class AddProfileByUrlScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "AddProfileByUrlScreen");
   }
 

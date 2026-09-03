@@ -16,7 +16,7 @@ import 'package:path/path.dart' as path;
 
 class AddProfilePatchByImportFromFileScreen
     extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "AddProfilePatchByImportFromFileScreen");
   }
 

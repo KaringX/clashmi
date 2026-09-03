@@ -32,7 +32,7 @@ class WebviewHelper {
       await Navigator.push(
         context,
         MaterialPageRoute(
-          settings: InAppWebViewScreen.routSettings(viewTag),
+          settings: InAppWebViewScreen.routeSettings(viewTag),
           builder: (context) => InAppWebViewScreen(
             title: title ?? "",
             url: url,

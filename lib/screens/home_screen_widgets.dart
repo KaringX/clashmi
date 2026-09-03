@@ -453,7 +453,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        settings: ProfilesBoardScreen.routSettings(),
+                        settings: ProfilesBoardScreen.routeSettings(),
                         builder: (context) =>
                             ProfilesBoardScreen(navigateToAdd: true),
                       ),
@@ -472,7 +472,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
           await Navigator.push(
             context,
             MaterialPageRoute(
-              settings: ProfilesBoardScreen.routSettings(),
+              settings: ProfilesBoardScreen.routeSettings(),
               builder: (context) => ProfilesBoardScreen(),
             ),
           );
@@ -495,7 +495,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
             await Navigator.push(
               context,
               MaterialPageRoute(
-                settings: ProxyBoardScreen.routSettings(),
+                settings: ProxyBoardScreen.routeSettings(),
                 builder: (context) => ProxyBoardScreen(),
               ),
             );
@@ -672,7 +672,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       await Navigator.push(
         context,
         MaterialPageRoute(
-          settings: ProfilesBoardScreen.routSettings(),
+          settings: ProfilesBoardScreen.routeSettings(),
           builder: (context) => ProfilesBoardScreen(),
         ),
       );
@@ -1076,7 +1076,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: FileViewScreen.routSettings(),
+        settings: FileViewScreen.routeSettings(),
         builder: (context) => FileViewScreen(
           title: tcontext.meta.runtimeProfile,
           content: content,
@@ -1089,7 +1089,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: NetCheckScreen.routSettings(),
+        settings: NetCheckScreen.routeSettings(),
         builder: (context) => const NetCheckScreen(),
       ),
     );
@@ -1157,7 +1157,7 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              settings: RichtextViewScreen.routSettings(),
+              settings: RichtextViewScreen.routeSettings(),
               builder: (context) => RichtextViewScreen(
                 title: tcontext.meta.coreLog,
                 file: "",
@@ -1211,7 +1211,7 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
           await Navigator.push(
             context,
             MaterialPageRoute(
-              settings: AboutScreen.routSettings(),
+              settings: AboutScreen.routeSettings(),
               builder: (context) => AboutScreen(),
             ),
           );

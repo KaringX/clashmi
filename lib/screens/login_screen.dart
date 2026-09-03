@@ -19,7 +19,7 @@ import 'package:clashmi/screens/v2board/v2board_login.dart';
 import 'package:clashmi/screens/xboard/xboard_login.dart';
 
 class LoginScreen extends StatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "LoginScreen");
   }
 

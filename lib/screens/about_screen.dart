@@ -19,7 +19,7 @@ import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class AboutScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "AboutScreen");
   }
 
@@ -216,7 +216,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("devOptions"),
+        settings: GroupScreen.routeSettings("devOptions"),
         builder: (context) => GroupScreen(
           title: tcontext.meta.devOptions,
           getOptions: getOptions,

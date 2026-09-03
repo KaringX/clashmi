@@ -19,7 +19,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginStepProviderScreen extends StatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "LoginStepProviderScreen");
   }
 
@@ -300,7 +300,7 @@ class _LoginStepProviderScreenState extends State<LoginStepProviderScreen> {
       await Navigator.push(
         context,
         MaterialPageRoute(
-          settings: LoginStepAccountScreen.routSettings(),
+          settings: LoginStepAccountScreen.routeSettings(),
           builder: (context) => LoginStepAccountScreen(provider: provider),
         ),
       );
@@ -346,7 +346,7 @@ class _LoginStepProviderScreenState extends State<LoginStepProviderScreen> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: InAppWebViewScreen.routSettings("isp_login"),
+        settings: InAppWebViewScreen.routeSettings("isp_login"),
         builder: (context) => InAppWebViewScreen(
           title: "${tcontext.loginScreen.login} - ${provider.name}",
           url: url,

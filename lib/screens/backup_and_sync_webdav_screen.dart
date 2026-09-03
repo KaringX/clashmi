@@ -25,7 +25,7 @@ import 'package:path/path.dart' as path;
 import 'package:webdav_client_plus/webdav_client_plus.dart';
 
 class BackupAndSyncWebdavScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "BackupAndSyncWebdavScreen");
   }
 
@@ -516,7 +516,7 @@ class _BackupAndSyncWebdavScreenState
     bool? done = await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("webdav"),
+        settings: GroupScreen.routeSettings("webdav"),
         builder: (context) => GroupScreen(
           title: tcontext.meta.webdav,
           getOptions: getOptions,

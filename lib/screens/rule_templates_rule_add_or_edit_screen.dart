@@ -10,7 +10,7 @@ import 'package:clashmi/screens/widgets/sheet.dart';
 import 'package:flutter/material.dart';
 
 class RuleTemplatesRuleAddOrEditScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return RouteSettings(name: "RuleTemplateAddOrEditScreen");
   }
 
