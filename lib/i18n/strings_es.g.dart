@@ -434,7 +434,7 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get profileImport => 'Importar Archivo de Perfil';
 	@override String get profileAddUrlOrContent => 'Añadir Enlace de Perfil';
 	@override String profileUrlOrContent({required Object p}) => 'Enlace de Perfil ${p}';
-	@override String profileUrlOrContentHit({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [Requerido]';
+	@override String profileUrlOrContentHit({required Object p}) => '[Obligatorio]. Nota: Si tu enlace no es un ${_root.meta.profileUrlOrContent(p: p)} (por ejemplo, V2Ray o Sing-box), usa la herramienta de conversión en línea de Clash para convertirlo en un ${_root.meta.profileUrlOrContent(p: p)}';
 	@override String get profileUrlOrContentCannotEmpty => 'El enlace del perfil no puede estar vacío';
 }
 
@@ -837,7 +837,7 @@ extension on TranslationsEs {
 			'meta.profileImport' => 'Importar Archivo de Perfil',
 			'meta.profileAddUrlOrContent' => 'Añadir Enlace de Perfil',
 			'meta.profileUrlOrContent' => ({required Object p}) => 'Enlace de Perfil ${p}',
-			'meta.profileUrlOrContentHit' => ({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [Requerido]',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '[Obligatorio]. Nota: Si tu enlace no es un ${_root.meta.profileUrlOrContent(p: p)} (por ejemplo, V2Ray o Sing-box), usa la herramienta de conversión en línea de Clash para convertirlo en un ${_root.meta.profileUrlOrContent(p: p)}',
 			'meta.profileUrlOrContentCannotEmpty' => 'El enlace del perfil no puede estar vacío',
 			'permission.camera' => 'Cámara',
 			'permission.screen' => 'Grabación de Pantalla',

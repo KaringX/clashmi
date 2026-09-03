@@ -304,7 +304,7 @@
         "profileImport": "Импорт файла конфигурации",
         "profileAddUrlOrContent": "Добавление подписки",
         "profileUrlOrContent": "Ссылка на профиль $p",
-        "profileUrlOrContentHit": "@:{meta.profileUrlOrContent} [обязательно]",
+        "profileUrlOrContentHit": "[Обязательно]. Внимание: если ваша ссылка не является @:{meta.profileUrlOrContent} (например, V2Ray или Sing-box), сначала воспользуйтесь онлайн-конвертером Clash, чтобы преобразовать ее в @:{meta.profileUrlOrContent}",
         "profileUrlOrContentCannotEmpty": "Ссылка на подписку не может быть пустой"
     },
     "permission": {

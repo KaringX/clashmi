@@ -304,7 +304,7 @@
         "profileImport": "وارد‌کردن فایل پروفایل",
         "profileAddUrlOrContent": "افزودن لینک پروفایل",
         "profileUrlOrContent": "پیوند پیکربندی $p",
-        "profileUrlOrContentHit": "پیوند پیکربند@:{meta.profileUrlOrContent} [الزامی]",
+        "profileUrlOrContentHit": "[الزامی]، توجه: اگر پیوند شما @:{meta.profileUrlOrContent} نیست (برای نمونه V2Ray یا Sing-box)، ابتدا از ابزار تبدیل آنلاین Clash استفاده کنید تا آن را به @:{meta.profileUrlOrContent} تبدیل کنید",
         "profileUrlOrContentCannotEmpty": "لینک پروفایل نمی‌تواند خالی باشد"
     },
     "permission": {

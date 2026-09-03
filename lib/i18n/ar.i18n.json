@@ -304,7 +304,7 @@
         "profileImport": "استيراد ملف الملف الشخصي",
         "profileAddUrlOrContent": "إضافة رابط ملف التعريف",
         "profileUrlOrContent": "رابط إعداد $p",
-        "profileUrlOrContentHit": "رابط إعدا@:{meta.profileUrlOrContent} [مطلوب]",
+        "profileUrlOrContentHit": "[مطلوب]، ملاحظة: إذا لم يكن رابطك @:{meta.profileUrlOrContent} (مثل V2Ray أو Sing-box)، فاستخدم أداة التحويل عبر الإنترنت لـ Clash لتحويله إلى @:{meta.profileUrlOrContent}",
         "profileUrlOrContentCannotEmpty": "لا يمكن أن يكون رابط الملف الشخصي فارغًا"
     },
     "permission": {

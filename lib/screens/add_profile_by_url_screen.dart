@@ -216,6 +216,7 @@ class _AddProfileByUrlScreenState
                                   ),
                                   hintText: tcontext.meta
                                       .profileUrlOrContentHit(p: "Clash"),
+                                  hintStyle: const TextStyle(fontSize: 12),
                                 ),
                                 onChanged: (text) {},
                                 onEditingComplete: () async {

@@ -304,7 +304,7 @@
         "profileImport": "プロファイルファイルをインポート",
         "profileAddUrlOrContent": "プロファイルリンクを追加",
         "profileUrlOrContent": "$p設定リンク",
-        "profileUrlOrContentHit": "@:{meta.profileUrlOrContent} [必須]",
+        "profileUrlOrContentHit": "[必須]。注意: リンクが @:{meta.profileUrlOrContent} ではない場合（V2Ray または Sing-box など）は、先に Clash オンライン変換ツールを使用して @:{meta.profileUrlOrContent} に変換してください",
         "profileUrlOrContentCannotEmpty": "プロファイルリンクを空にすることはできません"
     },
     "permission": {

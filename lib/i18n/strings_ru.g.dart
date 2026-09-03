@@ -434,7 +434,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get profileImport => 'Импорт файла конфигурации';
 	@override String get profileAddUrlOrContent => 'Добавление подписки';
 	@override String profileUrlOrContent({required Object p}) => 'Ссылка на профиль ${p}';
-	@override String profileUrlOrContentHit({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [обязательно]';
+	@override String profileUrlOrContentHit({required Object p}) => '[Обязательно]. Внимание: если ваша ссылка не является ${_root.meta.profileUrlOrContent(p: p)} (например, V2Ray или Sing-box), сначала воспользуйтесь онлайн-конвертером Clash, чтобы преобразовать ее в ${_root.meta.profileUrlOrContent(p: p)}';
 	@override String get profileUrlOrContentCannotEmpty => 'Ссылка на подписку не может быть пустой';
 }
 
@@ -837,7 +837,7 @@ extension on TranslationsRu {
 			'meta.profileImport' => 'Импорт файла конфигурации',
 			'meta.profileAddUrlOrContent' => 'Добавление подписки',
 			'meta.profileUrlOrContent' => ({required Object p}) => 'Ссылка на профиль ${p}',
-			'meta.profileUrlOrContentHit' => ({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [обязательно]',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '[Обязательно]. Внимание: если ваша ссылка не является ${_root.meta.profileUrlOrContent(p: p)} (например, V2Ray или Sing-box), сначала воспользуйтесь онлайн-конвертером Clash, чтобы преобразовать ее в ${_root.meta.profileUrlOrContent(p: p)}',
 			'meta.profileUrlOrContentCannotEmpty' => 'Ссылка на подписку не может быть пустой',
 			'permission.camera' => 'Камера',
 			'permission.screen' => 'Запись экрана',

@@ -304,7 +304,7 @@
         "profileImport": "Importar Archivo de Perfil",
         "profileAddUrlOrContent": "Añadir Enlace de Perfil",
         "profileUrlOrContent": "Enlace de Perfil $p",
-        "profileUrlOrContentHit": "@:{meta.profileUrlOrContent} [Requerido]",
+        "profileUrlOrContentHit": "[Obligatorio]. Nota: Si tu enlace no es un @:{meta.profileUrlOrContent} (por ejemplo, V2Ray o Sing-box), usa la herramienta de conversión en línea de Clash para convertirlo en un @:{meta.profileUrlOrContent}",
         "profileUrlOrContentCannotEmpty": "El enlace del perfil no puede estar vacío"
     },
     "permission": {

@@ -434,7 +434,7 @@ class Translations$meta$zh_CN implements Translations$meta$en {
 	@override String get profileImport => '导入配置文件';
 	@override String get profileAddUrlOrContent => '添加配置链接';
 	@override String profileUrlOrContent({required Object p}) => '${p}配置链接';
-	@override String profileUrlOrContentHit({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [必填]';
+	@override String profileUrlOrContentHit({required Object p}) => '[必填], 注意:如果你的链接不是[${_root.meta.profileUrlOrContent(p: p)}](比如V2Ray或Sing-box),请先使用[Clash在线转换工具]将其转换为[${_root.meta.profileUrlOrContent(p: p)}]';
 	@override String get profileUrlOrContentCannotEmpty => '配置链接不能为空';
 }
 
@@ -837,7 +837,7 @@ extension on TranslationsZhCn {
 			'meta.profileImport' => '导入配置文件',
 			'meta.profileAddUrlOrContent' => '添加配置链接',
 			'meta.profileUrlOrContent' => ({required Object p}) => '${p}配置链接',
-			'meta.profileUrlOrContentHit' => ({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [必填]',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '[必填], 注意:如果你的链接不是[${_root.meta.profileUrlOrContent(p: p)}](比如V2Ray或Sing-box),请先使用[Clash在线转换工具]将其转换为[${_root.meta.profileUrlOrContent(p: p)}]',
 			'meta.profileUrlOrContentCannotEmpty' => '配置链接不能为空',
 			'permission.camera' => '摄像头',
 			'permission.screen' => '屏幕录制',

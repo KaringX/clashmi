@@ -434,7 +434,7 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get profileImport => 'プロファイルファイルをインポート';
 	@override String get profileAddUrlOrContent => 'プロファイルリンクを追加';
 	@override String profileUrlOrContent({required Object p}) => '${p}設定リンク';
-	@override String profileUrlOrContentHit({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [必須]';
+	@override String profileUrlOrContentHit({required Object p}) => '[必須]。注意: リンクが ${_root.meta.profileUrlOrContent(p: p)} ではない場合（V2Ray または Sing-box など）は、先に Clash オンライン変換ツールを使用して ${_root.meta.profileUrlOrContent(p: p)} に変換してください';
 	@override String get profileUrlOrContentCannotEmpty => 'プロファイルリンクを空にすることはできません';
 }
 
@@ -837,7 +837,7 @@ extension on TranslationsJa {
 			'meta.profileImport' => 'プロファイルファイルをインポート',
 			'meta.profileAddUrlOrContent' => 'プロファイルリンクを追加',
 			'meta.profileUrlOrContent' => ({required Object p}) => '${p}設定リンク',
-			'meta.profileUrlOrContentHit' => ({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [必須]',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '[必須]。注意: リンクが ${_root.meta.profileUrlOrContent(p: p)} ではない場合（V2Ray または Sing-box など）は、先に Clash オンライン変換ツールを使用して ${_root.meta.profileUrlOrContent(p: p)} に変換してください',
 			'meta.profileUrlOrContentCannotEmpty' => 'プロファイルリンクを空にすることはできません',
 			'permission.camera' => 'カメラ',
 			'permission.screen' => '画面録画',

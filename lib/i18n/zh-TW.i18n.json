@@ -304,7 +304,7 @@
         "profileImport": "匯入設定檔",
         "profileAddUrlOrContent": "添加設定連結",
         "profileUrlOrContent": "$p設定連結",
-        "profileUrlOrContentHit": "@:{meta.profileUrlOrContent} [必填]",
+        "profileUrlOrContentHit": "[必填]，注意: 如果你的連結不是 @:{meta.profileUrlOrContent}（例如 V2Ray 或 Sing-box），請先使用 Clash 線上轉換工具將其轉換為 @:{meta.profileUrlOrContent}",
         "profileUrlOrContentCannotEmpty": "設定連結不能為空"
     },
     "permission": {

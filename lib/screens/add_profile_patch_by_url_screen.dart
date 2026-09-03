@@ -190,8 +190,6 @@ class _AddProfilePatchByUrlScreenState
                                   decoration: InputDecoration(
                                     labelText: tcontext.meta
                                         .profileUrlOrContent(p: "Clash"),
-                                    hintText: tcontext.meta
-                                        .profileUrlOrContentHit(p: "Clash"),
                                   ),
                                   onChanged: (text) {},
                                   onEditingComplete: () async {

@@ -434,7 +434,7 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get profileImport => '프로필 파일 가져오기';
 	@override String get profileAddUrlOrContent => '프로필 링크 추가';
 	@override String profileUrlOrContent({required Object p}) => '${p} 설정 링크';
-	@override String profileUrlOrContentHit({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [필수]';
+	@override String profileUrlOrContentHit({required Object p}) => '[필수], 주의: 링크가 ${_root.meta.profileUrlOrContent(p: p)}가 아닌 경우(V2Ray 또는 Sing-box 등) 먼저 Clash 온라인 변환 도구를 사용하여 ${_root.meta.profileUrlOrContent(p: p)}로 변환하세요';
 	@override String get profileUrlOrContentCannotEmpty => '프로필 링크는 비워둘 수 없습니다';
 }
 
@@ -837,7 +837,7 @@ extension on TranslationsKo {
 			'meta.profileImport' => '프로필 파일 가져오기',
 			'meta.profileAddUrlOrContent' => '프로필 링크 추가',
 			'meta.profileUrlOrContent' => ({required Object p}) => '${p} 설정 링크',
-			'meta.profileUrlOrContentHit' => ({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [필수]',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '[필수], 주의: 링크가 ${_root.meta.profileUrlOrContent(p: p)}가 아닌 경우(V2Ray 또는 Sing-box 등) 먼저 Clash 온라인 변환 도구를 사용하여 ${_root.meta.profileUrlOrContent(p: p)}로 변환하세요',
 			'meta.profileUrlOrContentCannotEmpty' => '프로필 링크는 비워둘 수 없습니다',
 			'permission.camera' => '카메라',
 			'permission.screen' => '화면 녹화',

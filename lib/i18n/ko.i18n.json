@@ -304,7 +304,7 @@
         "profileImport": "프로필 파일 가져오기",
         "profileAddUrlOrContent": "프로필 링크 추가",
         "profileUrlOrContent": "$p 설정 링크",
-        "profileUrlOrContentHit": "@:{meta.profileUrlOrContent} [필수]",
+        "profileUrlOrContentHit": "[필수], 주의: 링크가 @:{meta.profileUrlOrContent}가 아닌 경우(V2Ray 또는 Sing-box 등) 먼저 Clash 온라인 변환 도구를 사용하여 @:{meta.profileUrlOrContent}로 변환하세요",
         "profileUrlOrContentCannotEmpty": "프로필 링크는 비워둘 수 없습니다"
     },
     "permission": {

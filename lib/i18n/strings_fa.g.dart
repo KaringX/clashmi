@@ -434,7 +434,7 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get profileImport => 'وارد‌کردن فایل پروفایل';
 	@override String get profileAddUrlOrContent => 'افزودن لینک پروفایل';
 	@override String profileUrlOrContent({required Object p}) => 'پیوند پیکربندی ${p}';
-	@override String profileUrlOrContentHit({required Object p}) => 'پیوند پیکربند${_root.meta.profileUrlOrContent(p: p)} [الزامی]';
+	@override String profileUrlOrContentHit({required Object p}) => '[الزامی]، توجه: اگر پیوند شما ${_root.meta.profileUrlOrContent(p: p)} نیست (برای نمونه V2Ray یا Sing-box)، ابتدا از ابزار تبدیل آنلاین Clash استفاده کنید تا آن را به ${_root.meta.profileUrlOrContent(p: p)} تبدیل کنید';
 	@override String get profileUrlOrContentCannotEmpty => 'لینک پروفایل نمی‌تواند خالی باشد';
 }
 
@@ -837,7 +837,7 @@ extension on TranslationsFa {
 			'meta.profileImport' => 'وارد‌کردن فایل پروفایل',
 			'meta.profileAddUrlOrContent' => 'افزودن لینک پروفایل',
 			'meta.profileUrlOrContent' => ({required Object p}) => 'پیوند پیکربندی ${p}',
-			'meta.profileUrlOrContentHit' => ({required Object p}) => 'پیوند پیکربند${_root.meta.profileUrlOrContent(p: p)} [الزامی]',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '[الزامی]، توجه: اگر پیوند شما ${_root.meta.profileUrlOrContent(p: p)} نیست (برای نمونه V2Ray یا Sing-box)، ابتدا از ابزار تبدیل آنلاین Clash استفاده کنید تا آن را به ${_root.meta.profileUrlOrContent(p: p)} تبدیل کنید',
 			'meta.profileUrlOrContentCannotEmpty' => 'لینک پروفایل نمی‌تواند خالی باشد',
 			'permission.camera' => 'دوربین',
 			'permission.screen' => 'ضبط صفحه',

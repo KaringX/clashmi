@@ -434,7 +434,7 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get profileImport => 'استيراد ملف الملف الشخصي';
 	@override String get profileAddUrlOrContent => 'إضافة رابط ملف التعريف';
 	@override String profileUrlOrContent({required Object p}) => 'رابط إعداد ${p}';
-	@override String profileUrlOrContentHit({required Object p}) => 'رابط إعدا${_root.meta.profileUrlOrContent(p: p)} [مطلوب]';
+	@override String profileUrlOrContentHit({required Object p}) => '[مطلوب]، ملاحظة: إذا لم يكن رابطك ${_root.meta.profileUrlOrContent(p: p)} (مثل V2Ray أو Sing-box)، فاستخدم أداة التحويل عبر الإنترنت لـ Clash لتحويله إلى ${_root.meta.profileUrlOrContent(p: p)}';
 	@override String get profileUrlOrContentCannotEmpty => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا';
 }
 
@@ -837,7 +837,7 @@ extension on TranslationsAr {
 			'meta.profileImport' => 'استيراد ملف الملف الشخصي',
 			'meta.profileAddUrlOrContent' => 'إضافة رابط ملف التعريف',
 			'meta.profileUrlOrContent' => ({required Object p}) => 'رابط إعداد ${p}',
-			'meta.profileUrlOrContentHit' => ({required Object p}) => 'رابط إعدا${_root.meta.profileUrlOrContent(p: p)} [مطلوب]',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '[مطلوب]، ملاحظة: إذا لم يكن رابطك ${_root.meta.profileUrlOrContent(p: p)} (مثل V2Ray أو Sing-box)، فاستخدم أداة التحويل عبر الإنترنت لـ Clash لتحويله إلى ${_root.meta.profileUrlOrContent(p: p)}',
 			'meta.profileUrlOrContentCannotEmpty' => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا',
 			'permission.camera' => 'الكاميرا',
 			'permission.screen' => 'تسجيل الشاشة',

@@ -304,7 +304,7 @@
         "profileImport": "导入配置文件",
         "profileAddUrlOrContent": "添加配置链接",
         "profileUrlOrContent": "$p配置链接",
-        "profileUrlOrContentHit": "@:{meta.profileUrlOrContent} [必填]",
+        "profileUrlOrContentHit": "[必填], 注意:如果你的链接不是[@:{meta.profileUrlOrContent}](比如V2Ray或Sing-box),请先使用[Clash在线转换工具]将其转换为[@:{meta.profileUrlOrContent}]",
         "profileUrlOrContentCannotEmpty": "配置链接不能为空"
     },
     "permission": {

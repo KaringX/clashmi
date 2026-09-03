@@ -1017,8 +1017,8 @@ class Translations$meta$en {
 	/// en: '$p Profile Link'
 	String profileUrlOrContent({required Object p}) => '${p} Profile Link';
 
-	/// en: '$p Profile Link [Required]'
-	String profileUrlOrContentHit({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [Required]';
+	/// en: '[Required]. Note: If your link is not a $p Profile Link (for example, V2Ray or Sing-box), use the Clash online conversion tool to convert it to a $p Profile Link'
+	String profileUrlOrContentHit({required Object p}) => '[Required]. Note: If your link is not a ${_root.meta.profileUrlOrContent(p: p)} (for example, V2Ray or Sing-box), use the Clash online conversion tool to convert it to a ${_root.meta.profileUrlOrContent(p: p)}';
 
 	/// en: 'Profile Link can not be empty'
 	String get profileUrlOrContentCannotEmpty => 'Profile Link can not be empty';
@@ -1507,7 +1507,7 @@ extension on Translations {
 			'meta.profileImport' => 'Import Profile File',
 			'meta.profileAddUrlOrContent' => 'Add Profile Link',
 			'meta.profileUrlOrContent' => ({required Object p}) => '${p} Profile Link',
-			'meta.profileUrlOrContentHit' => ({required Object p}) => '${_root.meta.profileUrlOrContent(p: p)} [Required]',
+			'meta.profileUrlOrContentHit' => ({required Object p}) => '[Required]. Note: If your link is not a ${_root.meta.profileUrlOrContent(p: p)} (for example, V2Ray or Sing-box), use the Clash online conversion tool to convert it to a ${_root.meta.profileUrlOrContent(p: p)}',
 			'meta.profileUrlOrContentCannotEmpty' => 'Profile Link can not be empty',
 			'permission.camera' => 'Camera',
 			'permission.screen' => 'Screen Recording',
