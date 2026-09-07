@@ -617,7 +617,6 @@ class ClashSettingManager {
     if (_setting.Secret == null || _setting.Secret!.isEmpty) {
       _setting.Secret = await getSecretFromDid();
     }
-    _setting.UnifiedDelay = true;
     _setting.ExternalUI = "";
     _setting.ExternalUIName = "";
     _setting.ExternalUIURL = "";
