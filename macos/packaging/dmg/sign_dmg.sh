@@ -39,6 +39,15 @@ cleanup() {
 trap cleanup EXIT
 
 hdiutil convert "$DMG_PATH" -format UDRW -o "$RW_DMG" >/dev/null
+
+# The UDRW image is sized to fit the original (compressed) contents exactly.
+# Re-signing every nested binary grows the volume (new CodeSignature/
+# CodeResources blobs), which can fill the volume mid-run and make codesign
+# fail with "internal error in Code Signing subsystem" on whichever file it
+# reaches once space runs out. Grow the volume with headroom before signing.
+ORIG_DMG_MB=$(( $(stat -f%z "$DMG_PATH") / 1024 / 1024 ))
+hdiutil resize -size "$((ORIG_DMG_MB + 300))m" "$RW_DMG" >/dev/null
+
 hdiutil attach "$RW_DMG" -nobrowse -noautoopen -mountpoint "$MOUNTPOINT" >/dev/null
 MOUNTED=1
 
