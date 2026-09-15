@@ -28,8 +28,8 @@ APP_BUNDLE_NAME="${APP_NAME}.app"
 ARTIFACT_NAME_PREFIX="clashmi"
 PKG_IDENTIFIER="com.nebula.clashmi.pkg"
 
-APP_SIGN_IDENTITY="Developer ID Application: SUPERNOVA NEBULA LLC (TNPM9PFX3W)"
-INSTALLER_SIGN_IDENTITY="Developer ID Installer: SUPERNOVA NEBULA LLC (TNPM9PFX3W)"
+APP_SIGN_IDENTITY="Developer ID Application: SUPERNOVA NEBULA LLC (URNMY895M2)"
+INSTALLER_SIGN_IDENTITY="Developer ID Installer: SUPERNOVA NEBULA LLC (URNMY895M2)"
 INSTALL_PATH="/Applications"
 
 resolve_default_pkg_path() {
@@ -44,23 +44,6 @@ resolve_default_app_path() {
   echo "$REPO_ROOT/build/macos/Build/Products/Release/${APP_BUNDLE_NAME}"
 }
 
-codesign_with_retry() {
-  # codesign intermittently fails with "internal error in Code Signing
-  # subsystem" (errSecInternalComponent) when securityd/amfid is momentarily
-  # busy, most often on the last item of a batch (e.g. a framework nested
-  # inside a .systemextension). This is a known flaky condition; retrying
-  # after a short pause resolves it without any other change.
-  local attempt
-  for attempt in 1 2 3 4 5; do
-    if codesign "$@"; then
-      return 0
-    fi
-    echo "warning: codesign failed (attempt $attempt/5) for: $*" >&2
-    sleep "$attempt"
-  done
-  return 1
-}
-
 resign_binary() {
   local item="$1"
   local entitlements_file
@@ -69,11 +52,11 @@ resign_binary() {
   # Reuse the binary's existing entitlements but strip the debug-only key.
   if codesign -d --entitlements :- "$item" > "$entitlements_file" 2>/dev/null && [[ -s "$entitlements_file" ]]; then
     /usr/libexec/PlistBuddy -c "Delete :com.apple.security.get-task-allow" "$entitlements_file" >/dev/null 2>&1 || true
-    codesign_with_retry --force --options runtime --timestamp \
+    codesign --force --options runtime --timestamp \
       --entitlements "$entitlements_file" \
       --sign "$APP_SIGN_IDENTITY" "$item"
   else
-    codesign_with_retry --force --options runtime --timestamp \
+    codesign --force --options runtime --timestamp \
       --sign "$APP_SIGN_IDENTITY" "$item"
   fi
   rm -f "$entitlements_file"
