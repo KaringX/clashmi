@@ -1,10 +1,12 @@
 title: Clash Mi
 contents:
+  - x: 192
+    y: 200
+    type: file
+    path: Clash Mi.app
   - x: 448
     y: 200
     type: link
     path: '/Applications'
-  - x: 192
-    y: 200
-    type: file
-    path: ../../../dist/macos/Clash Mi.app
+#code-sign:
+  #signing-identity: TNPM9PFX3W
