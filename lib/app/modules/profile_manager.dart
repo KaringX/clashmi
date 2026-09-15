@@ -614,6 +614,12 @@ class ProfileManager {
     )) {
       updateInterval ??= const Duration(hours: 24);
     }
+    if (result.data != null) {
+      final err = _handleHwidError(result.data!);
+      if (err != null) {
+        return ReturnResult(error: err);
+      }
+    }
     if (result.error != null) {
       bool success = false;
       if (!HttpUtils.isStatusError(result.error!) &&
@@ -653,7 +659,7 @@ class ProfileManager {
       }
       //final announce = result.data!.value("announce");
       //final supportUrl = result.data!.value("support-url");
-      //final xhwidLimit = result.data!.value("x-hwid-limit");
+
       final profileUpdateInterval = result.data!.value(
         "profile-update-interval",
       );
@@ -810,6 +816,12 @@ class ProfileManager {
         break;
       }
     }
+    if (result.data != null) {
+      final err = _handleHwidError(result.data!);
+      if (err != null) {
+        return err;
+      }
+    }
     if (result.error != null) {
       bool success = false;
       if (!HttpUtils.isStatusError(result.error!) &&
@@ -926,6 +938,27 @@ class ProfileManager {
       }
     });
     return result.error;
+  }
+
+  static ReturnResultError? _handleHwidError(HttpHeaders headers) {
+    final xHwidActive = headers.value("x-hwid-active");
+    final xHwidNotSupported = headers.value("x-hwid-not-supported");
+    final xHwidLimit = headers.value("x-hwid-limit");
+    final xHwidMaxDevicesReached = headers.value("x-hwid-max-devices-reached");
+    if (xHwidActive == "true" && xHwidNotSupported == "true") {
+      return ReturnResultError(
+        "The server has enabled HWID device restrictions; please enable your \"X-HWID\" and try again.",
+      );
+    }
+    if (xHwidLimit == "true") {
+      return ReturnResultError("You have reached the X-HWID limit.");
+    }
+    if (xHwidMaxDevicesReached == "true") {
+      return ReturnResultError(
+        "You have reached the maximum number of devices for X-HWID.",
+      );
+    }
+    return null;
   }
 
   static Future<ReturnResult<Tuple2<int, String>>> downloadByProviderProxy(
