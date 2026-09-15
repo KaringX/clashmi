@@ -51,6 +51,11 @@ hdiutil resize -size "$((ORIG_DMG_MB + 300))m" "$RW_DMG" >/dev/null
 hdiutil attach "$RW_DMG" -nobrowse -noautoopen -mountpoint "$MOUNTPOINT" >/dev/null
 MOUNTED=1
 
+# Spotlight indexing a freshly mounted volume can race with codesign writing
+# signatures, occasionally surfacing as "internal error in Code Signing
+# subsystem". Disable it on this scratch volume before signing.
+mdutil -i off "$MOUNTPOINT" >/dev/null 2>&1 || true
+
 APP_PATH="$MOUNTPOINT/$APP_BUNDLE_NAME"
 [[ -d "$APP_PATH" ]] || { echo "error: $APP_BUNDLE_NAME not found in $DMG_PATH" >&2; exit 1; }
 
