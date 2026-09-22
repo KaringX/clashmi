@@ -419,7 +419,10 @@ class ClashSettingManager {
     List<String>? appendRules,
   ) async {
     if (Platform.isIOS || Platform.isMacOS) {
-      _setting.Tun?.Stack = ClashTunStack.gvisor.name;
+      if ((_setting.Tun?.Stack != ClashTunStack.gvisor.name) &&
+          (_setting.Tun?.Stack != ClashTunStack.mips.name)) {
+        _setting.Tun?.Stack = ClashTunStack.gvisor.name;
+      }
     }
     _setting.DNS?.IPv6 = _setting.IPv6;
     if (_setting.IPv6 == true) {
