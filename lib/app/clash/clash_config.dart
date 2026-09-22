@@ -293,18 +293,20 @@ enum ClashGlobalClientFingerprint {
 enum ClashTunStack {
   mixed(name: "mixed"),
   gvisor(name: "gvisor"),
-  system(name: "system");
+  system(name: "system"),
+  mips(name: "mips");
 
   const ClashTunStack({required this.name});
   final String name;
   static List<String> toList() {
     if (Platform.isIOS || Platform.isMacOS) {
-      return [ClashTunStack.gvisor.name];
+      return [ClashTunStack.gvisor.name, ClashTunStack.mips.name];
     }
     return [
       ClashTunStack.gvisor.name,
       ClashTunStack.mixed.name,
       ClashTunStack.system.name,
+      ClashTunStack.mips.name,
     ];
   }
 }
