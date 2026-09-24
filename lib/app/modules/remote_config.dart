@@ -89,7 +89,6 @@ class RemoteConfig {
   static const String kDefaultDownload = "https://$kDefaultHost/download/";
   static const String kDefaultTelegram = "https://t.me/ClashMiApp";
   static const String kDefaultFollow = "https://github.com/KaringX/clashmi";
-  static const String kDefaultDonate = "http://$kDefaultHost/donate";
   static const String kDefaultDoc = "https://wiki.metacubex.one/config/";
   static const String kDefaultHtmlTools = "https://tools.karing.app/";
   static const String kDefaultConnect = "https://clashmi.app/go";
@@ -108,7 +107,6 @@ class RemoteConfig {
   String download = kDefaultDownload;
   String telegram = kDefaultTelegram;
   String follow = kDefaultFollow;
-  String donate = kDefaultDonate;
   String doc = kDefaultDoc;
   String htmlTools = kDefaultHtmlTools;
   String connect = kDefaultConnect;
@@ -136,9 +134,6 @@ class RemoteConfig {
     }
     if (follow != kDefaultFollow) {
       ret["follow"] = follow;
-    }
-    if (donate != kDefaultDonate) {
-      ret["donate_url"] = donate;
     }
     if (doc != kDefaultDoc) {
       ret["doc"] = doc;
@@ -181,10 +176,6 @@ class RemoteConfig {
     download = map["download"] ?? kDefaultDownload;
     telegram = map["telegram"] ?? kDefaultTelegram;
     follow = map["follow"] ?? kDefaultFollow;
-    donate = map["donate_url"] ?? kDefaultDonate;
-    if (!isSelfHost(donate, host)) {
-      donate = "";
-    }
     doc = map["doc"] ?? kDefaultDoc;
     htmlTools = map["htmltools"] ?? kDefaultHtmlTools;
     connect = map["connect"] ?? kDefaultConnect;
