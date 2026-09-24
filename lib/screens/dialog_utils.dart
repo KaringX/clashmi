@@ -26,8 +26,8 @@ class DialogUtils {
     StackTrace stackTrace, {
     String text = "",
   }) async {
-    String alertText =
-        "exception:$text\n${exception.toString()}\n${stackTrace.toString()}";
+    String stack = stackTrace.toString().split("\n").take(5).join("\n");
+    String alertText = "exception:$text\n${exception.toString()}\n\n$stack}";
     Log.w(alertText);
     return await showAlertDialog(
       context,
