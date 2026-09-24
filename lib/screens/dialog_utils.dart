@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:clashmi/app/utils/app_utils.dart';
+import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/widgets/dropdown.dart';
@@ -19,6 +20,23 @@ class DialogUtilsResult<T> {
 
 class DialogUtils {
   static Future<void> Function(BuildContext context, String text)? faqCallback;
+  static Future<void> showExceptionDialog(
+    BuildContext context,
+    Object exception,
+    StackTrace stackTrace, {
+    String text = "",
+  }) async {
+    String alertText =
+        "exception:$text\n${exception.toString()}\n${stackTrace.toString()}";
+    Log.w(alertText);
+    return await showAlertDialog(
+      context,
+      alertText,
+      showCopy: true,
+      showFAQ: true,
+      withVersion: true,
+    );
+  }
 
   static Future<void> showAlertDialog(
     BuildContext context,

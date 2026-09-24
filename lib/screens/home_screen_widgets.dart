@@ -1057,17 +1057,11 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     try {
       final path = await PathUtils.serviceCoreRuntimeProfileFilePath();
       content = await File(path).readAsString();
-    } catch (err) {
+    } catch (err, stacktrace) {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
       return;
     }
     if (!mounted) {

@@ -603,13 +603,7 @@ class GroupHelper {
       if (!context.mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 
@@ -695,13 +689,7 @@ class GroupHelper {
       if (!context.mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
       return;
     }
     await VPNService.uninit();
@@ -752,17 +740,11 @@ class GroupHelper {
             await SharePlus.instance.share(
               ShareParams(files: [XFile(filePath)], sharePositionOrigin: rect),
             );
-          } catch (err) {
+          } catch (err, stacktrace) {
             if (!context.mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(
-              context,
-              err.toString(),
-              showCopy: true,
-              showFAQ: true,
-              withVersion: true,
-            );
+            DialogUtils.showExceptionDialog(context, err, stacktrace);
           }
         }
       }
@@ -770,13 +752,7 @@ class GroupHelper {
       if (!context.mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 

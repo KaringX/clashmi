@@ -236,13 +236,7 @@ class _BackupAndSyncLanSyncScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
       return;
     }
   }
@@ -296,19 +290,13 @@ class _BackupAndSyncLanSyncScreenState
     }
     try {
       await result.item2.call(httpRequest);
-    } catch (err) {
+    } catch (err, stacktrace) {
       _sendServerInnerError(httpRequest.response);
       Future.delayed(const Duration(microseconds: 10), () async {
         if (!mounted) {
           return;
         }
-        DialogUtils.showAlertDialog(
-          context,
-          err.toString(),
-          showCopy: true,
-          showFAQ: true,
-          withVersion: true,
-        );
+        DialogUtils.showExceptionDialog(context, err, stacktrace);
       });
     }
   }

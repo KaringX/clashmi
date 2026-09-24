@@ -93,14 +93,8 @@ class SchemeHandler {
           xhwid = false;
         }
       }
-    } catch (err) {
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+    } catch (err, stacktrace) {
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
       return ReturnResultError(err.toString());
     }
     name ??= uri.fragment;

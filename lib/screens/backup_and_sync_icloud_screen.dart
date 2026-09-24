@@ -320,13 +320,7 @@ class _BackupAndSyncIcloudScreenState
       }
       _uploading = false;
       setState(() {});
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 

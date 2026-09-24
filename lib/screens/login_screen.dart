@@ -612,17 +612,11 @@ class _LoginScreenState extends State<LoginScreen> {
           _passwordController.text.trim(),
         );
       }
-    } catch (e) {
+    } catch (err, stacktrace) {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        e.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
 
     if (!mounted) {
