@@ -32,6 +32,14 @@ APP_SIGN_IDENTITY="Developer ID Application: SUPERNOVA NEBULA LLC (TNPM9PFX3W)"
 INSTALLER_SIGN_IDENTITY="Developer ID Installer: SUPERNOVA NEBULA LLC (TNPM9PFX3W)"
 INSTALL_PATH="/Applications"
 
+resove_version(){
+  local version build_name build_number
+  version="$(awk '/^version:/{print $2; exit}' "$REPO_ROOT/pubspec.yaml")"
+  build_name="${version%%+*}"
+  build_number="${version##*+}"
+  echo "${build_name}.${build_number}"
+}
+
 resolve_default_pkg_path() {
   local version build_name build_number
   version="$(awk '/^version:/{print $2; exit}' "$REPO_ROOT/pubspec.yaml")"
@@ -160,7 +168,7 @@ case "$MODE" in
     cat > "$DISTRIBUTION_XML" <<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <installer-gui-script minSpecVersion="1">
-    <title>$APP_NAME</title>
+    <title>$APP_NAME $(resove_version)</title>
     <options customize="never" require-scripts="false" rootVolumeOnly="true"/>
     <domains enable_anywhere="false" enable_currentUserHome="false" enable_localSystem="true"/>
     <choices-outline>
