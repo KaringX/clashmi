@@ -45,7 +45,34 @@ MOUNTED=1
 APP_PATH="$MOUNTPOINT/$APP_BUNDLE_NAME"
 [[ -d "$APP_PATH" ]] || { echo "error: $APP_BUNDLE_NAME not found in $DMG_PATH" >&2; exit 1; }
 
-bash "$REPO_ROOT/macos/packaging/pkg/resign_app.sh" app "$APP_PATH"
+SIGNED_APP_PATH="$WORKDIR/$APP_BUNDLE_NAME"
+ditto "$APP_PATH" "$SIGNED_APP_PATH"
+
+bash "$REPO_ROOT/macos/packaging/pkg/resign_app.sh" app "$SIGNED_APP_PATH"
+
+APP_ZIP="$WORKDIR/$APP_BUNDLE_NAME.zip"
+KEYCHAIN_PROFILE="${NOTARY_PROFILE:-karingx-notary}"
+ditto -c -k --keepParent "$SIGNED_APP_PATH" "$APP_ZIP"
+echo "Submitting $APP_BUNDLE_NAME for notarization (profile: $KEYCHAIN_PROFILE)..."
+SUBMIT_OUTPUT="$(xcrun notarytool submit "$APP_ZIP" --keychain-profile "$KEYCHAIN_PROFILE" --wait)"
+echo "$SUBMIT_OUTPUT"
+SUBMISSION_ID="$(echo "$SUBMIT_OUTPUT" | awk '/id:/{print $2; exit}')"
+if ! echo "$SUBMIT_OUTPUT" | grep -q "status: Accepted"; then
+  echo "App notarization was not accepted, fetching detailed log for submission $SUBMISSION_ID..." >&2
+  if [[ -n "$SUBMISSION_ID" ]]; then
+    APP_NOTARY_LOG="$WORKDIR/notary_app_log.json"
+    xcrun notarytool log "$SUBMISSION_ID" --keychain-profile "$KEYCHAIN_PROFILE" "$APP_NOTARY_LOG" || true
+    cat "$APP_NOTARY_LOG" >&2 || true
+  fi
+  exit 1
+fi
+
+echo "Stapling notarization ticket to $APP_BUNDLE_NAME..."
+xcrun stapler staple "$SIGNED_APP_PATH"
+xcrun stapler validate "$SIGNED_APP_PATH"
+
+rm -rf "$APP_PATH"
+ditto "$SIGNED_APP_PATH" "$APP_PATH"
 
 hdiutil detach "$MOUNTPOINT" >/dev/null
 MOUNTED=0
