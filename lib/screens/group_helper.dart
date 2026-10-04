@@ -1992,6 +1992,7 @@ class GroupHelper {
             onSwitch: (bool value) async {
               setting.AllowLan = value ? false : null;
               if (!value) {
+                setting.BindAddress = null;
                 setting.Authentication = null;
               }
             },
