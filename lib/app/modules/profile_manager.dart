@@ -850,6 +850,9 @@ class ProfileManager {
         }
       }
       if (!success) {
+        Log.w(
+          "profile download failed :${profile.url}  ${result.error!.message.toString()}",
+        );
         updating.remove(id);
         Future.delayed(const Duration(milliseconds: 10), () async {
           for (var event in onEventUpdate) {

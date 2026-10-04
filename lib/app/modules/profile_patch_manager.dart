@@ -688,6 +688,10 @@ class ProfilePatchManager {
           profile.remark = result.data!;
         }
       }
+    } else {
+      Log.w(
+        "profile patch download failed :${profile.url}  ${result.error!.message.toString()}",
+      );
     }
     await save();
     updating.remove(id);
