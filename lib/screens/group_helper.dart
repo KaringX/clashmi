@@ -2011,6 +2011,21 @@ class GroupHelper {
         ),
         GroupItemOptions(
           textFormFieldOptions: GroupItemTextFieldOptions(
+            name: "IP",
+            tips: "bind-address",
+            text: setting.BindAddress,
+            hint: "*",
+            readOnly: setting.AllowLan != true,
+            textWidthPercent: 0.5,
+            onChanged: setting.AllowLan != true
+                ? null
+                : (String value) {
+                    setting.BindAddress = value;
+                  },
+          ),
+        ),
+        GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
             name: tcontext.meta.authentication,
             tips: "authentication",
             text: setting.Authentication?.first,
