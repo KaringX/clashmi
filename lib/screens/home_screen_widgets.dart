@@ -208,8 +208,10 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         tranfficExpire = currentProfile.getExpireTime(settings.languageTag);
       }
     }
-    bool notice =
+    final notice =
         BoardProviderNoticeManager.getFirstUnread(provider?.id ?? "") != null;
+    final canShowVpnProvider =
+        provider != null && GroupHelper.canShowVpnProvider(provider);
     var widgets = [
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -390,12 +392,11 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
           ],
         ),
         trailing: SizedBox(
-          width: 100,
+          width: canShowVpnProvider ? 100 : 100 - 40,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              if (provider != null &&
-                  GroupHelper.canShowVpnProvider(provider)) ...[
+              if (canShowVpnProvider) ...[
                 SizedBox(
                   width: 40,
                   height: 40,
