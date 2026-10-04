@@ -259,8 +259,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   Widget build(BuildContext context) {
     var themes = Provider.of<Themes>(context, listen: false);
     final theme = Theme.of(context);
-    Color? color = theme.colorScheme.surface;
+    Color? color;
     final decoration = getBackgroundDecoration();
+    if (decoration != null) {
+      color = theme.colorScheme.surface;
+    }
 
     return Scaffold(
       appBar: PreferredSize(
@@ -316,9 +319,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        HomeScreenWidgetPart1(),
+                        HomeScreenWidgetPart1(
+                          hasDecoration: hasBackgroundDecoration,
+                        ),
                         SizedBox(height: 15),
                         HomeScreenWidgetPart2(
+                          hasDecoration: hasBackgroundDecoration,
                           onUpdate: () {
                             setState(() {});
                           },
@@ -335,11 +341,49 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     );
   }
 
+  bool hasBackgroundDecoration() {
+    var settingConfig = SettingManager.getConfig();
+    if (settingConfig.uiScreen.backgroundImageType ==
+        SettingConfigItemUIScreen.backgroundTypeDisable) {
+      return false;
+    }
+    if (settingConfig.uiScreen.backgroundImageType ==
+            SettingConfigItemUIScreen.backgroundTypeRemote &&
+        settingConfig.uiScreen.backgroundImageUrl.isNotEmpty &&
+        SettingConfigItemUIScreen.fastCachedImageConfigInited) {
+      final backgroundImageUrl = settingConfig.uiScreen.backgroundImageUrl;
+      if (_invalidBackgroundImageUrl == backgroundImageUrl) {
+        return false;
+      }
+    }
+    if (settingConfig.uiScreen.backgroundImageType ==
+            SettingConfigItemUIScreen.backgroundTypeLocal &&
+        settingConfig.uiScreen.backgroundImageLocal.isNotEmpty) {
+      return true;
+    }
+    if (settingConfig.uiScreen.backgroundImageType ==
+            SettingConfigItemUIScreen.backgroundTypeRemote &&
+        settingConfig.uiScreen.backgroundImageUrl.isNotEmpty &&
+        SettingConfigItemUIScreen.fastCachedImageConfigInited) {
+      return true;
+    }
+    return false;
+  }
+
   BoxDecoration? getBackgroundDecoration() {
     var settingConfig = SettingManager.getConfig();
     if (settingConfig.uiScreen.backgroundImageType ==
         SettingConfigItemUIScreen.backgroundTypeDisable) {
       return null;
+    }
+    if (settingConfig.uiScreen.backgroundImageType ==
+            SettingConfigItemUIScreen.backgroundTypeRemote &&
+        settingConfig.uiScreen.backgroundImageUrl.isNotEmpty &&
+        SettingConfigItemUIScreen.fastCachedImageConfigInited) {
+      final backgroundImageUrl = settingConfig.uiScreen.backgroundImageUrl;
+      if (_invalidBackgroundImageUrl == backgroundImageUrl) {
+        return null;
+      }
     }
     if (settingConfig.uiScreen.backgroundImageType ==
             SettingConfigItemUIScreen.backgroundTypeLocal &&
@@ -358,9 +402,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         settingConfig.uiScreen.backgroundImageUrl.isNotEmpty &&
         SettingConfigItemUIScreen.fastCachedImageConfigInited) {
       final backgroundImageUrl = settingConfig.uiScreen.backgroundImageUrl;
-      if (_invalidBackgroundImageUrl == backgroundImageUrl) {
-        return null;
-      }
 
       return BoxDecoration(
         image: DecorationImage(

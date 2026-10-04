@@ -58,7 +58,8 @@ class ProxyHttpOverrides extends HttpOverrides {
 }
 
 class HomeScreenWidgetPart1 extends StatefulWidget {
-  const HomeScreenWidgetPart1({super.key});
+  final bool Function() hasDecoration;
+  const HomeScreenWidgetPart1({super.key, required this.hasDecoration});
 
   @override
   State<HomeScreenWidgetPart1> createState() => _HomeScreenWidgetPart1();
@@ -183,8 +184,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     final theme = Theme.of(context);
-    int alpha = SettingManager.getConfig().uiScreen.getWidgetAlpha();
-    Color? color = theme.cardTheme.color;
+
     bool connected = _state == FlutterVpnServiceState.connected;
     final currentProfile = ProfileManager.getCurrent();
     final currentProfileName = currentProfile?.getShowName() ?? "";
@@ -193,6 +193,12 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     );
 
     final settings = SettingManager.getConfig();
+    Color? color;
+    int alpha = settings.uiScreen.getWidgetAlpha();
+    if (widget.hasDecoration()) {
+      color = theme.colorScheme.surface;
+    }
+
     String tranffic = "";
     Tuple2<bool, String>? tranfficExpire;
     if (currentProfile != null && currentProfile.isRemote()) {
@@ -324,7 +330,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
         height: 70,
         child: SegmentedElevatedButton(
-          background: color?.withAlpha(alpha),
+          background: theme.colorScheme.surface.withAlpha(alpha),
           segments: [
             SegemntedElevatedButtonItem(
               value: ClashConfigsMode.rule.index,
@@ -1101,8 +1107,13 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
 }
 
 class HomeScreenWidgetPart2 extends StatefulWidget {
+  final bool Function() hasDecoration;
   final Function()? onUpdate;
-  const HomeScreenWidgetPart2({super.key, this.onUpdate});
+  const HomeScreenWidgetPart2({
+    super.key,
+    this.onUpdate,
+    required this.hasDecoration,
+  });
 
   @override
   State<HomeScreenWidgetPart2> createState() => _HomeScreenWidgetPart2();
@@ -1119,9 +1130,13 @@ class _HomeScreenWidgetPart2 extends State<HomeScreenWidgetPart2> {
     AutoUpdateCheckVersion versionCheck = AutoUpdateManager.getVersionCheck();
     final tcontext = Translations.of(context);
     final theme = Theme.of(context);
-    Color? color = theme.cardTheme.color;
-    int alpha = SettingManager.getConfig().uiScreen.getWidgetAlpha();
 
+    final settings = SettingManager.getConfig();
+    Color? color;
+    int alpha = settings.uiScreen.getWidgetAlpha();
+    if (widget.hasDecoration()) {
+      color = theme.colorScheme.surface;
+    }
     var widgets = [
       ListTile(
         title: Text(tcontext.meta.settingApp),
