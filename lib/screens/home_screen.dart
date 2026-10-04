@@ -8,6 +8,7 @@ import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/auto_update_manager.dart';
 import 'package:clashmi/app/modules/biz.dart';
 import 'package:clashmi/app/modules/remote_config_manager.dart';
+import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
 import 'package:clashmi/app/utils/app_utils.dart';
 import 'package:clashmi/app/utils/error_reporter_utils.dart';
@@ -18,12 +19,14 @@ import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/home_screen_widgets.dart';
 import 'package:clashmi/screens/language_settings_screen.dart';
+import 'package:clashmi/screens/local_image_provider.dart';
 import 'package:clashmi/screens/scheme_handler.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/user_agreement_screen.dart';
 import 'package:clashmi/screens/webview_helper.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
@@ -50,7 +53,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   bool _onInitAllFinished = false;
   String _initUrl = "";
-
+  String? _invalidBackgroundImageUrl;
   @override
   void initState() {
     super.initState();
@@ -255,63 +258,134 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   @override
   Widget build(BuildContext context) {
     var themes = Provider.of<Themes>(context, listen: false);
+    final theme = Theme.of(context);
+    Color? color = theme.colorScheme.surface;
+    final decoration = getBackgroundDecoration();
 
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
         child: AppBar(
           systemOverlayStyle: SystemUiOverlayStyle(
-            systemNavigationBarIconBrightness: themes
-                .getStatusBarIconBrightness(context),
-            systemNavigationBarColor: Colors.transparent,
+            systemNavigationBarIconBrightness: decoration == null
+                ? themes.getStatusBarIconBrightness(context)
+                : Brightness
+                      .light, //must be light if has decoration, or transparent does not work if light theme on android
+            systemNavigationBarColor: decoration == null
+                ? color
+                : Colors.transparent,
             systemNavigationBarDividerColor: Colors.transparent,
+            statusBarColor: decoration == null ? color : Colors.transparent,
             statusBarBrightness: themes.getStatusBarBrightness(context),
             statusBarIconBrightness: themes.getStatusBarIconBrightness(context),
           ),
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppUtils.getName(),
-                        style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: decoration,
+        child: SafeArea(
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppUtils.getName(),
+                          style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 10),
-                    ],
-                  ),
-                ],
+                        SizedBox(height: 10),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      HomeScreenWidgetPart1(),
-                      SizedBox(height: 15),
-                      HomeScreenWidgetPart2(),
-                    ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        HomeScreenWidgetPart1(),
+                        SizedBox(height: 15),
+                        HomeScreenWidgetPart2(
+                          onUpdate: () {
+                            setState(() {});
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  BoxDecoration? getBackgroundDecoration() {
+    var settingConfig = SettingManager.getConfig();
+    if (settingConfig.uiScreen.backgroundImageType ==
+        SettingConfigItemUIScreen.backgroundTypeDisable) {
+      return null;
+    }
+    if (settingConfig.uiScreen.backgroundImageType ==
+            SettingConfigItemUIScreen.backgroundTypeLocal &&
+        settingConfig.uiScreen.backgroundImageLocal.isNotEmpty) {
+      return BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.fitHeight,
+          image: LocalImageProvider(
+            settingConfig.uiScreen.backgroundImageLocal,
+          ),
+        ),
+      );
+    }
+    if (settingConfig.uiScreen.backgroundImageType ==
+            SettingConfigItemUIScreen.backgroundTypeRemote &&
+        settingConfig.uiScreen.backgroundImageUrl.isNotEmpty &&
+        SettingConfigItemUIScreen.fastCachedImageConfigInited) {
+      final backgroundImageUrl = settingConfig.uiScreen.backgroundImageUrl;
+      if (_invalidBackgroundImageUrl == backgroundImageUrl) {
+        return null;
+      }
+
+      return BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.fitHeight,
+          image: FastCachedImageProvider(backgroundImageUrl),
+          onError: (Object error, StackTrace? stackTrace) {
+            Log.w(
+              "fast_cached_network_image background image: $backgroundImageUrl error:${error.toString()}",
+            );
+            unawaited(
+              FastCachedImageConfig.deleteCachedImage(
+                imageUrl: backgroundImageUrl,
+                showLog: false,
+              ),
+            );
+            if (_invalidBackgroundImageUrl == backgroundImageUrl || !mounted) {
+              return;
+            }
+            setState(() {
+              _invalidBackgroundImageUrl = backgroundImageUrl;
+            });
+          },
+        ),
+      );
+    }
+    return null;
   }
 }

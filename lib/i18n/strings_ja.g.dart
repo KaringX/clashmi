@@ -16,20 +16,21 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsJa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ja,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ja>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsJa _root = this; // ignore: unused_field
 
@@ -380,7 +381,14 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get requestNeedsUserApproval => '1. [システム設定]-[プライバシーとセキュリティ]でClash Miによるシステム拡張機能のインストールを[許可]してください\n2. [システム設定]-[一般]-[ログイン項目と拡張機能]-[ネットワーク拡張機能]で[clashmiServiceSE]を有効にしてください\n完了後に再接続してください';
 	@override String get FullDiskAccessPermissionRequired => '[システム設定]-[プライバシーとセキュリティ]-[フルディスクアクセス]でclashmiServiceSEの権限を有効にし、再接続してください。';
 	@override String get proxy => 'プロキシ';
+	@override String get homeScreen => 'ホーム画面';
 	@override String get theme => 'テーマ';
+	@override String get widgetsAlpha => 'ウィジェットの透明度';
+	@override String get widgetsEmpty => '利用可能なウィジェットはありません';
+	@override String get backgroundImage => '背景画像';
+	@override String get path => 'パス';
+	@override String get local => 'ローカル';
+	@override String get remote => 'リモート';
 	@override String get tvMode => 'TVモード';
 	@override String get autoUpdate => '自動更新';
 	@override String get updateChannel => '自動更新チャンネル';
@@ -783,7 +791,14 @@ extension on TranslationsJa {
 			'meta.requestNeedsUserApproval' => '1. [システム設定]-[プライバシーとセキュリティ]でClash Miによるシステム拡張機能のインストールを[許可]してください\n2. [システム設定]-[一般]-[ログイン項目と拡張機能]-[ネットワーク拡張機能]で[clashmiServiceSE]を有効にしてください\n完了後に再接続してください',
 			'meta.FullDiskAccessPermissionRequired' => '[システム設定]-[プライバシーとセキュリティ]-[フルディスクアクセス]でclashmiServiceSEの権限を有効にし、再接続してください。',
 			'meta.proxy' => 'プロキシ',
+			'meta.homeScreen' => 'ホーム画面',
 			'meta.theme' => 'テーマ',
+			'meta.widgetsAlpha' => 'ウィジェットの透明度',
+			'meta.widgetsEmpty' => '利用可能なウィジェットはありません',
+			'meta.backgroundImage' => '背景画像',
+			'meta.path' => 'パス',
+			'meta.local' => 'ローカル',
+			'meta.remote' => 'リモート',
 			'meta.tvMode' => 'TVモード',
 			'meta.autoUpdate' => '自動更新',
 			'meta.updateChannel' => '自動更新チャンネル',

@@ -183,7 +183,9 @@ Future<void> run(List<String> args) async {
   }
   try {
     await FastCachedImageConfig.init(subDir: AppUtils.getName());
+    SettingConfigItemUIScreen.fastCachedImageConfigInited = true;
   } catch (err, stacktrace) {
+    SettingConfigItemUIScreen.fastCachedImageConfigInited = false;
     Log.w("FastCachedImageConfig.init() exception: ${err.toString()}");
   }
   if (Platform.isAndroid) {

@@ -16,20 +16,21 @@ class TranslationsFa with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsFa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.fa,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <fa>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsFa _root = this; // ignore: unused_field
 
@@ -380,7 +381,14 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get requestNeedsUserApproval => '۱. لطفاً به Clash Mi اجازه دهید افزونه‌های سیستمی را در [تنظیمات سیستم] - [حریم خصوصی و امنیت] نصب کند. ۲. : [تنظیمات سیستم] - [عمومی] - [موارد ورود و افزونه‌ها - افزونه‌های شبکه] [clashmiServiceSE] را فعال کنید. پس از اتمام، دوباره متصل شوید.';
 	@override String get FullDiskAccessPermissionRequired => 'لطفاً مجوز clashmiServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 	@override String get proxy => 'بازیگری';
+	@override String get homeScreen => 'صفحه‌ خانه';
 	@override String get theme => 'موضوع';
+	@override String get widgetsAlpha => 'شفافیت ابزارک‌ها';
+	@override String get widgetsEmpty => 'هیچ ویجتی موجود نیست';
+	@override String get backgroundImage => 'تصویر پس زمینه';
+	@override String get path => 'مسیر';
+	@override String get local => 'محلی';
+	@override String get remote => 'از راه دور';
 	@override String get tvMode => 'حالت تلویزیون';
 	@override String get autoUpdate => 'به روز رسانی خودکار';
 	@override String get updateChannel => 'کانال به‌روزرسانی خودکار';
@@ -783,7 +791,14 @@ extension on TranslationsFa {
 			'meta.requestNeedsUserApproval' => '۱. لطفاً به Clash Mi اجازه دهید افزونه‌های سیستمی را در [تنظیمات سیستم] - [حریم خصوصی و امنیت] نصب کند. ۲. : [تنظیمات سیستم] - [عمومی] - [موارد ورود و افزونه‌ها - افزونه‌های شبکه] [clashmiServiceSE] را فعال کنید. پس از اتمام، دوباره متصل شوید.',
 			'meta.FullDiskAccessPermissionRequired' => 'لطفاً مجوز clashmiServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.',
 			'meta.proxy' => 'بازیگری',
+			'meta.homeScreen' => 'صفحه‌ خانه',
 			'meta.theme' => 'موضوع',
+			'meta.widgetsAlpha' => 'شفافیت ابزارک‌ها',
+			'meta.widgetsEmpty' => 'هیچ ویجتی موجود نیست',
+			'meta.backgroundImage' => 'تصویر پس زمینه',
+			'meta.path' => 'مسیر',
+			'meta.local' => 'محلی',
+			'meta.remote' => 'از راه دور',
 			'meta.tvMode' => 'حالت تلویزیون',
 			'meta.autoUpdate' => 'به روز رسانی خودکار',
 			'meta.updateChannel' => 'کانال به‌روزرسانی خودکار',

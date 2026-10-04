@@ -16,20 +16,21 @@ class TranslationsEs with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsEs({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.es,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <es>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsEs _root = this; // ignore: unused_field
 
@@ -380,7 +381,14 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get requestNeedsUserApproval => '1. Por favor [Permitir] que Clash Mi instale extensiones del sistema en [Ajustes del Sistema]-[Privacidad y Seguridad]\n2. [Ajustes del Sistema]-[General]-[Extensiones de Ítems de Inicio]-[Extensión de Red] habilite [clashmiServiceSE]\nreconnecte después de completar';
 	@override String get FullDiskAccessPermissionRequired => 'Por favor, habilite el permiso clashmiServiceSE en [Ajustes del Sistema]-[Privacidad y Seguridad]-[Acceso Total al Disco] y vuelva a conectar.';
 	@override String get proxy => 'Proxy';
+	@override String get homeScreen => 'Pantalla de inicio';
 	@override String get theme => 'Tema';
+	@override String get widgetsAlpha => 'Transparencia de widgets';
+	@override String get widgetsEmpty => 'No hay widgets disponibles';
+	@override String get backgroundImage => 'Imagen de fondo';
+	@override String get path => 'Ruta';
+	@override String get local => 'Local';
+	@override String get remote => 'Remoto';
 	@override String get tvMode => 'Modo TV';
 	@override String get autoUpdate => 'Actualización Automática';
 	@override String get updateChannel => 'Canal de Actualización Automática';
@@ -783,7 +791,14 @@ extension on TranslationsEs {
 			'meta.requestNeedsUserApproval' => '1. Por favor [Permitir] que Clash Mi instale extensiones del sistema en [Ajustes del Sistema]-[Privacidad y Seguridad]\n2. [Ajustes del Sistema]-[General]-[Extensiones de Ítems de Inicio]-[Extensión de Red] habilite [clashmiServiceSE]\nreconnecte después de completar',
 			'meta.FullDiskAccessPermissionRequired' => 'Por favor, habilite el permiso clashmiServiceSE en [Ajustes del Sistema]-[Privacidad y Seguridad]-[Acceso Total al Disco] y vuelva a conectar.',
 			'meta.proxy' => 'Proxy',
+			'meta.homeScreen' => 'Pantalla de inicio',
 			'meta.theme' => 'Tema',
+			'meta.widgetsAlpha' => 'Transparencia de widgets',
+			'meta.widgetsEmpty' => 'No hay widgets disponibles',
+			'meta.backgroundImage' => 'Imagen de fondo',
+			'meta.path' => 'Ruta',
+			'meta.local' => 'Local',
+			'meta.remote' => 'Remoto',
 			'meta.tvMode' => 'Modo TV',
 			'meta.autoUpdate' => 'Actualización Automática',
 			'meta.updateChannel' => 'Canal de Actualización Automática',

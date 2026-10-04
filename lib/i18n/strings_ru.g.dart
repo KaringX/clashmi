@@ -16,20 +16,21 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ru,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ru>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsRu _root = this; // ignore: unused_field
 
@@ -380,7 +381,14 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get requestNeedsUserApproval => '1. Пожалуйста, [разрешите] Clash Mi устанавливать системные расширения в [Системные настройки] - [Конфиденциальность и безопасность]. 2. : [Системные настройки] - [Основные] - [Элементы входа и расширения - Сетевые расширения] Включите [clashmiServiceSE]. После завершения подключитесь снова.';
 	@override String get FullDiskAccessPermissionRequired => 'Включите разрешение clashmiServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Полный доступ к диску] и переподключитесь.';
 	@override String get proxy => 'Прокси';
+	@override String get homeScreen => 'Оформление главного экрана';
 	@override String get theme => 'Тема';
+	@override String get widgetsAlpha => 'Прозрачность виджетов';
+	@override String get widgetsEmpty => 'Нет доступных виджетов';
+	@override String get backgroundImage => 'Фоновое изображение';
+	@override String get path => 'путь';
+	@override String get local => 'локальный';
+	@override String get remote => 'удаленный';
 	@override String get tvMode => 'Режим ТВ';
 	@override String get autoUpdate => 'Автоматические обновления';
 	@override String get updateChannel => 'Канал автоматического обновления';
@@ -783,7 +791,14 @@ extension on TranslationsRu {
 			'meta.requestNeedsUserApproval' => '1. Пожалуйста, [разрешите] Clash Mi устанавливать системные расширения в [Системные настройки] - [Конфиденциальность и безопасность]. 2. : [Системные настройки] - [Основные] - [Элементы входа и расширения - Сетевые расширения] Включите [clashmiServiceSE]. После завершения подключитесь снова.',
 			'meta.FullDiskAccessPermissionRequired' => 'Включите разрешение clashmiServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Полный доступ к диску] и переподключитесь.',
 			'meta.proxy' => 'Прокси',
+			'meta.homeScreen' => 'Оформление главного экрана',
 			'meta.theme' => 'Тема',
+			'meta.widgetsAlpha' => 'Прозрачность виджетов',
+			'meta.widgetsEmpty' => 'Нет доступных виджетов',
+			'meta.backgroundImage' => 'Фоновое изображение',
+			'meta.path' => 'путь',
+			'meta.local' => 'локальный',
+			'meta.remote' => 'удаленный',
 			'meta.tvMode' => 'Режим ТВ',
 			'meta.autoUpdate' => 'Автоматические обновления',
 			'meta.updateChannel' => 'Канал автоматического обновления',

@@ -58,6 +58,7 @@ import 'package:clashmi/screens/widgets/text_field.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:libclash_vpn_service/vpn_service.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
@@ -637,6 +638,232 @@ class GroupHelper {
     }
   }
 
+  static Future<void> onTapHomeScreen(BuildContext context) async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      var settingConfig = SettingManager.getConfig();
+      List<Tuple2<String, String>> widgetsAlphaStrings = [
+        Tuple2("0", "0"),
+        Tuple2("20", "20"),
+        Tuple2("50", "50"),
+        Tuple2("100", "100"),
+        Tuple2("255", tcontext.meta.disable),
+      ];
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.backgroundImage,
+            textWidthPercent: 0.4,
+            onPush: () async {
+              await onTapBackgroundImage(context);
+            },
+          ),
+        ),
+        GroupItemOptions(
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: tcontext.meta.widgetsAlpha,
+            selected: settingConfig.uiScreen.getWidgetAlpha().toString(),
+            tupleStrings: widgetsAlphaStrings,
+            onPicker: (String? selected) async {
+              if (selected == null ||
+                  selected ==
+                      settingConfig.uiScreen.getWidgetAlpha().toString()) {
+                return;
+              }
+
+              settingConfig.uiScreen.widgetsAlpha =
+                  int.tryParse(selected) ?? 255;
+              Provider.of<Themes>(
+                context,
+                listen: false,
+              ).setTheme(SettingManager.getConfig().ui.theme, true);
+
+              //   setState(() {});
+            },
+          ),
+        ),
+      ];
+
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routeSettings("homeScreen"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.homeScreen,
+          getOptions: getOptions,
+        ),
+      ),
+    );
+    // setState(() {});
+  }
+
+  static Future<void> onTapBackgroundImage(BuildContext context) async {
+    final tcontext = Translations.of(context);
+    var settingConfig = SettingManager.getConfig();
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      List<Tuple2<String, String>> backgroundImageStrings = [
+        Tuple2(
+          SettingConfigItemUIScreen.backgroundTypeLocal,
+          tcontext.meta.local,
+        ),
+        Tuple2(
+          SettingConfigItemUIScreen.backgroundTypeRemote,
+          tcontext.meta.remote,
+        ),
+        Tuple2(
+          SettingConfigItemUIScreen.backgroundTypeDisable,
+          tcontext.meta.disable,
+        ),
+      ];
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: tcontext.meta.type,
+            selected: settingConfig.uiScreen.backgroundImageType,
+            tupleStrings: backgroundImageStrings,
+            onPicker: (String? selected) async {
+              if (selected == null) {
+                return;
+              }
+              settingConfig.uiScreen.backgroundImageType = selected;
+              // setState(() {});
+            },
+          ),
+        ),
+        if (settingConfig.uiScreen.backgroundImageType ==
+            SettingConfigItemUIScreen.backgroundTypeLocal) ...[
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.path,
+              textWidthPercent: 0.4,
+              text: SettingManager.getConfig().uiScreen.backgroundImageLocal,
+              onPush: () async {
+                await onTapBackgroundImageEditLocal(context);
+              },
+            ),
+          ),
+        ],
+        if (settingConfig.uiScreen.backgroundImageType ==
+            SettingConfigItemUIScreen.backgroundTypeRemote) ...[
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.url,
+              textWidthPercent: 0.4,
+              text: SettingManager.getConfig().uiScreen.backgroundImageUrl,
+              onPush: () async {
+                await onTapBackgroundImageEditRemote(context);
+              },
+            ),
+          ),
+        ],
+      ];
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routeSettings("backgroundImage"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.backgroundImage,
+          getOptions: getOptions,
+        ),
+      ),
+    );
+    // setState(() {});
+    return;
+  }
+
+  static Future<void> onTapBackgroundImageEditLocal(
+    BuildContext context,
+  ) async {
+    if (Platform.isIOS) {
+      try {
+        final ImagePicker picker = ImagePicker();
+        final XFile? result = await picker.pickImage(
+          source: ImageSource.gallery,
+        );
+
+        if ((result != null) && result.path.isNotEmpty) {
+          String filePath = result.path;
+          SettingManager.getConfig().uiScreen.backgroundImageLocal = filePath;
+          //setState(() {});
+        }
+      } catch (err, stacktrace) {
+        if (!context.mounted) {
+          return;
+        }
+        DialogUtils.showExceptionDialog(context, err, stacktrace);
+      }
+      return;
+    }
+    try {
+      List<String> extensions = ["png", "jpg", "gif", "bmp"];
+      FilePickerResult? result = await FilePicker.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: extensions,
+      );
+      if (result != null) {
+        String filePath = result.files.first.path!;
+        String ext = path.extension(filePath).replaceAll('.', '').toLowerCase();
+        if (!extensions.contains(ext)) {
+          return;
+        }
+
+        SettingManager.getConfig().uiScreen.backgroundImageLocal = filePath;
+        //setState(() {});
+      }
+    } catch (err, stacktrace) {
+      if (!context.mounted) {
+        return;
+      }
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
+    }
+  }
+
+  static Future<void> onTapBackgroundImageEditRemote(
+    BuildContext context,
+  ) async {
+    final tcontext = Translations.of(context);
+
+    String? text = await DialogUtils.showTextInputDialog(
+      context,
+      tcontext.meta.url,
+      SettingManager.getConfig().uiScreen.backgroundImageUrl,
+      null,
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          return true;
+        }
+        Uri? uri = Uri.tryParse(text);
+        if (uri == null ||
+            uri.host.isEmpty ||
+            (!uri.isScheme('HTTP') && !uri.isScheme('HTTPS'))) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.urlInvalid);
+          return false;
+        }
+        return true;
+      },
+    );
+    if (text == null) {
+      return;
+    }
+    SettingManager.getConfig().uiScreen.backgroundImageUrl = text;
+    //setState(() {});
+  }
+
   static Future<void> onTapPortableModeOn(BuildContext context) async {
     Directory? dir;
     bool exist = false;
@@ -923,6 +1150,14 @@ class GroupHelper {
                 context,
                 listen: false,
               ).setTheme(selected, true);
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.homeScreen,
+            onPush: () async {
+              await onTapHomeScreen(context);
             },
           ),
         ),

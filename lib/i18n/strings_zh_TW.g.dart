@@ -16,20 +16,21 @@ class TranslationsZhTw with BaseTranslations<AppLocale, Translations> implements
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsZhTw({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.zhTw,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <zh-TW>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsZhTw _root = this; // ignore: unused_field
 
@@ -380,7 +381,14 @@ class Translations$meta$zh_TW implements Translations$meta$en {
 	@override String get requestNeedsUserApproval => '1. 請在[系統設置]-[隱私與安全性]裏[允許] Clash Mi安裝系統擴展\n2. :[系統設置]-[通用]-[登錄項與擴展-網絡擴展]啟用[clashmiServiceSE]\n完成後重新連接';
 	@override String get FullDiskAccessPermissionRequired => '請在[系統設置]-[隱私與安全性]-[完全磁盤訪問權限]裏開啟clashmiServiceSE權限後,重新連接';
 	@override String get proxy => '代理';
+	@override String get homeScreen => '主螢幕';
 	@override String get theme => '主題';
+	@override String get widgetsAlpha => 'Widgets 透明度';
+	@override String get widgetsEmpty => '無可用 Widget';
+	@override String get backgroundImage => '背景圖';
+	@override String get path => '路徑';
+	@override String get local => '本地';
+	@override String get remote => '遠端';
 	@override String get tvMode => 'TV模式';
 	@override String get autoUpdate => '自動更新';
 	@override String get updateChannel => '自動更新通道';
@@ -783,7 +791,14 @@ extension on TranslationsZhTw {
 			'meta.requestNeedsUserApproval' => '1. 請在[系統設置]-[隱私與安全性]裏[允許] Clash Mi安裝系統擴展\n2. :[系統設置]-[通用]-[登錄項與擴展-網絡擴展]啟用[clashmiServiceSE]\n完成後重新連接',
 			'meta.FullDiskAccessPermissionRequired' => '請在[系統設置]-[隱私與安全性]-[完全磁盤訪問權限]裏開啟clashmiServiceSE權限後,重新連接',
 			'meta.proxy' => '代理',
+			'meta.homeScreen' => '主螢幕',
 			'meta.theme' => '主題',
+			'meta.widgetsAlpha' => 'Widgets 透明度',
+			'meta.widgetsEmpty' => '無可用 Widget',
+			'meta.backgroundImage' => '背景圖',
+			'meta.path' => '路徑',
+			'meta.local' => '本地',
+			'meta.remote' => '遠端',
 			'meta.tvMode' => 'TV模式',
 			'meta.autoUpdate' => '自動更新',
 			'meta.updateChannel' => '自動更新通道',

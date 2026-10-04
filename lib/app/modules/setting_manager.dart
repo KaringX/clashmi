@@ -17,6 +17,96 @@ import 'package:clashmi/screens/widgets/text_field.dart';
 
 import 'package:libclash_vpn_service/proxy_manager.dart';
 
+class SettingConfigItemUIScreen {
+  static const String backgroundTypeLocal = "local";
+  static const String backgroundTypeRemote = "remote";
+  static const String backgroundTypeDisable = "";
+  static bool fastCachedImageConfigInited = false;
+  List<String> widgets = [];
+  int widgetsAlpha = 255;
+
+  String backgroundImageType = backgroundTypeDisable;
+  String backgroundImageUrl = "";
+  String backgroundImageLocal = "";
+
+  Map<String, dynamic> toJson() => {
+    'widgets': widgets,
+    'widgets_alpha': widgetsAlpha,
+    'background_image_type': backgroundImageType,
+    'background_image': backgroundImageUrl,
+    'background_image_local': backgroundImageLocal,
+  };
+  void fromJson(Map<String, dynamic>? map) {
+    if (map == null) {
+      return;
+    }
+    widgets = ConvertUtils.getListStringFromDynamic(map["widgets"], true, [])!;
+    try {
+      widgetsAlpha = map['widgets_alpha'] ?? 255;
+    } catch (e) {
+      widgetsAlpha = 255;
+    }
+    if (widgetsAlpha < 0 || widgetsAlpha > 255) {
+      widgetsAlpha = 255;
+    }
+
+    final backgroundImageType_ = map["background_image_type"];
+    backgroundImageUrl = map["background_image"] ?? "";
+    backgroundImageLocal = map["background_image_local"] ?? "";
+    if (backgroundImageType_ == null) {
+      if (backgroundImageUrl.isNotEmpty) {
+        backgroundImageType = backgroundTypeRemote;
+      } else {
+        backgroundImageType = backgroundTypeDisable;
+      }
+    } else {
+      if ([
+        backgroundTypeLocal,
+        backgroundTypeRemote,
+        backgroundTypeDisable,
+      ].contains(backgroundImageType_)) {
+        backgroundImageType = backgroundImageType_;
+      }
+    }
+  }
+
+  static SettingConfigItemUIScreen fromJsonStatic(Map<String, dynamic>? map) {
+    SettingConfigItemUIScreen config = SettingConfigItemUIScreen();
+    config.fromJson(map);
+    return config;
+  }
+
+  static List<int> widgetsAlphaInt = [0, 20, 50, 100, 255];
+
+  int getWidgetAlpha() {
+    if (backgroundImageType == backgroundTypeDisable) {
+      return 255;
+    }
+    if (backgroundImageUrl.isEmpty && backgroundImageLocal.isEmpty) {
+      return 255;
+    }
+    if (widgetsAlphaInt.contains(widgetsAlpha)) {
+      return widgetsAlpha;
+    }
+    if (widgetsAlpha < 0 || widgetsAlpha > 255) {
+      return 255;
+    }
+    if (widgetsAlpha >= 0 && widgetsAlpha < 20) {
+      return 0;
+    }
+    if (widgetsAlpha >= 20 && widgetsAlpha < 50) {
+      return 20;
+    }
+    if (widgetsAlpha >= 50 && widgetsAlpha < 100) {
+      return 50;
+    }
+    if (widgetsAlpha >= 100 && widgetsAlpha < 255) {
+      return 100;
+    }
+    return 255;
+  }
+}
+
 class SettingConfigItemUI {
   String theme = ThemeDefine.kThemeLight;
   bool autoOrientation = false;
@@ -125,6 +215,7 @@ class SettingConfig {
       "https://www.gstatic.com/generate_204";
   String languageTag = "";
   SettingConfigItemUI ui = SettingConfigItemUI();
+  SettingConfigItemUIScreen uiScreen = SettingConfigItemUIScreen();
   SettingConfigItemWebDev webdav = SettingConfigItemWebDev();
   bool devMode = false;
   bool alwayOn = false;
@@ -152,6 +243,7 @@ class SettingConfig {
   Map<String, dynamic> toJson() => {
     'language_tag': languageTag,
     'ui': ui,
+    'screen': uiScreen,
     'webdav': webdav,
     'alway_on': alwayOn,
     'log_level': logLevel,
@@ -180,6 +272,7 @@ class SettingConfig {
 
     languageTag = map["language_tag"] ?? "";
     ui = SettingConfigItemUI.fromJsonStatic(map["ui"]);
+    uiScreen = SettingConfigItemUIScreen.fromJsonStatic(map["screen"]);
     webdav = SettingConfigItemWebDev.fromJsonStatic(map["webdav"]);
     alwayOn = map["alway_on"] ?? false;
     logLevel =

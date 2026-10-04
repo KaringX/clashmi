@@ -105,6 +105,9 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       await _onInitAllFinish();
     });
     ClashSettingManager.onEventModeChanged.add(() async {
+      if (!mounted) {
+        return;
+      }
       setState(() {});
     });
   }
@@ -179,6 +182,9 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    final theme = Theme.of(context);
+    int alpha = SettingManager.getConfig().uiScreen.getWidgetAlpha();
+    Color? color = theme.cardTheme.color;
     bool connected = _state == FlutterVpnServiceState.connected;
     final currentProfile = ProfileManager.getCurrent();
     final currentProfileName = currentProfile?.getShowName() ?? "";
@@ -318,6 +324,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
         height: 70,
         child: SegmentedElevatedButton(
+          background: color?.withAlpha(alpha),
           segments: [
             SegemntedElevatedButtonItem(
               value: ClashConfigsMode.rule.index,
@@ -586,7 +593,9 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         ),
       );
     }
+
     return Card(
+      color: color?.withAlpha(alpha),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: ListView.separated(
@@ -1091,13 +1100,28 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
   }
 }
 
-class HomeScreenWidgetPart2 extends StatelessWidget {
-  const HomeScreenWidgetPart2({super.key});
+class HomeScreenWidgetPart2 extends StatefulWidget {
+  final Function()? onUpdate;
+  const HomeScreenWidgetPart2({super.key, this.onUpdate});
+
+  @override
+  State<HomeScreenWidgetPart2> createState() => _HomeScreenWidgetPart2();
+}
+
+class _HomeScreenWidgetPart2 extends State<HomeScreenWidgetPart2> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     AutoUpdateCheckVersion versionCheck = AutoUpdateManager.getVersionCheck();
     final tcontext = Translations.of(context);
+    final theme = Theme.of(context);
+    Color? color = theme.cardTheme.color;
+    int alpha = SettingManager.getConfig().uiScreen.getWidgetAlpha();
+
     var widgets = [
       ListTile(
         title: Text(tcontext.meta.settingApp),
@@ -1106,6 +1130,7 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
         minVerticalPadding: 22,
         onTap: () async {
           await GroupHelper.showAppSettings(context);
+          widget.onUpdate?.call();
         },
       ),
       ListTile(
@@ -1215,6 +1240,7 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
     ]);
 
     return Card(
+      color: color?.withAlpha(alpha),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: ListView.separated(

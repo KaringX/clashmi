@@ -16,20 +16,21 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsAr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ar,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ar>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsAr _root = this; // ignore: unused_field
 
@@ -380,7 +381,14 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get requestNeedsUserApproval => '١. يُرجى السماح لـ Clash Mi بتثبيت ملحقات النظام من [إعدادات النظام] - [الخصوصية والأمان]. ٢. : [إعدادات النظام] - [عام] - [عناصر تسجيل الدخول والملحقات - ملحقات الشبكة] فعّل [clashmiServiceSE]. أعد الاتصال بعد الانتهاء.';
 	@override String get FullDiskAccessPermissionRequired => 'يرجى تمكين إذن clashmiServiceSE في [إعدادات النظام]-[الخصوصية والأمان]-[الوصول الكامل للقرص] وإعادة الاتصال.';
 	@override String get proxy => 'التمثيل';
+	@override String get homeScreen => 'الشاشة الرئيسية';
 	@override String get theme => 'سمة';
+	@override String get widgetsAlpha => 'شفافية الأدوات';
+	@override String get widgetsEmpty => 'لا يوجد أداة متاحة';
+	@override String get backgroundImage => 'صورة الخلفية';
+	@override String get path => 'طريق';
+	@override String get local => 'محلي';
+	@override String get remote => 'بعيد';
 	@override String get tvMode => 'وضع التلفزيون';
 	@override String get autoUpdate => 'التحديثات التلقائية';
 	@override String get updateChannel => 'تحديث القنوات تلقائيا';
@@ -783,7 +791,14 @@ extension on TranslationsAr {
 			'meta.requestNeedsUserApproval' => '١. يُرجى السماح لـ Clash Mi بتثبيت ملحقات النظام من [إعدادات النظام] - [الخصوصية والأمان]. ٢. : [إعدادات النظام] - [عام] - [عناصر تسجيل الدخول والملحقات - ملحقات الشبكة] فعّل [clashmiServiceSE]. أعد الاتصال بعد الانتهاء.',
 			'meta.FullDiskAccessPermissionRequired' => 'يرجى تمكين إذن clashmiServiceSE في [إعدادات النظام]-[الخصوصية والأمان]-[الوصول الكامل للقرص] وإعادة الاتصال.',
 			'meta.proxy' => 'التمثيل',
+			'meta.homeScreen' => 'الشاشة الرئيسية',
 			'meta.theme' => 'سمة',
+			'meta.widgetsAlpha' => 'شفافية الأدوات',
+			'meta.widgetsEmpty' => 'لا يوجد أداة متاحة',
+			'meta.backgroundImage' => 'صورة الخلفية',
+			'meta.path' => 'طريق',
+			'meta.local' => 'محلي',
+			'meta.remote' => 'بعيد',
 			'meta.tvMode' => 'وضع التلفزيون',
 			'meta.autoUpdate' => 'التحديثات التلقائية',
 			'meta.updateChannel' => 'تحديث القنوات تلقائيا',

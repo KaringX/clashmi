@@ -16,20 +16,21 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsKo({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ko,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ko>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsKo _root = this; // ignore: unused_field
 
@@ -380,7 +381,14 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get requestNeedsUserApproval => '1. [시스템 설정]-[개인정보 보호 및 보안]에서 Clash Mi의 시스템 확장 설치를 [허용]하십시오\n2. [시스템 설정]-[일반]-[로그인 항목 및 확장 프로그램]-[네트워크 확장 프로그램]에서 [clashmiServiceSE]를 활성화하십시오\n완료 후 다시 연결하십시오';
 	@override String get FullDiskAccessPermissionRequired => '[시스템 설정]-[개인정보 보호 및 보안]-[전체 디스크 액세스]에서 clashmiServiceSE 권한을 활성화하고 다시 연결하십시오.';
 	@override String get proxy => '프록시';
+	@override String get homeScreen => '홈 화면';
 	@override String get theme => '테마';
+	@override String get widgetsAlpha => '위젯 투명도';
+	@override String get widgetsEmpty => '사용 가능한 위젯 없음';
+	@override String get backgroundImage => '배경 이미지';
+	@override String get path => '경로';
+	@override String get local => '로컬';
+	@override String get remote => '원격';
 	@override String get tvMode => 'TV 모드';
 	@override String get autoUpdate => '자동 업데이트';
 	@override String get updateChannel => '자동 업데이트 채널';
@@ -783,7 +791,14 @@ extension on TranslationsKo {
 			'meta.requestNeedsUserApproval' => '1. [시스템 설정]-[개인정보 보호 및 보안]에서 Clash Mi의 시스템 확장 설치를 [허용]하십시오\n2. [시스템 설정]-[일반]-[로그인 항목 및 확장 프로그램]-[네트워크 확장 프로그램]에서 [clashmiServiceSE]를 활성화하십시오\n완료 후 다시 연결하십시오',
 			'meta.FullDiskAccessPermissionRequired' => '[시스템 설정]-[개인정보 보호 및 보안]-[전체 디스크 액세스]에서 clashmiServiceSE 권한을 활성화하고 다시 연결하십시오.',
 			'meta.proxy' => '프록시',
+			'meta.homeScreen' => '홈 화면',
 			'meta.theme' => '테마',
+			'meta.widgetsAlpha' => '위젯 투명도',
+			'meta.widgetsEmpty' => '사용 가능한 위젯 없음',
+			'meta.backgroundImage' => '배경 이미지',
+			'meta.path' => '경로',
+			'meta.local' => '로컬',
+			'meta.remote' => '원격',
 			'meta.tvMode' => 'TV 모드',
 			'meta.autoUpdate' => '자동 업데이트',
 			'meta.updateChannel' => '자동 업데이트 채널',

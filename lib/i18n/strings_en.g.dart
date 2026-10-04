@@ -20,20 +20,21 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.en,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <en>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	dynamic operator[](String key) => $meta.getTranslation(key);
+	dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final Translations _root = this; // ignore: unused_field
 
@@ -855,8 +856,29 @@ class Translations$meta$en {
 	/// en: 'Proxy'
 	String get proxy => 'Proxy';
 
+	/// en: 'Home Screen'
+	String get homeScreen => 'Home Screen';
+
 	/// en: 'Theme'
 	String get theme => 'Theme';
+
+	/// en: 'Widgets Alpha'
+	String get widgetsAlpha => 'Widgets Alpha';
+
+	/// en: 'No Widget Available'
+	String get widgetsEmpty => 'No Widget Available';
+
+	/// en: 'Background Image'
+	String get backgroundImage => 'Background Image';
+
+	/// en: 'Path'
+	String get path => 'Path';
+
+	/// en: 'Local'
+	String get local => 'Local';
+
+	/// en: 'Remote'
+	String get remote => 'Remote';
 
 	/// en: 'TV Mode'
 	String get tvMode => 'TV Mode';
@@ -1453,7 +1475,14 @@ extension on Translations {
 			'meta.requestNeedsUserApproval' => '1. Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE]\nreconnect after completion',
 			'meta.FullDiskAccessPermissionRequired' => 'Please enable clashmiServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access] and reconnect.',
 			'meta.proxy' => 'Proxy',
+			'meta.homeScreen' => 'Home Screen',
 			'meta.theme' => 'Theme',
+			'meta.widgetsAlpha' => 'Widgets Alpha',
+			'meta.widgetsEmpty' => 'No Widget Available',
+			'meta.backgroundImage' => 'Background Image',
+			'meta.path' => 'Path',
+			'meta.local' => 'Local',
+			'meta.remote' => 'Remote',
 			'meta.tvMode' => 'TV Mode',
 			'meta.autoUpdate' => 'Auto Update',
 			'meta.updateChannel' => 'Auto Update Channel',
