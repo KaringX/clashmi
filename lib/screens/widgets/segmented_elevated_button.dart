@@ -82,6 +82,9 @@ class _SegmentedElevatedButton extends State<SegmentedElevatedButton> {
                         return Colors.white;
                       }
                       if (states.contains(WidgetState.selected)) {
+                        if (widget.background != null) {
+                          return Colors.white.withValues(alpha: 0.8);
+                        }
                         return Colors.white;
                       }
                       return Colors.white.withValues(alpha: 0.3);

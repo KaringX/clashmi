@@ -258,8 +258,31 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
                       fit: BoxFit.fill,
                       child: Switch.adaptive(
                         value: _state == FlutterVpnServiceState.connected,
-                        activeThumbColor: Colors.white,
-                        activeTrackColor: ThemeDefine.kColorGreenBright,
+                        activeThumbColor: color != null ? null : Colors.white,
+                        activeTrackColor: color != null
+                            ? null
+                            : ThemeDefine.kColorGreenBright,
+                        thumbColor: color != null
+                            ? WidgetStateProperty.resolveWith<Color>((
+                                Set<WidgetState> states,
+                              ) {
+                                if (states.contains(WidgetState.selected)) {
+                                  return Colors.white.withValues(alpha: 0.8);
+                                }
+                                return Colors.white;
+                              })
+                            : null,
+                        trackColor: color != null
+                            ? WidgetStateProperty.resolveWith<Color>((
+                                Set<WidgetState> states,
+                              ) {
+                                if (states.contains(WidgetState.selected)) {
+                                  return ThemeDefine.kColorGreenBright
+                                      .withValues(alpha: 0.8);
+                                }
+                                return Colors.grey[200]!.withValues(alpha: 0.8);
+                              })
+                            : null,
                         focusNode: _focusNodeConnect,
                         onChanged: (bool value) async {
                           if (value) {
@@ -602,6 +625,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
 
     return Card(
       color: color?.withAlpha(alpha),
+      shadowColor: color?.withAlpha(alpha),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: ListView.separated(
@@ -1256,6 +1280,7 @@ class _HomeScreenWidgetPart2 extends State<HomeScreenWidgetPart2> {
 
     return Card(
       color: color?.withAlpha(alpha),
+      shadowColor: color?.withAlpha(alpha),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: ListView.separated(
