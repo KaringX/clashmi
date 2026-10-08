@@ -6,10 +6,12 @@ import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/theme_define.dart';
+import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/widgets/sheet.dart';
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class ProxyScreenProxiesNodeWidgetController {
   void Function()? onTesting;
@@ -64,6 +66,10 @@ class _ProxyScreenProxiesNodeWidget
   @override
   Widget build(BuildContext context) {
     Size windowSize = MediaQuery.of(context).size;
+    final themeColor = Provider.of<Themes>(
+      context,
+    ).getThemeInvertColor(context);
+
     double iconSize = 20;
     var widgets = [];
     for (var node in _nodes) {
@@ -80,7 +86,7 @@ class _ProxyScreenProxiesNodeWidget
         if (node.delay! < 800) {
           color = ThemeDefine.kColorGreenBright;
         } else if (node.delay! < 1500) {
-          color = Colors.black;
+          color = themeColor;
         } else {
           color = Colors.red;
         }
@@ -184,7 +190,7 @@ class _ProxyScreenProxiesNodeWidget
           ),
           minVerticalPadding: 10,
           onTap: () {
-            showNodeSelect(node);
+            showNodeSelect(node, themeColor);
           },
         ),
       );
@@ -208,7 +214,7 @@ class _ProxyScreenProxiesNodeWidget
     );
   }
 
-  void showNodeSelect(ClashProxiesNode selectNode) {
+  void showNodeSelect(ClashProxiesNode selectNode, Color? themeColor) {
     Size windowSize = MediaQuery.of(context).size;
     var widgets = [];
 
@@ -240,7 +246,7 @@ class _ProxyScreenProxiesNodeWidget
         if (node.delay! < 800) {
           color = ThemeDefine.kColorGreenBright;
         } else if (node.delay! < 1500) {
-          color = Colors.black;
+          color = themeColor;
         } else {
           color = Colors.red;
         }
