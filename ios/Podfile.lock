@@ -46,7 +46,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   app_installer: 087516293c5a0a1ad15f8c021f9a947e23e2dacf
-  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
   flutter_js: 867813c1830e1d9b2c5d547cdb6f61801e2f2145
   icloud_storage: e55639f0c0d7cb2b0ba9c0b3d5968ccca9cd9aa2
   libclash_vpn_service: 1ddb417c8206300a8895d98d9027aee7ecaa181b
