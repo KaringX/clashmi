@@ -13,7 +13,7 @@ class SystemUtils {
           '-rn',
         ]).timeout(const Duration(seconds: 10));
       } else if (Platform.isAndroid) {
-        return _getRouteTableAndroid();
+        return await _getRouteTableAndroid();
       } else if (Platform.isLinux) {
         result = await Process.run('ip', [
           'route',

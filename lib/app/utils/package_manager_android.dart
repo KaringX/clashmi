@@ -74,7 +74,7 @@ class PackageManagerAndroid {
         packageInfos = await _getInstalledPackagesFallback();
       }
 
-      return _buildPackageInfoList(packageInfos, onValid: onValid);
+      return await _buildPackageInfoList(packageInfos, onValid: onValid);
     } catch (err, stacktrace) {}
     return [];
   }
