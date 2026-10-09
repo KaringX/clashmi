@@ -158,9 +158,6 @@ class RuleTemplate {
   }
 
   void reorder(int oldIndex, int newIndex) {
-    if (oldIndex < newIndex) {
-      newIndex -= 1;
-    }
     if (oldIndex >= rules.length || newIndex >= rules.length) {
       return;
     }
@@ -525,9 +522,6 @@ class DiversionTemplateManager {
   }
 
   static void reorderRuleProvider(int oldIndex, int newIndex) {
-    if (oldIndex < newIndex) {
-      newIndex -= 1;
-    }
     if (oldIndex >= _diversionTemplates.ruleProviders.length ||
         newIndex >= _diversionTemplates.ruleProviders.length) {
       return;
@@ -537,9 +531,6 @@ class DiversionTemplateManager {
   }
 
   static void reorderRuleTemplates(int oldIndex, int newIndex) {
-    if (oldIndex < newIndex) {
-      newIndex -= 1;
-    }
     if (oldIndex >= _diversionTemplates.ruleTemplates.length ||
         newIndex >= _diversionTemplates.ruleTemplates.length) {
       return;
@@ -549,9 +540,6 @@ class DiversionTemplateManager {
   }
 
   static void reorderProxyGroupTemplates(int oldIndex, int newIndex) {
-    if (oldIndex < newIndex) {
-      newIndex -= 1;
-    }
     if (oldIndex >= _diversionTemplates.proxyGroupTemplates.length ||
         newIndex >= _diversionTemplates.proxyGroupTemplates.length) {
       return;

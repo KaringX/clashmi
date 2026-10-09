@@ -1088,9 +1088,6 @@ class ProfileManager {
   }
 
   static void reorder(int oldIndex, int newIndex) {
-    if (oldIndex < newIndex) {
-      newIndex -= 1;
-    }
     if (oldIndex >= _config.profiles.length ||
         newIndex >= _config.profiles.length) {
       return;
