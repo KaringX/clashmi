@@ -127,7 +127,7 @@ class _LoginStepProviderScreenState extends State<LoginStepProviderScreen> {
                       children: [
                         TextSpan(
                           text: tcontext.loginScreen
-                              .providerLoginSupportRequired(p: ''),
+                              .providerLoginSupportRequired(p: '\n'),
                           style: TextStyle(
                             color: Colors.red,
                             fontSize: 12,
