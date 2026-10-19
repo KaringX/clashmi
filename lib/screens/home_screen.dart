@@ -31,6 +31,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:libclash_vpn_service/state.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:protocol_handler/protocol_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
@@ -165,6 +166,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         ),
       ),
     );
+    if (Platform.isAndroid) {
+      await Permission.notification.request();
+    }
   }
 
   void _init() async {

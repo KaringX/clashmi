@@ -13,6 +13,7 @@
 #include <hotkey_manager_windows/hotkey_manager_windows_plugin_c_api.h>
 #include <libclash_vpn_service/vpn_service_plugin.h>
 #include <open_dir_windows/open_dir_windows_plugin_c_api.h>
+#include <permission_handler_windows/permission_handler_windows_plugin.h>
 #include <protocol_handler/protocol_handler_plugin.h>
 #include <screen_capturer_windows/screen_capturer_windows_plugin_c_api.h>
 #include <screen_retriever_windows/screen_retriever_windows_plugin_c_api.h>
@@ -35,6 +36,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("VpnServicePlugin"));
   OpenDirWindowsPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("OpenDirWindowsPluginCApi"));
+  PermissionHandlerWindowsPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("PermissionHandlerWindowsPlugin"));
   ProtocolHandlerPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("ProtocolHandlerPlugin"));
   ScreenCapturerWindowsPluginCApiRegisterWithRegistrar(
