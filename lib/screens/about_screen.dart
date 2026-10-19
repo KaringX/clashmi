@@ -1,6 +1,5 @@
 // ignore_for_file: unused_catch_stack
 
-import 'package:clashmi/app/modules/remote_config_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/utils/app_utils.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
@@ -110,7 +109,6 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
 
   Future<List<GroupItem>> getGroupOptions() async {
     final tcontext = Translations.of(context);
-    var remoteConfig = RemoteConfigManager.getConfig();
     final coreVersion = AppUtils.getCoreVersion();
     List<GroupItem> groupOptions = [];
 

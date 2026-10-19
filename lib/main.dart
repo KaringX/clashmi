@@ -4,13 +4,11 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:clashmi/app/clash/clash_config.dart';
 import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/auto_update_manager.dart';
 import 'package:clashmi/app/modules/biz.dart';
 import 'package:clashmi/app/modules/board_provider_manager.dart';
 import 'package:clashmi/app/modules/board_session_persistent_manager.dart';
-import 'package:clashmi/app/modules/clash_setting_manager.dart';
 import 'package:clashmi/app/modules/remote_config_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/utils/app_args.dart';
@@ -28,19 +26,18 @@ import 'package:clashmi/screens/home_screen.dart';
 import 'package:clashmi/screens/launch_failed_screen.dart';
 import 'package:clashmi/screens/theme_data_dark.dart';
 import 'package:clashmi/screens/themes.dart';
-import 'package:clashmi/app/utils/vpn_action_handler.dart';
 import 'package:clashmi/screens/widgets/routes.dart';
+import 'package:clashmi/tray.dart';
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_single_instance/flutter_single_instance.dart';
+import 'package:libclash_vpn_service/vpn_service.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:tray_manager/legacy.dart';
-import 'package:libclash_vpn_service/vpn_service.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:flutter_single_instance/flutter_single_instance.dart';
 
 List<String> processArgs = [];
 StartFailedReason? startFailedReason;
@@ -244,18 +241,10 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp>
-    with WidgetsBindingObserver, WindowListener, TrayListener {
-  static const kMenuConnect = "connect";
-  static const kMenuDisconnect = "disconnect";
-  static const kMenuModeRule = "mode_rule";
-  static const kMenuModeGlobal = "mode_global";
-  static const kMenuModeDirect = "mode_direct";
-  static const kMenuOpen = "show_window";
-  static const kMenuExit = "exit_app";
+    with WidgetsBindingObserver, WindowListener {
   bool _launchAtStartup = false;
   bool _windowVisibleForMac = false;
-  bool _trayGrey = true;
-  Menu? _menu;
+  Tray? _tray;
   String _trafficOld = "";
   String _speedOld = "";
   @override
@@ -265,8 +254,20 @@ class MyAppState extends State<MyApp>
     if (PlatformUtils.isPC()) {
       windowManager.addListener(this);
       windowManager.setPreventClose(true);
-      trayManager.addListener(this);
-      _setTray(true, false, true);
+      _tray = Tray();
+      _tray!.init(
+        onOpen: () async {
+          if (await windowManager.isMinimized()) {
+            await windowManager.restore();
+          } else {
+            await windowManager.show();
+            onWindowRestore();
+          }
+        },
+        onExit: () async {
+          await _quit();
+        },
+      );
     }
     if (Platform.isMacOS) {
       Biz.onEventTrafficChanged.add((String traffic, String speed) {
@@ -278,14 +279,15 @@ class MyAppState extends State<MyApp>
           _trafficOld = traffic;
           _speedOld = speed;
           if (traffic.isEmpty && speed.isEmpty) {
-            trayManager.setTitle("");
-          }
-          if (traffic.isNotEmpty && speed.isNotEmpty) {
-            trayManager.setTitle("$traffic $speed");
+            _tray?.setIconTitleForConnected("");
+          } else if (traffic.isNotEmpty && speed.isNotEmpty) {
+            _tray?.setIconTitleForConnected("$traffic $speed");
           } else if (traffic.isNotEmpty) {
-            trayManager.setTitle(traffic);
+            _tray?.setIconTitleForConnected(traffic);
           } else if (speed.isNotEmpty) {
-            trayManager.setTitle(speed);
+            _tray?.setIconTitleForConnected(speed);
+          } else {
+            _tray?.setIconTitleForConnected("");
           }
         }
       });
@@ -309,8 +311,8 @@ class MyAppState extends State<MyApp>
     WidgetsBinding.instance.removeObserver(this);
     if (PlatformUtils.isPC()) {
       windowManager.removeListener(this);
-      trayManager.removeListener(this);
-      trayManager.destroy();
+      _tray?.dispose();
+      _tray = null;
     }
 
     super.dispose();
@@ -487,14 +489,11 @@ class MyAppState extends State<MyApp>
 
     Biz.onEventVPNStateChanged = ((bool connected) {
       if (PlatformUtils.isPC()) {
-        if (_trayGrey == !connected) {
-          return;
-        }
-        _setTray(!connected, false, false);
+        _tray?.setIconDisconneted(!connected);
         if (Platform.isMacOS && !connected) {
           _trafficOld = "";
           _speedOld = "";
-          trayManager.setTitle("");
+          _tray?.setIconTitleForConnected("");
         }
       }
     });
@@ -516,9 +515,6 @@ class MyAppState extends State<MyApp>
     if (startFailedReason == null) {
       await Biz.uninit();
     }
-    if (PlatformUtils.isPC()) {
-      await trayManager.destroy();
-    }
   }
 
   Future<void> _quit() async {
@@ -527,130 +523,5 @@ class MyAppState extends State<MyApp>
       await Log.uninit();
       await ServicesBinding.instance.exitApplication(AppExitType.required);
     });
-  }
-
-  void _setTray(bool grey, bool destroy, bool quitIfFailed) {
-    Future.delayed(const Duration(milliseconds: 300), () async {
-      if (destroy || Platform.isLinux) {
-        await trayManager.destroy();
-      }
-
-      try {
-        if (Platform.isWindows) {
-          await trayManager.setIcon(
-            grey ? 'assets/images/grey_tray.ico' : 'assets/images/tray.ico',
-            isTemplate: false,
-          );
-        } else {
-          await trayManager.setIcon(
-            grey ? 'assets/images/grey_tray.png' : 'assets/images/tray.png',
-            isTemplate: false,
-          );
-        }
-        _trayGrey = grey;
-      } catch (err, stacktrace) {
-        Log.w("setIcon exception: ${err.toString()}");
-        if (quitIfFailed) {
-          Future.delayed(const Duration(milliseconds: 1000), () async {
-            _quit();
-          });
-        }
-      }
-      if (!Platform.isLinux) {
-        await trayManager.setToolTip(AppUtils.getName());
-      } else {
-        await _setTrayMenu(grey);
-      }
-    });
-  }
-
-  Future<void> _setTrayMenu(bool grey) async {
-    if (!PlatformUtils.isPC()) {
-      return;
-    }
-    final mode = ClashSettingManager.getConfigsMode();
-    List<MenuItem> items = [
-      if (grey) ...[
-        MenuItem(key: kMenuConnect, label: "   ${t.meta.connect}   "),
-      ],
-      if (!grey) ...[
-        MenuItem(key: kMenuDisconnect, label: "   ${t.meta.disconnect}   "),
-      ],
-      MenuItem.separator(),
-      MenuItem.checkbox(
-        key: kMenuModeRule,
-        checked: mode == ClashConfigsMode.rule,
-        label: "   ${t.meta.rule}   ",
-      ),
-      MenuItem.checkbox(
-        key: kMenuModeGlobal,
-        checked: mode == ClashConfigsMode.global,
-        label: "   ${t.meta.global}   ",
-      ),
-      MenuItem.checkbox(
-        key: kMenuModeDirect,
-        checked: mode == ClashConfigsMode.direct,
-        label: "   ${t.meta.direct}   ",
-      ),
-      MenuItem.separator(),
-      MenuItem(key: kMenuOpen, label: "   ${t.main.tray.menuOpen}   "),
-      MenuItem(key: kMenuExit, label: "   ${t.main.tray.menuExit}   "),
-    ];
-    _menu = Menu(items: items);
-    await trayManager.setContextMenu(_menu!);
-    if (!Platform.isLinux) {
-      await trayManager.popUpContextMenu(bringAppToFront: true);
-    }
-  }
-
-  @override
-  void onTrayIconMouseDown() async {
-    if (await windowManager.isMinimized()) {
-      await windowManager.restore();
-    } else {
-      await windowManager.show();
-      onWindowRestore();
-    }
-  }
-
-  @override
-  void onTrayIconRightMouseDown() async {
-    await _setTrayMenu(_trayGrey);
-  }
-
-  @override
-  void onTrayMenuItemClick(MenuItem menuItem) async {
-    if (menuItem.key == kMenuConnect) {
-      VpnActionHandler.vpnConnect?.call("menu", false);
-    } else if (menuItem.key == kMenuDisconnect) {
-      VpnActionHandler.vpnDisconnect?.call("menu", false);
-    } else if (menuItem.key == kMenuModeRule) {
-      await ClashSettingManager.setConfigsMode(ClashConfigsMode.rule);
-      menuItem.checked = true;
-      _menu?.getMenuItem(kMenuModeGlobal)?.checked = false;
-      _menu?.getMenuItem(kMenuModeDirect)?.checked = false;
-      trayManager.setContextMenu(_menu!);
-    } else if (menuItem.key == kMenuModeGlobal) {
-      await ClashSettingManager.setConfigsMode(ClashConfigsMode.global);
-      menuItem.checked = true;
-      _menu?.getMenuItem(kMenuModeRule)?.checked = false;
-      _menu?.getMenuItem(kMenuModeDirect)?.checked = false;
-      trayManager.setContextMenu(_menu!);
-    } else if (menuItem.key == kMenuModeDirect) {
-      await ClashSettingManager.setConfigsMode(ClashConfigsMode.direct);
-      menuItem.checked = true;
-      _menu?.getMenuItem(kMenuModeRule)?.checked = false;
-      _menu?.getMenuItem(kMenuModeGlobal)?.checked = false;
-      trayManager.setContextMenu(_menu!);
-    } else if (menuItem.key == kMenuExit) {
-      await _quit();
-    } else if (menuItem.key == kMenuOpen) {
-      if (await windowManager.isMinimized()) {
-        await windowManager.restore();
-      } else {
-        await windowManager.show();
-        onWindowRestore();
-      }
-    }
   }
 }
