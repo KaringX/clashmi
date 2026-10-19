@@ -167,7 +167,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       ),
     );
     if (Platform.isAndroid) {
-      await Permission.notification.request();
+      final status = await Permission.notification.status;
+      if (status != PermissionStatus.granted) {
+        await Permission.notification.request();
+      }
     }
   }
 
