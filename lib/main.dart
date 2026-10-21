@@ -257,7 +257,7 @@ class MyAppState extends State<MyApp>
   bool _windowVisibleForMac = false;
   bool _trayGrey = true;
   Menu? _menu;
-  Tray? _tray;
+  //Tray? _tray;
   String _trafficOld = "";
   String _speedOld = "";
   @override
