@@ -53,6 +53,7 @@ class TranslationsZhTw with BaseTranslations<AppLocale, Translations> implements
 	@override late final Translations$dns$zh_TW dns = Translations$dns$zh_TW.internal(_root);
 	@override late final Translations$sniffer$zh_TW sniffer = Translations$sniffer$zh_TW.internal(_root);
 	@override late final Translations$profilePatchMode$zh_TW profilePatchMode = Translations$profilePatchMode$zh_TW.internal(_root);
+	@override late final Translations$overwriteMode$zh_TW overwriteMode = Translations$overwriteMode$zh_TW.internal(_root);
 	@override String get protocolSniff => '協議探測';
 	@override String get protocolSniffOverrideDestination => '探測的域名覆蓋連接目標地址';
 	@override String sendOrReceiveNotMatch({required Object p}) => '請使用 [${p}]';
@@ -282,6 +283,7 @@ class Translations$meta$zh_TW implements Translations$meta$en {
 	@override String get shareUrl => '分享連結';
 	@override String get coreSettingTips => '注意:修改配置後,需要重新連接才會生效';
 	@override String get overwrite => '覆寫';
+	@override String get overwriteMethod => '覆寫方式';
 	@override String get overwriteCustom => '自定義覆寫';
 	@override String get overwriteAppend => '追加覆寫';
 	@override String get overwriteTips => '原始配置<-自定義覆寫<-App覆寫';
@@ -541,6 +543,18 @@ class Translations$profilePatchMode$zh_TW implements Translations$profilePatchMo
 	@override String get noOverwrite => '內置-不覆寫';
 }
 
+// Path: overwriteMode
+class Translations$overwriteMode$zh_TW implements Translations$overwriteMode$en {
+	Translations$overwriteMode$zh_TW.internal(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get overwrite => '覆寫';
+	@override String get noOverwrite => '不覆寫';
+	@override String get overwriteInsert => '覆寫-插入到頂部';
+}
+
 // Path: main.tray
 class Translations$main$tray$zh_TW implements Translations$main$tray$en {
 	Translations$main$tray$zh_TW.internal(this._root);
@@ -693,6 +707,7 @@ extension on TranslationsZhTw {
 			'meta.shareUrl' => '分享連結',
 			'meta.coreSettingTips' => '注意:修改配置後,需要重新連接才會生效',
 			'meta.overwrite' => '覆寫',
+			'meta.overwriteMethod' => '覆寫方式',
 			'meta.overwriteCustom' => '自定義覆寫',
 			'meta.overwriteAppend' => '追加覆寫',
 			'meta.overwriteTips' => '原始配置<-自定義覆寫<-App覆寫',
@@ -896,6 +911,9 @@ extension on TranslationsZhTw {
 			'profilePatchMode.currentSelected' => '當前選擇',
 			'profilePatchMode.overwrite' => '內置-覆寫',
 			'profilePatchMode.noOverwrite' => '內置-不覆寫',
+			'overwriteMode.overwrite' => '覆寫',
+			'overwriteMode.noOverwrite' => '不覆寫',
+			'overwriteMode.overwriteInsert' => '覆寫-插入到頂部',
 			'protocolSniff' => '協議探測',
 			'protocolSniffOverrideDestination' => '探測的域名覆蓋連接目標地址',
 			'sendOrReceiveNotMatch' => ({required Object p}) => '請使用 [${p}]',

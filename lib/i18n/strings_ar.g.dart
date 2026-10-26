@@ -53,6 +53,7 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$dns$ar dns = _Translations$dns$ar._(_root);
 	@override late final _Translations$sniffer$ar sniffer = _Translations$sniffer$ar._(_root);
 	@override late final _Translations$profilePatchMode$ar profilePatchMode = _Translations$profilePatchMode$ar._(_root);
+	@override late final _Translations$overwriteMode$ar overwriteMode = _Translations$overwriteMode$ar._(_root);
 	@override String get protocolSniff => 'الكشف عن البروتوكول';
 	@override String get protocolSniffOverrideDestination => 'يغطي اسم المجال المكتشف عنوان هدف الاتصال';
 	@override String sendOrReceiveNotMatch({required Object p}) => 'الرجاء استخدام [${p}]';
@@ -282,6 +283,7 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get shareUrl => 'شارك الرابط';
 	@override String get coreSettingTips => 'ملاحظة: بعد تعديل التكوين، تحتاج إلى إعادة الاتصال حتى يسري مفعوله';
 	@override String get overwrite => 'تجاوز';
+	@override String get overwriteMethod => 'طريقة التجاوز';
 	@override String get overwriteCustom => 'تجاوزات مخصصة';
 	@override String get overwriteAppend => 'تجاوز إضافي';
 	@override String get overwriteTips => 'التكوين الأصلي <- تجاوز مخصص <- تجاوز التطبيق';
@@ -541,6 +543,18 @@ class _Translations$profilePatchMode$ar implements Translations$profilePatchMode
 	@override String get noOverwrite => 'مُدمج - غير قابل للكتابة فوقه';
 }
 
+// Path: overwriteMode
+class _Translations$overwriteMode$ar implements Translations$overwriteMode$en {
+	_Translations$overwriteMode$ar._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get overwrite => 'تجاوز';
+	@override String get noOverwrite => 'لا تكتب فوق';
+	@override String get overwriteInsert => 'تجاوز - إدراج في البداية';
+}
+
 // Path: main.tray
 class _Translations$main$tray$ar implements Translations$main$tray$en {
 	_Translations$main$tray$ar._(this._root);
@@ -693,6 +707,7 @@ extension on TranslationsAr {
 			'meta.shareUrl' => 'شارك الرابط',
 			'meta.coreSettingTips' => 'ملاحظة: بعد تعديل التكوين، تحتاج إلى إعادة الاتصال حتى يسري مفعوله',
 			'meta.overwrite' => 'تجاوز',
+			'meta.overwriteMethod' => 'طريقة التجاوز',
 			'meta.overwriteCustom' => 'تجاوزات مخصصة',
 			'meta.overwriteAppend' => 'تجاوز إضافي',
 			'meta.overwriteTips' => 'التكوين الأصلي <- تجاوز مخصص <- تجاوز التطبيق',
@@ -896,6 +911,9 @@ extension on TranslationsAr {
 			'profilePatchMode.currentSelected' => 'المحدد الحالي',
 			'profilePatchMode.overwrite' => 'التجاوز المدمج',
 			'profilePatchMode.noOverwrite' => 'مُدمج - غير قابل للكتابة فوقه',
+			'overwriteMode.overwrite' => 'تجاوز',
+			'overwriteMode.noOverwrite' => 'لا تكتب فوق',
+			'overwriteMode.overwriteInsert' => 'تجاوز - إدراج في البداية',
 			'protocolSniff' => 'الكشف عن البروتوكول',
 			'protocolSniffOverrideDestination' => 'يغطي اسم المجال المكتشف عنوان هدف الاتصال',
 			'sendOrReceiveNotMatch' => ({required Object p}) => 'الرجاء استخدام [${p}]',

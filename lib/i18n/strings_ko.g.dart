@@ -53,6 +53,7 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$dns$ko dns = _Translations$dns$ko._(_root);
 	@override late final _Translations$sniffer$ko sniffer = _Translations$sniffer$ko._(_root);
 	@override late final _Translations$profilePatchMode$ko profilePatchMode = _Translations$profilePatchMode$ko._(_root);
+	@override late final _Translations$overwriteMode$ko overwriteMode = _Translations$overwriteMode$ko._(_root);
 	@override String get protocolSniff => '프로토콜 스니핑';
 	@override String get protocolSniffOverrideDestination => '스니핑된 도메인 이름으로 연결 대상 주소 덮어쓰기';
 	@override String sendOrReceiveNotMatch({required Object p}) => '[${p}]를 사용하십시오';
@@ -282,6 +283,7 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get shareUrl => '링크 공유';
 	@override String get coreSettingTips => '참고: 설정을 수정한 후 적용하려면 다시 연결해야 합니다';
 	@override String get overwrite => '덮어쓰기';
+	@override String get overwriteMethod => '덮어쓰기 방식';
 	@override String get overwriteCustom => '사용자 정의 덮어쓰기';
 	@override String get overwriteAppend => '추가 덮어쓰기';
 	@override String get overwriteTips => '원본 프로필 <- 사용자 정의 덮어쓰기 <- 앱 덮어쓰기';
@@ -541,6 +543,18 @@ class _Translations$profilePatchMode$ko implements Translations$profilePatchMode
 	@override String get noOverwrite => '내장 - 덮어쓰지 않음';
 }
 
+// Path: overwriteMode
+class _Translations$overwriteMode$ko implements Translations$overwriteMode$en {
+	_Translations$overwriteMode$ko._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get overwrite => '덮어쓰기';
+	@override String get noOverwrite => '덮어쓰지 않음';
+	@override String get overwriteInsert => '덮어쓰기 - 맨 앞에 삽입';
+}
+
 // Path: main.tray
 class _Translations$main$tray$ko implements Translations$main$tray$en {
 	_Translations$main$tray$ko._(this._root);
@@ -693,6 +707,7 @@ extension on TranslationsKo {
 			'meta.shareUrl' => '링크 공유',
 			'meta.coreSettingTips' => '참고: 설정을 수정한 후 적용하려면 다시 연결해야 합니다',
 			'meta.overwrite' => '덮어쓰기',
+			'meta.overwriteMethod' => '덮어쓰기 방식',
 			'meta.overwriteCustom' => '사용자 정의 덮어쓰기',
 			'meta.overwriteAppend' => '추가 덮어쓰기',
 			'meta.overwriteTips' => '원본 프로필 <- 사용자 정의 덮어쓰기 <- 앱 덮어쓰기',
@@ -896,6 +911,9 @@ extension on TranslationsKo {
 			'profilePatchMode.currentSelected' => '현재 선택됨',
 			'profilePatchMode.overwrite' => '내장 - 덮어쓰기',
 			'profilePatchMode.noOverwrite' => '내장 - 덮어쓰지 않음',
+			'overwriteMode.overwrite' => '덮어쓰기',
+			'overwriteMode.noOverwrite' => '덮어쓰지 않음',
+			'overwriteMode.overwriteInsert' => '덮어쓰기 - 맨 앞에 삽입',
 			'protocolSniff' => '프로토콜 스니핑',
 			'protocolSniffOverrideDestination' => '스니핑된 도메인 이름으로 연결 대상 주소 덮어쓰기',
 			'sendOrReceiveNotMatch' => ({required Object p}) => '[${p}]를 사용하십시오',

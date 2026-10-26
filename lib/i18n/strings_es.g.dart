@@ -53,6 +53,7 @@ class TranslationsEs with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$dns$es dns = _Translations$dns$es._(_root);
 	@override late final _Translations$sniffer$es sniffer = _Translations$sniffer$es._(_root);
 	@override late final _Translations$profilePatchMode$es profilePatchMode = _Translations$profilePatchMode$es._(_root);
+	@override late final _Translations$overwriteMode$es overwriteMode = _Translations$overwriteMode$es._(_root);
 	@override String get protocolSniff => 'Sniff de Protocolo';
 	@override String get protocolSniffOverrideDestination => 'El nombre de dominio Sniff sobrescribe la dirección de destino de la conexión';
 	@override String sendOrReceiveNotMatch({required Object p}) => 'Utilice [${p}]';
@@ -282,6 +283,7 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get shareUrl => 'Compartir Enlace';
 	@override String get coreSettingTips => 'Nota: Después de modificar la configuración, debe volver a conectar para que surta efecto';
 	@override String get overwrite => 'Sobrescribir';
+	@override String get overwriteMethod => 'Método de sobrescritura';
 	@override String get overwriteCustom => 'Sobrescritura Personalizada';
 	@override String get overwriteAppend => 'Sobrescritura adicional';
 	@override String get overwriteTips => 'Perfil Original <- Sobrescritura Personalizada <- Sobrescritura de App';
@@ -541,6 +543,18 @@ class _Translations$profilePatchMode$es implements Translations$profilePatchMode
 	@override String get noOverwrite => 'Integrado - sin sobrescritura';
 }
 
+// Path: overwriteMode
+class _Translations$overwriteMode$es implements Translations$overwriteMode$en {
+	_Translations$overwriteMode$es._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get overwrite => 'Sobrescribir';
+	@override String get noOverwrite => 'No sobrescribir';
+	@override String get overwriteInsert => 'Sobrescribir - insertar al principio';
+}
+
 // Path: main.tray
 class _Translations$main$tray$es implements Translations$main$tray$en {
 	_Translations$main$tray$es._(this._root);
@@ -693,6 +707,7 @@ extension on TranslationsEs {
 			'meta.shareUrl' => 'Compartir Enlace',
 			'meta.coreSettingTips' => 'Nota: Después de modificar la configuración, debe volver a conectar para que surta efecto',
 			'meta.overwrite' => 'Sobrescribir',
+			'meta.overwriteMethod' => 'Método de sobrescritura',
 			'meta.overwriteCustom' => 'Sobrescritura Personalizada',
 			'meta.overwriteAppend' => 'Sobrescritura adicional',
 			'meta.overwriteTips' => 'Perfil Original <- Sobrescritura Personalizada <- Sobrescritura de App',
@@ -896,6 +911,9 @@ extension on TranslationsEs {
 			'profilePatchMode.currentSelected' => 'Seleccionado Actual',
 			'profilePatchMode.overwrite' => 'Sobrescritura Integrada',
 			'profilePatchMode.noOverwrite' => 'Integrado - sin sobrescritura',
+			'overwriteMode.overwrite' => 'Sobrescribir',
+			'overwriteMode.noOverwrite' => 'No sobrescribir',
+			'overwriteMode.overwriteInsert' => 'Sobrescribir - insertar al principio',
 			'protocolSniff' => 'Sniff de Protocolo',
 			'protocolSniffOverrideDestination' => 'El nombre de dominio Sniff sobrescribe la dirección de destino de la conexión',
 			'sendOrReceiveNotMatch' => ({required Object p}) => 'Utilice [${p}]',

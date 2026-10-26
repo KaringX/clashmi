@@ -151,6 +151,7 @@
         "shareUrl": "Share Link",
         "coreSettingTips": "Note: After modifying the configuration, you need to reconnect to take effect",
         "overwrite": "Overwrite",
+        "overwriteMethod": "Overwrite Method",
         "overwriteCustom": "Custom Overwrite",
         "overwriteAppend": "Append Overwrite",
         "overwriteTips": "Original Profile <- Custom Overwrite <- App Overwrite",
@@ -366,6 +367,11 @@
         "currentSelected": "Current Selected",
         "overwrite": "Built-in Overwrite",
         "noOverwrite": "Built-in - no Overwrite"
+    },
+    "overwriteMode": {
+        "overwrite": "Overwrite",
+        "noOverwrite": "Do not overwrite",
+        "overwriteInsert": "Overwrite - Insert at Beginning"
     },
     "protocolSniff": "Protocol Sniff",
     "protocolSniffOverrideDestination": "The Sniff domain name override the connection target address",

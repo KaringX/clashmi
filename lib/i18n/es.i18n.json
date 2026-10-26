@@ -151,6 +151,7 @@
         "shareUrl": "Compartir Enlace",
         "coreSettingTips": "Nota: Después de modificar la configuración, debe volver a conectar para que surta efecto",
         "overwrite": "Sobrescribir",
+        "overwriteMethod": "Método de sobrescritura",
         "overwriteCustom": "Sobrescritura Personalizada",
         "overwriteAppend": "Sobrescritura adicional",
         "overwriteTips": "Perfil Original <- Sobrescritura Personalizada <- Sobrescritura de App",
@@ -366,6 +367,11 @@
         "currentSelected": "Seleccionado Actual",
         "overwrite": "Sobrescritura Integrada",
         "noOverwrite": "Integrado - sin sobrescritura"
+    },
+    "overwriteMode": {
+        "overwrite": "Sobrescribir",
+        "noOverwrite": "No sobrescribir",
+        "overwriteInsert": "Sobrescribir - insertar al principio"
     },
     "protocolSniff": "Sniff de Protocolo",
     "protocolSniffOverrideDestination": "El nombre de dominio Sniff sobrescribe la dirección de destino de la conexión",

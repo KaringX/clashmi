@@ -151,6 +151,7 @@
         "shareUrl": "分享链接",
         "coreSettingTips": "注意:修改配置后,需要重新连接才会生效",
         "overwrite": "覆写",
+        "overwriteMethod": "覆写方式",
         "overwriteCustom": "自定义覆写",
         "overwriteAppend": "追加覆写",
         "overwriteTips": "原始配置<-自定义覆写<-App覆写",
@@ -366,6 +367,11 @@
         "currentSelected": "当前选择",
         "overwrite": "内置-覆写",
         "noOverwrite": "内置-不覆写"
+    },
+    "overwriteMode": {
+        "overwrite": "覆写",
+        "noOverwrite": "不覆写",
+        "overwriteInsert": "覆写-插入到头部"
     },
     "protocolSniff": "协议探测",
     "protocolSniffOverrideDestination": "探测的域名覆盖连接目标地址",

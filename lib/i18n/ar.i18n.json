@@ -151,6 +151,7 @@
         "shareUrl": "شارك الرابط",
         "coreSettingTips": "ملاحظة: بعد تعديل التكوين، تحتاج إلى إعادة الاتصال حتى يسري مفعوله",
         "overwrite": "تجاوز",
+        "overwriteMethod": "طريقة التجاوز",
         "overwriteCustom": "تجاوزات مخصصة",
         "overwriteAppend": "تجاوز إضافي",
         "overwriteTips": "التكوين الأصلي <- تجاوز مخصص <- تجاوز التطبيق",
@@ -366,6 +367,11 @@
         "currentSelected": "المحدد الحالي",
         "overwrite": "التجاوز المدمج",
         "noOverwrite": "مُدمج - غير قابل للكتابة فوقه"
+    },
+    "overwriteMode": {
+        "overwrite": "تجاوز",
+        "noOverwrite": "لا تكتب فوق",
+        "overwriteInsert": "تجاوز - إدراج في البداية"
     },
     "protocolSniff": "الكشف عن البروتوكول",
     "protocolSniffOverrideDestination": "يغطي اسم المجال المكتشف عنوان هدف الاتصال",

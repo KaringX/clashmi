@@ -151,6 +151,7 @@
         "shareUrl": "링크 공유",
         "coreSettingTips": "참고: 설정을 수정한 후 적용하려면 다시 연결해야 합니다",
         "overwrite": "덮어쓰기",
+        "overwriteMethod": "덮어쓰기 방식",
         "overwriteCustom": "사용자 정의 덮어쓰기",
         "overwriteAppend": "추가 덮어쓰기",
         "overwriteTips": "원본 프로필 <- 사용자 정의 덮어쓰기 <- 앱 덮어쓰기",
@@ -366,6 +367,11 @@
         "currentSelected": "현재 선택됨",
         "overwrite": "내장 - 덮어쓰기",
         "noOverwrite": "내장 - 덮어쓰지 않음"
+    },
+    "overwriteMode": {
+        "overwrite": "덮어쓰기",
+        "noOverwrite": "덮어쓰지 않음",
+        "overwriteInsert": "덮어쓰기 - 맨 앞에 삽입"
     },
     "protocolSniff": "프로토콜 스니핑",
     "protocolSniffOverrideDestination": "스니핑된 도메인 이름으로 연결 대상 주소 덮어쓰기",

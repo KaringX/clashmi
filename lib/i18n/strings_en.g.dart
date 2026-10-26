@@ -56,6 +56,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$dns$en dns = Translations$dns$en._(_root);
 	late final Translations$sniffer$en sniffer = Translations$sniffer$en._(_root);
 	late final Translations$profilePatchMode$en profilePatchMode = Translations$profilePatchMode$en._(_root);
+	late final Translations$overwriteMode$en overwriteMode = Translations$overwriteMode$en._(_root);
 
 	/// en: 'Protocol Sniff'
 	String get protocolSniff => 'Protocol Sniff';
@@ -558,6 +559,9 @@ class Translations$meta$en {
 
 	/// en: 'Overwrite'
 	String get overwrite => 'Overwrite';
+
+	/// en: 'Overwrite Method'
+	String get overwriteMethod => 'Overwrite Method';
 
 	/// en: 'Custom Overwrite'
 	String get overwriteCustom => 'Custom Overwrite';
@@ -1223,6 +1227,24 @@ class Translations$profilePatchMode$en {
 	String get noOverwrite => 'Built-in - no Overwrite';
 }
 
+// Path: overwriteMode
+class Translations$overwriteMode$en {
+	Translations$overwriteMode$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Overwrite'
+	String get overwrite => 'Overwrite';
+
+	/// en: 'Do not overwrite'
+	String get noOverwrite => 'Do not overwrite';
+
+	/// en: 'Overwrite - Insert at Beginning'
+	String get overwriteInsert => 'Overwrite - Insert at Beginning';
+}
+
 // Path: main.tray
 class Translations$main$tray$en {
 	Translations$main$tray$en._(this._root);
@@ -1379,6 +1401,7 @@ extension on Translations {
 			'meta.shareUrl' => 'Share Link',
 			'meta.coreSettingTips' => 'Note: After modifying the configuration, you need to reconnect to take effect',
 			'meta.overwrite' => 'Overwrite',
+			'meta.overwriteMethod' => 'Overwrite Method',
 			'meta.overwriteCustom' => 'Custom Overwrite',
 			'meta.overwriteAppend' => 'Append Overwrite',
 			'meta.overwriteTips' => 'Original Profile <- Custom Overwrite <- App Overwrite',
@@ -1582,6 +1605,9 @@ extension on Translations {
 			'profilePatchMode.currentSelected' => 'Current Selected',
 			'profilePatchMode.overwrite' => 'Built-in Overwrite',
 			'profilePatchMode.noOverwrite' => 'Built-in - no Overwrite',
+			'overwriteMode.overwrite' => 'Overwrite',
+			'overwriteMode.noOverwrite' => 'Do not overwrite',
+			'overwriteMode.overwriteInsert' => 'Overwrite - Insert at Beginning',
 			'protocolSniff' => 'Protocol Sniff',
 			'protocolSniffOverrideDestination' => 'The Sniff domain name override the connection target address',
 			'sendOrReceiveNotMatch' => ({required Object p}) => 'Please use [${p}]',

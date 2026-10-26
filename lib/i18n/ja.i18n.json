@@ -151,6 +151,7 @@
         "shareUrl": "リンクを共有",
         "coreSettingTips": "注意：設定を変更した後、有効にするには再接続する必要があります",
         "overwrite": "上書き",
+        "overwriteMethod": "上書き方式",
         "overwriteCustom": "カスタム上書き",
         "overwriteAppend": "追加上書き",
         "overwriteTips": "オリジナルプロファイル <- カスタム上書き <- アプリ上書き",
@@ -366,6 +367,11 @@
         "currentSelected": "現在選択中",
         "overwrite": "内蔵 - 上書き",
         "noOverwrite": "内蔵 - 上書きなし"
+    },
+    "overwriteMode": {
+        "overwrite": "上書き",
+        "noOverwrite": "上書きしない",
+        "overwriteInsert": "上書き - 先頭に挿入"
     },
     "protocolSniff": "プロトコル検知",
     "protocolSniffOverrideDestination": "検知されたドメイン名で接続先アドレスを上書きする",

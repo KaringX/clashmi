@@ -53,6 +53,7 @@ class TranslationsFa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$dns$fa dns = _Translations$dns$fa._(_root);
 	@override late final _Translations$sniffer$fa sniffer = _Translations$sniffer$fa._(_root);
 	@override late final _Translations$profilePatchMode$fa profilePatchMode = _Translations$profilePatchMode$fa._(_root);
+	@override late final _Translations$overwriteMode$fa overwriteMode = _Translations$overwriteMode$fa._(_root);
 	@override String get protocolSniff => 'تشخیص پروتکل';
 	@override String get protocolSniffOverrideDestination => 'نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد';
 	@override String sendOrReceiveNotMatch({required Object p}) => 'لطفا از [${p}] استفاده کنید';
@@ -282,6 +283,7 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get shareUrl => 'اشتراک لینک';
 	@override String get coreSettingTips => 'توجه: پس از تغییر پیکربندی، باید دوباره وصل شوید تا اعمال شود';
 	@override String get overwrite => 'لغو';
+	@override String get overwriteMethod => 'روش بازنویسی';
 	@override String get overwriteCustom => 'لغوهای سفارشی';
 	@override String get overwriteAppend => 'لغو الحاقی';
 	@override String get overwriteTips => 'پیکربندی اصلی <- لغو سفارشی <- لغو برنامه';
@@ -541,6 +543,18 @@ class _Translations$profilePatchMode$fa implements Translations$profilePatchMode
 	@override String get noOverwrite => 'داخلی - رونویسی نشده است';
 }
 
+// Path: overwriteMode
+class _Translations$overwriteMode$fa implements Translations$overwriteMode$en {
+	_Translations$overwriteMode$fa._(this._root);
+
+	final TranslationsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get overwrite => 'لغو';
+	@override String get noOverwrite => 'رونویسی نکنید';
+	@override String get overwriteInsert => 'لغو - درج در ابتدا';
+}
+
 // Path: main.tray
 class _Translations$main$tray$fa implements Translations$main$tray$en {
 	_Translations$main$tray$fa._(this._root);
@@ -693,6 +707,7 @@ extension on TranslationsFa {
 			'meta.shareUrl' => 'اشتراک لینک',
 			'meta.coreSettingTips' => 'توجه: پس از تغییر پیکربندی، باید دوباره وصل شوید تا اعمال شود',
 			'meta.overwrite' => 'لغو',
+			'meta.overwriteMethod' => 'روش بازنویسی',
 			'meta.overwriteCustom' => 'لغوهای سفارشی',
 			'meta.overwriteAppend' => 'لغو الحاقی',
 			'meta.overwriteTips' => 'پیکربندی اصلی <- لغو سفارشی <- لغو برنامه',
@@ -896,6 +911,9 @@ extension on TranslationsFa {
 			'profilePatchMode.currentSelected' => 'فعلی انتخاب شده',
 			'profilePatchMode.overwrite' => 'Overwrite داخلی',
 			'profilePatchMode.noOverwrite' => 'داخلی - رونویسی نشده است',
+			'overwriteMode.overwrite' => 'لغو',
+			'overwriteMode.noOverwrite' => 'رونویسی نکنید',
+			'overwriteMode.overwriteInsert' => 'لغو - درج در ابتدا',
 			'protocolSniff' => 'تشخیص پروتکل',
 			'protocolSniffOverrideDestination' => 'نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد',
 			'sendOrReceiveNotMatch' => ({required Object p}) => 'لطفا از [${p}] استفاده کنید',

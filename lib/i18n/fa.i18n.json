@@ -151,6 +151,7 @@
         "shareUrl": "اشتراک لینک",
         "coreSettingTips": "توجه: پس از تغییر پیکربندی، باید دوباره وصل شوید تا اعمال شود",
         "overwrite": "لغو",
+        "overwriteMethod": "روش بازنویسی",
         "overwriteCustom": "لغوهای سفارشی",
         "overwriteAppend": "لغو الحاقی",
         "overwriteTips": "پیکربندی اصلی <- لغو سفارشی <- لغو برنامه",
@@ -366,6 +367,11 @@
         "currentSelected": "فعلی انتخاب شده",
         "overwrite": "Overwrite داخلی",
         "noOverwrite": "داخلی - رونویسی نشده است"
+    },
+    "overwriteMode": {
+        "overwrite": "لغو",
+        "noOverwrite": "رونویسی نکنید",
+        "overwriteInsert": "لغو - درج در ابتدا"
     },
     "protocolSniff": "تشخیص پروتکل",
     "protocolSniffOverrideDestination": "نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد",

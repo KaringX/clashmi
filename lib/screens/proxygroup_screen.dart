@@ -4,11 +4,14 @@ import 'package:clashmi/app/clash/clash_http_api.dart';
 import 'package:clashmi/app/modules/diversion_template_manager.dart';
 import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/i18n/strings.g.dart';
+import 'package:clashmi/screens/group_item_creator.dart';
+import 'package:clashmi/screens/group_item_options.dart';
 import 'package:clashmi/screens/proxygroup_select_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class ProxyGroupsScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routeSettings() {
@@ -76,6 +79,28 @@ class _ProxyGroupsScreenState extends LasyRenderingState<ProxyGroupsScreen> {
                     ),
                     const SizedBox(width: 50, height: 30),
                   ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+                child: FutureBuilder(
+                  future: getGroupOptions(),
+                  builder:
+                      (
+                        BuildContext context,
+                        AsyncSnapshot<List<GroupItem>> snapshot,
+                      ) {
+                        List<GroupItem> data = snapshot.hasData
+                            ? snapshot.data!
+                            : [];
+                        return Column(
+                          children: GroupItemCreator.createGroups(
+                            context,
+                            data,
+                          ),
+                        );
+                      },
                 ),
               ),
               const SizedBox(height: 10),
@@ -177,6 +202,45 @@ class _ProxyGroupsScreenState extends LasyRenderingState<ProxyGroupsScreen> {
         ),
       ),
     );
+  }
+
+  Future<List<GroupItem>> getGroupOptions() async {
+    final tcontext = Translations.of(context);
+
+    List<Tuple2<String?, String>> overwrite = [
+      Tuple2(OverwriteMode.overwrite.name, tcontext.overwriteMode.overwrite),
+      Tuple2(
+        OverwriteMode.overwriteInsert.name,
+        tcontext.overwriteMode.overwriteInsert,
+      ),
+      Tuple2(
+        OverwriteMode.noOverwrite.name,
+        tcontext.overwriteMode.noOverwrite,
+      ),
+    ];
+
+    List<GroupItem> groupOptions = [];
+    List<GroupItemOptions> options = [
+      GroupItemOptions(
+        stringPickerOptions: GroupItemStringPickerOptions(
+          name: tcontext.meta.overwriteMethod,
+          selected: widget.profile.proxyGroupsOverwriteMethod.name,
+          tupleStrings: overwrite,
+          onPicker: (String? selected) async {
+            widget.profile.proxyGroupsOverwriteMethod = OverwriteMode.values
+                .firstWhere(
+                  (e) => e.name == selected,
+                  orElse: () => OverwriteMode.overwrite,
+                );
+            setState(() {});
+          },
+        ),
+      ),
+    ];
+
+    groupOptions.add(GroupItem(options: options));
+
+    return groupOptions;
   }
 
   void onTapEdit(String name) async {

@@ -30,6 +30,18 @@ import 'package:tuple/tuple.dart';
 
 const int kRemarkMaxLength = 32;
 
+enum OverwriteMode {
+  overwrite(name: "overwrite"),
+  overwriteInsert(name: "overwriteInsert"),
+  noOverwrite(name: "noOverwrite");
+
+  const OverwriteMode({required this.name});
+  final String name;
+
+  static List<String> names() =>
+      OverwriteMode.values.map((e) => e.name).toList();
+}
+
 class ProfileSettingProxyGroup {
   List<String> proxies = [];
   Map<String, dynamic> toJson() => {'proxies': proxies};
@@ -83,9 +95,12 @@ class ProfileSetting {
 
   bool overwriteProxyGroups = false;
   bool overwriteRules = false;
+  OverwriteMode proxyGroupsOverwriteMethod = OverwriteMode.overwrite;
+  OverwriteMode rulesOverwriteMethod = OverwriteMode.overwrite;
   Map<String, ProfileSettingProxyGroup> proxyGroups = {};
   Map<String, String> rules = {};
   Map<String, String> rulesForProxyGroups = {};
+
   bool appendApplePushRules = false;
 
   Map<String, dynamic> toJson() => {
@@ -107,6 +122,8 @@ class ProfileSetting {
     'board_provider_id': boardProviderId,
     'overwrite_rules': overwriteRules,
     'overwrite_proxy_groups': overwriteProxyGroups,
+    'proxy_groups_overwrite_method': proxyGroupsOverwriteMethod.name,
+    'rules_overwrite_method': rulesOverwriteMethod.name,
     'proxy_groups': proxyGroups,
     'rules': rules,
     'rules_for_proxy_groups': rulesForProxyGroups,
@@ -153,6 +170,18 @@ class ProfileSetting {
     boardProviderId = map['board_provider_id'] ?? "";
     overwriteProxyGroups = map['overwrite_proxy_groups'] ?? false;
     overwriteRules = map['overwrite_rules'] ?? false;
+    proxyGroupsOverwriteMethod = OverwriteMode.values.firstWhere(
+      (e) => e.name == map['proxy_groups_overwrite_method'],
+      orElse: () => overwriteProxyGroups == false
+          ? OverwriteMode.noOverwrite
+          : OverwriteMode.overwrite,
+    );
+    rulesOverwriteMethod = OverwriteMode.values.firstWhere(
+      (e) => e.name == map['rules_overwrite_method'],
+      orElse: () => overwriteRules == false
+          ? OverwriteMode.noOverwrite
+          : OverwriteMode.overwrite,
+    );
     final pgs = map["proxy_groups"];
     if (pgs is Map) {
       pgs.forEach((key, value) {
@@ -274,6 +303,8 @@ class ProfileSetting {
     ps.boardProviderId = boardProviderId;
     ps.overwriteProxyGroups = overwriteProxyGroups;
     ps.overwriteRules = overwriteRules;
+    ps.proxyGroupsOverwriteMethod = proxyGroupsOverwriteMethod;
+    ps.rulesOverwriteMethod = rulesOverwriteMethod;
     proxyGroups.forEach((key, value) {
       ps.proxyGroups[key] = value.clone();
     });

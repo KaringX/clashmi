@@ -53,6 +53,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$dns$ru dns = _Translations$dns$ru._(_root);
 	@override late final _Translations$sniffer$ru sniffer = _Translations$sniffer$ru._(_root);
 	@override late final _Translations$profilePatchMode$ru profilePatchMode = _Translations$profilePatchMode$ru._(_root);
+	@override late final _Translations$overwriteMode$ru overwriteMode = _Translations$overwriteMode$ru._(_root);
 	@override String get protocolSniff => 'Определение протокола';
 	@override String get protocolSniffOverrideDestination => 'Обнаруженное имя домена перезаписывает целевой адрес подключения.';
 	@override String sendOrReceiveNotMatch({required Object p}) => 'Пожалуйста, используйте [${p}]';
@@ -282,6 +283,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get shareUrl => 'Поделиться ссылкой';
 	@override String get coreSettingTips => 'Примечание: После изменения конфигурации необходимо повторно подключиться, чтобы изменения вступили в силу.';
 	@override String get overwrite => 'Переопределить';
+	@override String get overwriteMethod => 'Способ переопределения';
 	@override String get overwriteCustom => 'Пользовательские переопределения';
 	@override String get overwriteAppend => 'Дополнительное переопределение';
 	@override String get overwriteTips => 'Исходная конфигурация <- Пользовательское переопределение <- Переопределение приложения';
@@ -541,6 +543,18 @@ class _Translations$profilePatchMode$ru implements Translations$profilePatchMode
 	@override String get noOverwrite => 'Встроенный - не перезаписывается';
 }
 
+// Path: overwriteMode
+class _Translations$overwriteMode$ru implements Translations$overwriteMode$en {
+	_Translations$overwriteMode$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get overwrite => 'Перезаписать';
+	@override String get noOverwrite => 'Не перезаписывать';
+	@override String get overwriteInsert => 'Перезаписать — вставить в начало';
+}
+
 // Path: main.tray
 class _Translations$main$tray$ru implements Translations$main$tray$en {
 	_Translations$main$tray$ru._(this._root);
@@ -693,6 +707,7 @@ extension on TranslationsRu {
 			'meta.shareUrl' => 'Поделиться ссылкой',
 			'meta.coreSettingTips' => 'Примечание: После изменения конфигурации необходимо повторно подключиться, чтобы изменения вступили в силу.',
 			'meta.overwrite' => 'Переопределить',
+			'meta.overwriteMethod' => 'Способ переопределения',
 			'meta.overwriteCustom' => 'Пользовательские переопределения',
 			'meta.overwriteAppend' => 'Дополнительное переопределение',
 			'meta.overwriteTips' => 'Исходная конфигурация <- Пользовательское переопределение <- Переопределение приложения',
@@ -896,6 +911,9 @@ extension on TranslationsRu {
 			'profilePatchMode.currentSelected' => 'Текущий сервер',
 			'profilePatchMode.overwrite' => 'Встроенная функция переопределения',
 			'profilePatchMode.noOverwrite' => 'Встроенный - не перезаписывается',
+			'overwriteMode.overwrite' => 'Перезаписать',
+			'overwriteMode.noOverwrite' => 'Не перезаписывать',
+			'overwriteMode.overwriteInsert' => 'Перезаписать — вставить в начало',
 			'protocolSniff' => 'Определение протокола',
 			'protocolSniffOverrideDestination' => 'Обнаруженное имя домена перезаписывает целевой адрес подключения.',
 			'sendOrReceiveNotMatch' => ({required Object p}) => 'Пожалуйста, используйте [${p}]',

@@ -53,6 +53,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$dns$ja dns = _Translations$dns$ja._(_root);
 	@override late final _Translations$sniffer$ja sniffer = _Translations$sniffer$ja._(_root);
 	@override late final _Translations$profilePatchMode$ja profilePatchMode = _Translations$profilePatchMode$ja._(_root);
+	@override late final _Translations$overwriteMode$ja overwriteMode = _Translations$overwriteMode$ja._(_root);
 	@override String get protocolSniff => 'プロトコル検知';
 	@override String get protocolSniffOverrideDestination => '検知されたドメイン名で接続先アドレスを上書きする';
 	@override String sendOrReceiveNotMatch({required Object p}) => '[${p}] を使用してください';
@@ -282,6 +283,7 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get shareUrl => 'リンクを共有';
 	@override String get coreSettingTips => '注意：設定を変更した後、有効にするには再接続する必要があります';
 	@override String get overwrite => '上書き';
+	@override String get overwriteMethod => '上書き方式';
 	@override String get overwriteCustom => 'カスタム上書き';
 	@override String get overwriteAppend => '追加上書き';
 	@override String get overwriteTips => 'オリジナルプロファイル <- カスタム上書き <- アプリ上書き';
@@ -541,6 +543,18 @@ class _Translations$profilePatchMode$ja implements Translations$profilePatchMode
 	@override String get noOverwrite => '内蔵 - 上書きなし';
 }
 
+// Path: overwriteMode
+class _Translations$overwriteMode$ja implements Translations$overwriteMode$en {
+	_Translations$overwriteMode$ja._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get overwrite => '上書き';
+	@override String get noOverwrite => '上書きしない';
+	@override String get overwriteInsert => '上書き - 先頭に挿入';
+}
+
 // Path: main.tray
 class _Translations$main$tray$ja implements Translations$main$tray$en {
 	_Translations$main$tray$ja._(this._root);
@@ -693,6 +707,7 @@ extension on TranslationsJa {
 			'meta.shareUrl' => 'リンクを共有',
 			'meta.coreSettingTips' => '注意：設定を変更した後、有効にするには再接続する必要があります',
 			'meta.overwrite' => '上書き',
+			'meta.overwriteMethod' => '上書き方式',
 			'meta.overwriteCustom' => 'カスタム上書き',
 			'meta.overwriteAppend' => '追加上書き',
 			'meta.overwriteTips' => 'オリジナルプロファイル <- カスタム上書き <- アプリ上書き',
@@ -896,6 +911,9 @@ extension on TranslationsJa {
 			'profilePatchMode.currentSelected' => '現在選択中',
 			'profilePatchMode.overwrite' => '内蔵 - 上書き',
 			'profilePatchMode.noOverwrite' => '内蔵 - 上書きなし',
+			'overwriteMode.overwrite' => '上書き',
+			'overwriteMode.noOverwrite' => '上書きしない',
+			'overwriteMode.overwriteInsert' => '上書き - 先頭に挿入',
 			'protocolSniff' => 'プロトコル検知',
 			'protocolSniffOverrideDestination' => '検知されたドメイン名で接続先アドレスを上書きする',
 			'sendOrReceiveNotMatch' => ({required Object p}) => '[${p}] を使用してください',
