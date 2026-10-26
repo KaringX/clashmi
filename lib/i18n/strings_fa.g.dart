@@ -468,6 +468,7 @@ class _Translations$tls$fa implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'رد شدن از تأیید گواهی';
+	@override String get ignoreBadCertificate => 'نادیده گرفتن خطاهای گواهی';
 	@override String get certificate => 'گواهی';
 	@override String get privateKey => 'کلید خصوصی';
 	@override String get customTrustCert => 'گواهی های سفارشی';
@@ -860,6 +861,7 @@ extension on TranslationsFa {
 			'permission.request' => ({required Object p}) => 'مجوزهای [${p}] را فعال کنید',
 			'permission.requestNeed' => ({required Object p}) => 'لطفاً مجوز [${p}] را فعال کنید',
 			'tls.insecure' => 'رد شدن از تأیید گواهی',
+			'tls.ignoreBadCertificate' => 'نادیده گرفتن خطاهای گواهی',
 			'tls.certificate' => 'گواهی',
 			'tls.privateKey' => 'کلید خصوصی',
 			'tls.customTrustCert' => 'گواهی های سفارشی',

@@ -468,6 +468,7 @@ class Translations$tls$zh_CN implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => '跳过证书验证';
+	@override String get ignoreBadCertificate => '忽略证书错误';
 	@override String get certificate => '证书';
 	@override String get privateKey => '私钥';
 	@override String get customTrustCert => '自定义证书';
@@ -860,6 +861,7 @@ extension on TranslationsZhCn {
 			'permission.request' => ({required Object p}) => '开启[${p}]权限',
 			'permission.requestNeed' => ({required Object p}) => '请开启[${p}]权限',
 			'tls.insecure' => '跳过证书验证',
+			'tls.ignoreBadCertificate' => '忽略证书错误',
 			'tls.certificate' => '证书',
 			'tls.privateKey' => '私钥',
 			'tls.customTrustCert' => '自定义证书',

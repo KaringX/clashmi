@@ -323,6 +323,7 @@
     },
     "tls": {
         "insecure": "رد شدن از تأیید گواهی",
+        "ignoreBadCertificate": "نادیده گرفتن خطاهای گواهی",
         "certificate": "گواهی",
         "privateKey": "کلید خصوصی",
         "customTrustCert": "گواهی های سفارشی"

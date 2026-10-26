@@ -468,6 +468,7 @@ class _Translations$tls$ru implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'Пропустить проверку сертификата';
+	@override String get ignoreBadCertificate => 'Игнорировать ошибки сертификата';
 	@override String get certificate => 'Сертификат';
 	@override String get privateKey => 'Закрытый ключ';
 	@override String get customTrustCert => 'Индивидуальные сертификаты';
@@ -860,6 +861,7 @@ extension on TranslationsRu {
 			'permission.request' => ({required Object p}) => 'Включить разрешения [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]',
 			'tls.insecure' => 'Пропустить проверку сертификата',
+			'tls.ignoreBadCertificate' => 'Игнорировать ошибки сертификата',
 			'tls.certificate' => 'Сертификат',
 			'tls.privateKey' => 'Закрытый ключ',
 			'tls.customTrustCert' => 'Индивидуальные сертификаты',

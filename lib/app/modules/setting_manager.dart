@@ -222,6 +222,7 @@ class SettingConfig {
   String logLevel = bool.fromEnvironment("dart.vm.product")
       ? "warning"
       : "info"; //trace, debug, info, warning, error
+  bool ignoreBadCertificate = true;
   String autoUpdateChannel = "stable"; //stable, beta
   bool autoDownloadUpdatePkg = true;
   bool autoConnectAfterLaunch = false;
@@ -247,6 +248,7 @@ class SettingConfig {
     'webdav': webdav,
     'alway_on': alwayOn,
     'log_level': logLevel,
+    'ignore_bad_certificate': ignoreBadCertificate,
     'auto_update_channel': autoUpdateChannel,
     'auto_download_udpate_pkg': autoDownloadUpdatePkg,
     'auto_connect_after_launch': autoConnectAfterLaunch,
@@ -278,6 +280,7 @@ class SettingConfig {
     logLevel =
         map["log_level"] ??
         (bool.fromEnvironment("dart.vm.product") ? "warning" : "info");
+    ignoreBadCertificate = map["ignore_bad_certificate"] ?? true;
     autoUpdateChannel = map["auto_update_channel"] ?? "stable";
     if (autoUpdateChannel.isEmpty) {
       autoUpdateChannel = Random().nextInt(10) < 5 ? "beta" : "stable";
@@ -293,7 +296,6 @@ class SettingConfig {
     )!;
 
     _userAgent = map["user_agent"] ?? "";
-
     boardOnline = map["board_online"] ?? false;
     boardUrl = map["board_url"] ?? kDefaultBoardUrl;
     boardLocalPort = map["board_port"] ?? kDefaultBoardPort;

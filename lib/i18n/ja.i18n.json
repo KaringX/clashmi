@@ -323,6 +323,7 @@
     },
     "tls": {
         "insecure": "証明書の検証をスキップ",
+        "ignoreBadCertificate": "証明書エラーを無視する",
         "certificate": "証明書",
         "privateKey": "秘密鍵",
         "customTrustCert": "カスタム証明書"

@@ -323,6 +323,7 @@
     },
     "tls": {
         "insecure": "تخطي التحقق من الشهادة",
+        "ignoreBadCertificate": "تجاهل أخطاء الشهادة",
         "certificate": "شهادة",
         "privateKey": "المفتاح الخاص",
         "customTrustCert": "شهادات مخصصة"

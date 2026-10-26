@@ -323,6 +323,7 @@
     },
     "tls": {
         "insecure": "Omitir Verificación de Certificado",
+        "ignoreBadCertificate": "Ignorar errores de certificado",
         "certificate": "Certificado",
         "privateKey": "Clave Privada",
         "customTrustCert": "Certificados Personalizados"

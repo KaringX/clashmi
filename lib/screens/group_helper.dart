@@ -1196,6 +1196,19 @@ class GroupHelper {
             ),
           ),
         ],
+      ];
+      List<GroupItemOptions> options001 = [
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.tls.ignoreBadCertificate,
+            switchValue: SettingManager.getConfig().ignoreBadCertificate,
+            onSwitch: (bool value) async {
+              setting.ignoreBadCertificate = value;
+            },
+          ),
+        ),
+      ];
+      List<GroupItemOptions> options002 = [
         if (AutoUpdateManager.isSupport()) ...[
           GroupItemOptions(
             stringPickerOptions: GroupItemStringPickerOptions(
@@ -1212,8 +1225,6 @@ class GroupHelper {
               },
             ),
           ),
-        ],
-        if (AutoUpdateManager.isSupport()) ...[
           GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
               name: tcontext.meta.autoDownloadPkg,
@@ -1505,6 +1516,8 @@ class GroupHelper {
       List<GroupItem> gitems = [
         GroupItem(options: options0),
         GroupItem(options: options),
+        GroupItem(options: options001),
+        if (options002.isNotEmpty) ...[GroupItem(options: options002)],
         GroupItem(options: options01),
         GroupItem(options: options1),
         GroupItem(options: options2),

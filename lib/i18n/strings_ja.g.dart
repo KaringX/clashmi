@@ -468,6 +468,7 @@ class _Translations$tls$ja implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => '証明書の検証をスキップ';
+	@override String get ignoreBadCertificate => '証明書エラーを無視する';
 	@override String get certificate => '証明書';
 	@override String get privateKey => '秘密鍵';
 	@override String get customTrustCert => 'カスタム証明書';
@@ -860,6 +861,7 @@ extension on TranslationsJa {
 			'permission.request' => ({required Object p}) => '[${p}] 権限をオンにする',
 			'permission.requestNeed' => ({required Object p}) => '[${p}] 権限をオンにしてください',
 			'tls.insecure' => '証明書の検証をスキップ',
+			'tls.ignoreBadCertificate' => '証明書エラーを無視する',
 			'tls.certificate' => '証明書',
 			'tls.privateKey' => '秘密鍵',
 			'tls.customTrustCert' => 'カスタム証明書',

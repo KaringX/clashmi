@@ -468,6 +468,7 @@ class _Translations$tls$es implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'Omitir Verificación de Certificado';
+	@override String get ignoreBadCertificate => 'Ignorar errores de certificado';
 	@override String get certificate => 'Certificado';
 	@override String get privateKey => 'Clave Privada';
 	@override String get customTrustCert => 'Certificados Personalizados';
@@ -860,6 +861,7 @@ extension on TranslationsEs {
 			'permission.request' => ({required Object p}) => 'Activar permiso de [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Por favor, active el permiso de [${p}]',
 			'tls.insecure' => 'Omitir Verificación de Certificado',
+			'tls.ignoreBadCertificate' => 'Ignorar errores de certificado',
 			'tls.certificate' => 'Certificado',
 			'tls.privateKey' => 'Clave Privada',
 			'tls.customTrustCert' => 'Certificados Personalizados',

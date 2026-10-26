@@ -1081,6 +1081,9 @@ class Translations$tls$en {
 	/// en: 'Skip Certificate Verification'
 	String get insecure => 'Skip Certificate Verification';
 
+	/// en: 'Ignore Certificate Errors'
+	String get ignoreBadCertificate => 'Ignore Certificate Errors';
+
 	/// en: 'Certificate'
 	String get certificate => 'Certificate';
 
@@ -1544,6 +1547,7 @@ extension on Translations {
 			'permission.request' => ({required Object p}) => 'Turn on [${p}] permission',
 			'permission.requestNeed' => ({required Object p}) => 'Please Turn on [${p}] permission',
 			'tls.insecure' => 'Skip Certificate Verification',
+			'tls.ignoreBadCertificate' => 'Ignore Certificate Errors',
 			'tls.certificate' => 'Certificate',
 			'tls.privateKey' => 'Private Key',
 			'tls.customTrustCert' => 'Custom Certifactes',

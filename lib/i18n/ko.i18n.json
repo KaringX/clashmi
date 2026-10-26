@@ -323,6 +323,7 @@
     },
     "tls": {
         "insecure": "인증서 검증 건너뛰기",
+        "ignoreBadCertificate": "인증서 오류 무시",
         "certificate": "인증서",
         "privateKey": "개인 키",
         "customTrustCert": "사용자 정의 인증서"

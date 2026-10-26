@@ -468,6 +468,7 @@ class _Translations$tls$ko implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => '인증서 검증 건너뛰기';
+	@override String get ignoreBadCertificate => '인증서 오류 무시';
 	@override String get certificate => '인증서';
 	@override String get privateKey => '개인 키';
 	@override String get customTrustCert => '사용자 정의 인증서';
@@ -860,6 +861,7 @@ extension on TranslationsKo {
 			'permission.request' => ({required Object p}) => '[${p}] 권한 켜기',
 			'permission.requestNeed' => ({required Object p}) => '[${p}] 권한을 켜주십시오',
 			'tls.insecure' => '인증서 검증 건너뛰기',
+			'tls.ignoreBadCertificate' => '인증서 오류 무시',
 			'tls.certificate' => '인증서',
 			'tls.privateKey' => '개인 키',
 			'tls.customTrustCert' => '사용자 정의 인증서',

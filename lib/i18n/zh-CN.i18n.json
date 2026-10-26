@@ -323,6 +323,7 @@
     },
     "tls": {
         "insecure": "跳过证书验证",
+        "ignoreBadCertificate": "忽略证书错误",
         "certificate": "证书",
         "privateKey": "私钥",
         "customTrustCert": "自定义证书"

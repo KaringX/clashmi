@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 //import 'package:http/http.dart' as http;
 import 'package:clashmi/app/utils/app_utils.dart';
@@ -670,8 +671,9 @@ abstract final class HttpUtils {
     return null;
   }
 
-  static bool _certificateCheck(X509Certificate cert, String host, int port) =>
-      true;
+  static bool _certificateCheck(X509Certificate cert, String host, int port) {
+    return SettingManager.getConfig().ignoreBadCertificate;
+  }
 
   static void setProxy(HttpClient client, int proxyPort) {
     client.findProxy = (Uri uri) => "PROXY 127.0.0.1:$proxyPort";
