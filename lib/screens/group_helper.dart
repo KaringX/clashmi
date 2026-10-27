@@ -1950,14 +1950,11 @@ class GroupHelper {
               currentPatch.id,
               currentPatch.id.isEmpty ||
                   currentPatch.id == kProfilePatchBuildinOverwrite,
-              profile != null && profile.overwriteRules
-                  ? (profile.overwriteProxyGroups
-                        ? profile.rulesForProxyGroups
-                        : profile.rules)
-                  : null,
-              profile != null && profile.overwriteProxyGroups
-                  ? profile.proxyGroups
-                  : null,
+              profile?.proxyGroupsOverwriteMethod,
+              profile?.rulesOverwriteMethod,
+              profile?.rules,
+              profile?.rulesForProxyGroups,
+              profile?.proxyGroups,
               appendRules,
               profile?.decryptPasswordAGE,
             );

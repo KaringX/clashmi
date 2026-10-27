@@ -414,7 +414,10 @@ class ClashSettingManager {
   static Future<ReturnResult<String>> getPatchContent(
     String profileId,
     bool overwrite,
+    OverwriteMode? proxyGroupsOverwriteMethod,
+    OverwriteMode? rulesOverwriteMethod,
     Map<String, String>? overwriteRule,
+    Map<String, String>? overwriteRuleForProxyGroups,
     Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
     List<String>? appendRules,
     String? ageSecretKey,
@@ -542,7 +545,10 @@ class ClashSettingManager {
   static Future<ReturnResultError?> saveCorePatchFinal(
     String profileId,
     bool overwrite,
+    OverwriteMode proxyGroupsOverwriteMethod,
+    OverwriteMode rulesOverwriteMethod,
     Map<String, String>? overwriteRule,
+    Map<String, String>? overwriteRuleForProxyGroups,
     Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
     List<String>? appendRules,
     String? ageSecretKey,
@@ -550,7 +556,10 @@ class ClashSettingManager {
     final result = await getPatchContent(
       profileId,
       overwrite,
+      proxyGroupsOverwriteMethod,
+      rulesOverwriteMethod,
       overwriteRule,
+      overwriteRuleForProxyGroups,
       overwriteProxyGroups,
       appendRules,
       ageSecretKey,

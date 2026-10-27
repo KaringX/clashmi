@@ -462,7 +462,8 @@ class _ProfilesSettingsEditScreenState
       List<GroupItemOptions> options1 = [];
       final names = DiversionTemplateManager.getRuleTemplatesNames();
       for (var name in names) {
-        final target = _profile.overwriteProxyGroups
+        final target =
+            _profile.proxyGroupsOverwriteMethod != OverwriteMode.noOverwrite
             ? _profile.rulesForProxyGroups[name]
             : _profile.rules[name];
         options1.add(
@@ -517,7 +518,7 @@ class _ProfilesSettingsEditScreenState
       _nodes = await getProxies();
     }
     var newNodes = _nodes.toList();
-    if (_profile.overwriteProxyGroups) {
+    if (_profile.proxyGroupsOverwriteMethod == OverwriteMode.noOverwrite) {
       newNodes.removeWhere((ClashProxiesNode node) {
         return ClashProtocolType.GroupToList().contains(node.type);
       });
@@ -563,13 +564,16 @@ class _ProfilesSettingsEditScreenState
                   ],
                 ),
           selected:
-              (_profile.overwriteProxyGroups &&
+              (_profile.proxyGroupsOverwriteMethod !=
+                      OverwriteMode.noOverwrite &&
                   node.name == _profile.rulesForProxyGroups[ruleName]) ||
-              (!_profile.overwriteProxyGroups &&
+              (_profile.proxyGroupsOverwriteMethod ==
+                      OverwriteMode.noOverwrite &&
                   node.name == _profile.rules[ruleName]),
           selectedColor: ThemeDefine.kColorBlue,
           onTap: () async {
-            if (_profile.overwriteProxyGroups) {
+            if (_profile.proxyGroupsOverwriteMethod ==
+                OverwriteMode.noOverwrite) {
               _profile.rulesForProxyGroups[ruleName] = node.name;
             } else {
               _profile.rules[ruleName] = node.name;

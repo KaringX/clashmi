@@ -97,8 +97,6 @@ class ProfileSetting {
   String expire = "";
   String boardProviderId = "";
 
-  bool overwriteProxyGroups = false;
-  bool overwriteRules = false;
   OverwriteMode proxyGroupsOverwriteMethod = OverwriteMode.overwrite;
   OverwriteMode rulesOverwriteMethod = OverwriteMode.overwrite;
   Map<String, ProfileSettingProxyGroup> proxyGroups = {};
@@ -125,8 +123,6 @@ class ProfileSetting {
     'total': total,
     'expire': expire,
     'board_provider_id': boardProviderId,
-    'overwrite_rules': overwriteRules,
-    'overwrite_proxy_groups': overwriteProxyGroups,
     'proxy_groups_overwrite_method': proxyGroupsOverwriteMethod.name,
     'rules_overwrite_method': rulesOverwriteMethod.name,
     'proxy_groups': proxyGroups,
@@ -173,8 +169,8 @@ class ProfileSetting {
     total = map['total'] ?? 0;
     expire = map['expire'] ?? "";
     boardProviderId = map['board_provider_id'] ?? "";
-    overwriteProxyGroups = map['overwrite_proxy_groups'] ?? false;
-    overwriteRules = map['overwrite_rules'] ?? false;
+    final overwriteProxyGroups = map['overwrite_proxy_groups'] ?? false;
+    final overwriteRules = map['overwrite_rules'] ?? false;
     proxyGroupsOverwriteMethod = OverwriteMode.values.firstWhere(
       (e) => e.name == map['proxy_groups_overwrite_method'],
       orElse: () => overwriteProxyGroups == false
@@ -307,8 +303,6 @@ class ProfileSetting {
     ps.total = total;
     ps.expire = expire;
     ps.boardProviderId = boardProviderId;
-    ps.overwriteProxyGroups = overwriteProxyGroups;
-    ps.overwriteRules = overwriteRules;
     ps.proxyGroupsOverwriteMethod = proxyGroupsOverwriteMethod;
     ps.rulesOverwriteMethod = rulesOverwriteMethod;
     proxyGroups.forEach((key, value) {
