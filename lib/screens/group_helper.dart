@@ -1959,6 +1959,7 @@ class GroupHelper {
                   ? profile.proxyGroups
                   : null,
               appendRules,
+              profile?.decryptPasswordAGE,
             );
             if (!context.mounted) {
               return false;

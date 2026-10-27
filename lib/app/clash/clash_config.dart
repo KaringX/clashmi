@@ -464,6 +464,8 @@ class RawExtension {
   String? ProfileStoreSelectedPrefix;
   @JsonKey(name: 'tun')
   RawExtensionTun Tun;
+  @JsonKey(name: 'age-secret-key')
+  String? AgeSecretKey;
   @JsonKey(name: 'pprof-addr')
   String? PprofAddr;
   @JsonKey(name: 'proxy-group-replace')
@@ -474,6 +476,7 @@ class RawExtension {
     this.AppendRules,
     required this.Ruleset,
     required this.Tun,
+    this.AgeSecretKey,
     this.PprofAddr,
     this.ProxyGroupReplace,
     this.RuntimeProfileSavePath,
@@ -482,6 +485,7 @@ class RawExtension {
     this.AppendRules,
     this.Ruleset,
     this.Tun,
+    this.AgeSecretKey,
     this.PprofAddr,
     this.ProxyGroupReplace,
     this.RuntimeProfileSavePath,

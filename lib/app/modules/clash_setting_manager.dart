@@ -417,6 +417,7 @@ class ClashSettingManager {
     Map<String, String>? overwriteRule,
     Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
     List<String>? appendRules,
+    String? ageSecretKey,
   ) async {
     if (Platform.isIOS || Platform.isMacOS) {
       if ((_setting.Tun?.Stack != ClashTunStack.gvisor.name) &&
@@ -447,6 +448,7 @@ class ClashSettingManager {
     _setting.RuleProviders = null;
     _setting.ProxyGroups = null;
     _setting.Extension?.ProfileStoreSelectedPrefix = profileId;
+    _setting.Extension?.AgeSecretKey = ageSecretKey;
     if (Platform.isIOS) {
       _setting.FindProcessMode = ClashFindProcessMode.off.name;
     }
@@ -543,6 +545,7 @@ class ClashSettingManager {
     Map<String, String>? overwriteRule,
     Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
     List<String>? appendRules,
+    String? ageSecretKey,
   ) async {
     final result = await getPatchContent(
       profileId,
@@ -550,6 +553,7 @@ class ClashSettingManager {
       overwriteRule,
       overwriteProxyGroups,
       appendRules,
+      ageSecretKey,
     );
     if (result.error != null) {
       return result.error;

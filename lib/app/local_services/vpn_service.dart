@@ -176,6 +176,7 @@ class VPNService {
           : null,
       profile.overwriteProxyGroups ? profile.proxyGroups : null,
       appendRules,
+      profile.decryptPasswordAGE,
     );
 
     var excludePorts = [controlPort];
