@@ -45,14 +45,16 @@ class _ProxyGroupScreenScreenState
     for (var node in widget.nodes) {
       nodeNames.add(node.name);
     }
-
-    for (var proxy in widget.proxies) {
-      if (nodeNames.contains(proxy)) {
-        _checked.add(proxy);
-      } else {
-        _notExist.add(proxy);
+    if (widget.nodes.isNotEmpty) {
+      for (var proxy in widget.proxies) {
+        if (nodeNames.contains(proxy)) {
+          _checked.add(proxy);
+        } else {
+          _notExist.add(proxy);
+        }
       }
     }
+
     _loadSearch(null);
     super.initState();
   }
