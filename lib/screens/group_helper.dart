@@ -1942,8 +1942,10 @@ class GroupHelper {
           onDone: (context) async {
             final profile = ProfileManager.getCurrent();
             final currentPatch = ProfilePatchManager.getCurrent();
-            List<String>? appendRules =
-                Platform.isIOS && profile?.appendApplePushRules == true
+            final appendProxyGroup = profile?.appendApplePushRules == true
+                ? [ProfilePatchManager.appendProxyGroupApplePush()]
+                : null;
+            final appendRules = profile?.appendApplePushRules == true
                 ? ProfilePatchManager.appendRulesApplePush()
                 : null;
             final result = await ClashSettingManager.getPatchContent(
@@ -1954,6 +1956,7 @@ class GroupHelper {
               profile?.rules,
               profile?.rulesOverwriteMethod,
               profile?.proxyGroups,
+              appendProxyGroup,
               appendRules,
               profile?.decryptPasswordAGE,
             );

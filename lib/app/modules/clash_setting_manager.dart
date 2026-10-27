@@ -418,6 +418,7 @@ class ClashSettingManager {
     Map<String, String>? overwriteRule,
     OverwriteMode? proxyGroupsOverwriteMethod,
     Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
+    List<ProxyGroupTemplate>? appendProxyGroup,
     List<String>? appendRules,
     String? ageSecretKey,
   ) async {
@@ -540,6 +541,7 @@ class ClashSettingManager {
         }
       }
     }
+    _setting.Extension?.AppendProxyGroups = appendProxyGroup;
     _setting.Extension?.AppendRules = appendRules;
     if (overwrite) {
       final map = _setting.toJson();
@@ -568,6 +570,7 @@ class ClashSettingManager {
     Map<String, String>? overwriteRule,
     OverwriteMode proxyGroupsOverwriteMethod,
     Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
+    List<ProxyGroupTemplate>? appendProxyGroup,
     List<String>? appendRules,
     String? ageSecretKey,
   ) async {
@@ -578,6 +581,7 @@ class ClashSettingManager {
       overwriteRule,
       proxyGroupsOverwriteMethod,
       overwriteProxyGroups,
+      appendProxyGroup,
       appendRules,
       ageSecretKey,
     );

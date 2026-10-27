@@ -462,7 +462,9 @@ class RawExtension {
   Map<String, dynamic>? RuleProviders;
   @JsonKey(name: 'rules')
   List<String>? Rules;
-  @JsonKey(name: 'append_rules')
+  @JsonKey(name: 'append-proxy-groups')
+  List<dynamic>? AppendProxyGroups;
+  @JsonKey(name: 'append-rules')
   List<String>? AppendRules;
   @JsonKey(name: 'geo-rule-set')
   RawExtensionGeoRuleset Ruleset;
@@ -482,6 +484,7 @@ class RawExtension {
     this.ProxyGroups,
     this.RuleProviders,
     this.Rules,
+    this.AppendProxyGroups,
     this.AppendRules,
     required this.Ruleset,
     required this.Tun,
@@ -494,6 +497,7 @@ class RawExtension {
     this.ProxyGroups,
     this.RuleProviders,
     this.Rules,
+    this.AppendProxyGroups,
     this.AppendRules,
     this.Ruleset,
     this.Tun,

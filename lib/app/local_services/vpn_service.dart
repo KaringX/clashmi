@@ -163,7 +163,10 @@ class VPNService {
         patch.id.isEmpty ||
         patch.id == kProfilePatchBuildinOverwrite ||
         patch.appendPatchBuildin == kProfilePatchBuildinOverwrite;
-    List<String>? appendRules = Platform.isIOS && profile.appendApplePushRules
+    final appendProxyGroup = profile.appendApplePushRules
+        ? [ProfilePatchManager.appendProxyGroupApplePush()]
+        : null;
+    final appendRules = profile.appendApplePushRules
         ? ProfilePatchManager.appendRulesApplePush()
         : null;
     await ClashSettingManager.saveCorePatchFinal(
@@ -173,6 +176,7 @@ class VPNService {
       profile.rules,
       profile.proxyGroupsOverwriteMethod,
       profile.proxyGroups,
+      appendProxyGroup,
       appendRules,
       profile.decryptPasswordAGE,
     );

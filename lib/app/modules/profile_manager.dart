@@ -101,8 +101,7 @@ class ProfileSetting {
   OverwriteMode rulesOverwriteMethod = OverwriteMode.overwrite;
   Map<String, ProfileSettingProxyGroup> proxyGroups = {};
   Map<String, String> rules = {};
-
-  bool appendApplePushRules = false;
+  bool appendApplePushRules = Platform.isIOS || Platform.isMacOS;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -198,7 +197,8 @@ class ProfileSetting {
       return key.isEmpty || value.isEmpty;
     });
 
-    appendApplePushRules = map['append_apple_push_rules'] ?? false;
+    appendApplePushRules =
+        map['append_apple_push_rules'] ?? Platform.isIOS || Platform.isMacOS;
   }
 
   String getType() {

@@ -353,15 +353,6 @@ class _ProfilesSettingsEditScreenState
     List<GroupItemOptions> options1 = [
       GroupItemOptions(
         pushOptions: GroupItemPushOptions(
-          name: tcontext.meta.rule,
-          tips: "rules",
-          onPush: () async {
-            showClashSettingsRules();
-          },
-        ),
-      ),
-      GroupItemOptions(
-        pushOptions: GroupItemPushOptions(
           name: tcontext.meta.proxyGroups,
           tips: "proxy-groups",
           onPush: () async {
@@ -369,9 +360,15 @@ class _ProfilesSettingsEditScreenState
           },
         ),
       ),
-    ];
-
-    List<GroupItemOptions> options2 = [
+      GroupItemOptions(
+        pushOptions: GroupItemPushOptions(
+          name: tcontext.meta.rule,
+          tips: "rules",
+          onPush: () async {
+            showClashSettingsRules();
+          },
+        ),
+      ),
       GroupItemOptions(
         switchOptions: GroupItemSwitchOptions(
           name: tcontext.meta.profileRulesAppendApplePush,
@@ -387,9 +384,6 @@ class _ProfilesSettingsEditScreenState
 
     groupOptions.add(GroupItem(options: options));
     groupOptions.add(GroupItem(options: options1));
-    if (Platform.isIOS) {
-      groupOptions.add(GroupItem(options: options2));
-    }
 
     return groupOptions;
   }

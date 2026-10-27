@@ -6,6 +6,8 @@ import 'dart:io';
 import 'dart:ffi' as ffi;
 
 import 'package:clashmi/app/local_services/vpn_service.dart';
+import 'package:clashmi/app/modules/diversion_template_manager.dart';
+import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
@@ -21,6 +23,7 @@ import 'package:libclash_vpn_service/state.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter_js/flutter_js.dart';
 import 'package:clashmi/app/utils/emoji_utils.dart';
+import 'package:tuple/tuple.dart';
 import 'package:yaml/yaml.dart';
 import 'package:yaml_writer/yaml_writer.dart';
 
@@ -175,6 +178,7 @@ class ProfilePatchConfig {
 class ProfilePatchManager {
   static const String yamlExtension = "yaml";
   static const String urlComment = "#url:";
+  static const String applePushNotification = "Apple Push Notification";
 
   static final ProfilePatchConfig _config = ProfilePatchConfig();
 
@@ -219,20 +223,24 @@ class ProfilePatchManager {
     _timerChecker = null;
   }
 
+  static ProxyGroupTemplate appendProxyGroupApplePush() {
+    return ProxyGroupTemplate(name: applePushNotification, type: "url-test");
+  }
+
   static List<String> appendRulesApplePush() {
     return [
-      "DOMAIN-SUFFIX,push.apple.com,{PROXY}",
-      "DOMAIN-SUFFIX,akadns.net,{PROXY}",
-      "DOMAIN-KEYWORD,apple.com.edgekey.net,{PROXY}",
-      "IP-CIDR,17.249.0.0/16,{PROXY},no-resolve",
-      "IP-CIDR,17.252.0.0/16,{PROXY},no-resolve",
-      "IP-CIDR,17.57.144.0/22,{PROXY},no-resolve",
-      "IP-CIDR,17.188.128.0/18,{PROXY},no-resolve",
-      "IP-CIDR,17.188.20.0/23,{PROXY},no-resolve",
-      "IP-CIDR6,2620:149:a44::/48,{PROXY},no-resolve",
-      "IP-CIDR6,2403:300:a42::/48,{PROXY},no-resolve",
-      "IP-CIDR6,2403:300:a51::/48,{PROXY},no-resolve",
-      "IP-CIDR6,2a01:b740:a42::/48,{PROXY},no-resolve",
+      "DOMAIN-SUFFIX,push.apple.com,$applePushNotification",
+      "DOMAIN-SUFFIX,akadns.net,$applePushNotification",
+      "DOMAIN-KEYWORD,apple.com.edgekey.net,$applePushNotification",
+      "IP-CIDR,17.249.0.0/16,$applePushNotification,no-resolve",
+      "IP-CIDR,17.252.0.0/16,$applePushNotification,no-resolve",
+      "IP-CIDR,17.57.144.0/22,$applePushNotification,no-resolve",
+      "IP-CIDR,17.188.128.0/18,$applePushNotification,no-resolve",
+      "IP-CIDR,17.188.20.0/23,$applePushNotification,no-resolve",
+      "IP-CIDR6,2620:149:a44::/48,$applePushNotification,no-resolve",
+      "IP-CIDR6,2403:300:a42::/48,$applePushNotification,no-resolve",
+      "IP-CIDR6,2403:300:a51::/48,$applePushNotification,no-resolve",
+      "IP-CIDR6,2a01:b740:a42::/48,$applePushNotification,no-resolve",
     ];
   }
 
