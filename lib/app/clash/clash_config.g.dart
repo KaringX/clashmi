@@ -96,6 +96,9 @@ Map<String, dynamic> _$RawExtensionTunToJson(RawExtensionTun instance) =>
 
 RawExtension _$RawExtensionFromJson(Map<String, dynamic> json) =>
     RawExtension(
+        json['proxy-groups'] as List<dynamic>?,
+        json['rule-providers'] as Map<String, dynamic>?,
+        (json['rules'] as List<dynamic>?)?.map((e) => e as String).toList(),
         (json['append_rules'] as List<dynamic>?)
             ?.map((e) => e as String)
             .toList(),
@@ -113,6 +116,9 @@ RawExtension _$RawExtensionFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$RawExtensionToJson(RawExtension instance) =>
     <String, dynamic>{
+      'proxy-groups': instance.ProxyGroups,
+      'rule-providers': instance.RuleProviders,
+      'rules': instance.Rules,
       'append_rules': instance.AppendRules,
       'geo-rule-set': instance.Ruleset.toJson(),
       'profile-store-selected-prefix': instance.ProfileStoreSelectedPrefix,

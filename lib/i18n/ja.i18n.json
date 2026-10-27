@@ -372,7 +372,7 @@
     "overwriteMode": {
         "overwrite": "上書き",
         "noOverwrite": "上書きしない",
-        "overwriteInsert": "上書き - 先頭に挿入"
+        "overwriteAppendToHead": "上書き - 先頭に挿入"
     },
     "protocolSniff": "プロトコル検知",
     "protocolSniffOverrideDestination": "検知されたドメイン名で接続先アドレスを上書きする",

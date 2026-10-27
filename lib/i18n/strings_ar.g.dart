@@ -553,7 +553,7 @@ class _Translations$overwriteMode$ar implements Translations$overwriteMode$en {
 	// Translations
 	@override String get overwrite => 'تجاوز';
 	@override String get noOverwrite => 'لا تكتب فوق';
-	@override String get overwriteInsert => 'تجاوز - إدراج في البداية';
+	@override String get overwriteAppendToHead => 'تجاوز - إدراج في البداية';
 }
 
 // Path: main.tray
@@ -915,7 +915,7 @@ extension on TranslationsAr {
 			'profilePatchMode.noOverwrite' => 'مُدمج - غير قابل للكتابة فوقه',
 			'overwriteMode.overwrite' => 'تجاوز',
 			'overwriteMode.noOverwrite' => 'لا تكتب فوق',
-			'overwriteMode.overwriteInsert' => 'تجاوز - إدراج في البداية',
+			'overwriteMode.overwriteAppendToHead' => 'تجاوز - إدراج في البداية',
 			'protocolSniff' => 'الكشف عن البروتوكول',
 			'protocolSniffOverrideDestination' => 'يغطي اسم المجال المكتشف عنوان هدف الاتصال',
 			'sendOrReceiveNotMatch' => ({required Object p}) => 'الرجاء استخدام [${p}]',

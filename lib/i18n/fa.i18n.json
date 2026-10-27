@@ -372,7 +372,7 @@
     "overwriteMode": {
         "overwrite": "لغو",
         "noOverwrite": "رونویسی نکنید",
-        "overwriteInsert": "لغو - درج در ابتدا"
+        "overwriteAppendToHead": "لغو - درج در ابتدا"
     },
     "protocolSniff": "تشخیص پروتکل",
     "protocolSniffOverrideDestination": "نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد",

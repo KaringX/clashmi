@@ -372,7 +372,7 @@
     "overwriteMode": {
         "overwrite": "Перезаписать",
         "noOverwrite": "Не перезаписывать",
-        "overwriteInsert": "Перезаписать — вставить в начало"
+        "overwriteAppendToHead": "Перезаписать — вставить в начало"
     },
     "protocolSniff": "Определение протокола",
     "protocolSniffOverrideDestination": "Обнаруженное имя домена перезаписывает целевой адрес подключения.",

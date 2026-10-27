@@ -553,7 +553,7 @@ class _Translations$overwriteMode$fa implements Translations$overwriteMode$en {
 	// Translations
 	@override String get overwrite => 'لغو';
 	@override String get noOverwrite => 'رونویسی نکنید';
-	@override String get overwriteInsert => 'لغو - درج در ابتدا';
+	@override String get overwriteAppendToHead => 'لغو - درج در ابتدا';
 }
 
 // Path: main.tray
@@ -915,7 +915,7 @@ extension on TranslationsFa {
 			'profilePatchMode.noOverwrite' => 'داخلی - رونویسی نشده است',
 			'overwriteMode.overwrite' => 'لغو',
 			'overwriteMode.noOverwrite' => 'رونویسی نکنید',
-			'overwriteMode.overwriteInsert' => 'لغو - درج در ابتدا',
+			'overwriteMode.overwriteAppendToHead' => 'لغو - درج در ابتدا',
 			'protocolSniff' => 'تشخیص پروتکل',
 			'protocolSniffOverrideDestination' => 'نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد',
 			'sendOrReceiveNotMatch' => ({required Object p}) => 'لطفا از [${p}] استفاده کنید',

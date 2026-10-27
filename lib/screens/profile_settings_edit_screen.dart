@@ -353,19 +353,19 @@ class _ProfilesSettingsEditScreenState
     List<GroupItemOptions> options1 = [
       GroupItemOptions(
         pushOptions: GroupItemPushOptions(
-          name: tcontext.meta.proxyGroups,
-          tips: "proxy-groups",
+          name: tcontext.meta.rule,
+          tips: "rules",
           onPush: () async {
-            showClashSettingsProxyGroups();
+            showClashSettingsRules();
           },
         ),
       ),
       GroupItemOptions(
         pushOptions: GroupItemPushOptions(
-          name: tcontext.meta.rule,
-          tips: "rules",
+          name: tcontext.meta.proxyGroups,
+          tips: "proxy-groups",
           onPush: () async {
-            showClashSettingsRules();
+            showClashSettingsProxyGroups();
           },
         ),
       ),
@@ -434,8 +434,8 @@ class _ProfilesSettingsEditScreenState
       List<Tuple2<String?, String>> overwrite = [
         Tuple2(OverwriteMode.overwrite.name, tcontext.overwriteMode.overwrite),
         Tuple2(
-          OverwriteMode.overwriteInsert.name,
-          tcontext.overwriteMode.overwriteInsert,
+          OverwriteMode.overwriteAppendToHead.name,
+          tcontext.overwriteMode.overwriteAppendToHead,
         ),
         Tuple2(
           OverwriteMode.noOverwrite.name,
@@ -462,10 +462,7 @@ class _ProfilesSettingsEditScreenState
       List<GroupItemOptions> options1 = [];
       final names = DiversionTemplateManager.getRuleTemplatesNames();
       for (var name in names) {
-        final target =
-            _profile.proxyGroupsOverwriteMethod != OverwriteMode.noOverwrite
-            ? _profile.rulesForProxyGroups[name]
-            : _profile.rules[name];
+        final target = _profile.rules[name];
         options1.add(
           GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -563,22 +560,10 @@ class _ProfilesSettingsEditScreenState
                     Text(subtitle, style: TextStyle(color: color)),
                   ],
                 ),
-          selected:
-              (_profile.proxyGroupsOverwriteMethod !=
-                      OverwriteMode.noOverwrite &&
-                  node.name == _profile.rulesForProxyGroups[ruleName]) ||
-              (_profile.proxyGroupsOverwriteMethod ==
-                      OverwriteMode.noOverwrite &&
-                  node.name == _profile.rules[ruleName]),
+          selected: node.name == _profile.rules[ruleName],
           selectedColor: ThemeDefine.kColorBlue,
           onTap: () async {
-            if (_profile.proxyGroupsOverwriteMethod ==
-                OverwriteMode.noOverwrite) {
-              _profile.rulesForProxyGroups[ruleName] = node.name;
-            } else {
-              _profile.rules[ruleName] = node.name;
-            }
-
+            _profile.rules[ruleName] = node.name;
             Navigator.of(context).pop();
             setstate?.call();
           },

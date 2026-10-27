@@ -553,7 +553,7 @@ class _Translations$overwriteMode$ru implements Translations$overwriteMode$en {
 	// Translations
 	@override String get overwrite => 'Перезаписать';
 	@override String get noOverwrite => 'Не перезаписывать';
-	@override String get overwriteInsert => 'Перезаписать — вставить в начало';
+	@override String get overwriteAppendToHead => 'Перезаписать — вставить в начало';
 }
 
 // Path: main.tray
@@ -915,7 +915,7 @@ extension on TranslationsRu {
 			'profilePatchMode.noOverwrite' => 'Встроенный - не перезаписывается',
 			'overwriteMode.overwrite' => 'Перезаписать',
 			'overwriteMode.noOverwrite' => 'Не перезаписывать',
-			'overwriteMode.overwriteInsert' => 'Перезаписать — вставить в начало',
+			'overwriteMode.overwriteAppendToHead' => 'Перезаписать — вставить в начало',
 			'protocolSniff' => 'Определение протокола',
 			'protocolSniffOverrideDestination' => 'Обнаруженное имя домена перезаписывает целевой адрес подключения.',
 			'sendOrReceiveNotMatch' => ({required Object p}) => 'Пожалуйста, используйте [${p}]',

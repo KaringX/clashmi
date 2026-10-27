@@ -553,7 +553,7 @@ class _Translations$overwriteMode$ko implements Translations$overwriteMode$en {
 	// Translations
 	@override String get overwrite => '덮어쓰기';
 	@override String get noOverwrite => '덮어쓰지 않음';
-	@override String get overwriteInsert => '덮어쓰기 - 맨 앞에 삽입';
+	@override String get overwriteAppendToHead => '덮어쓰기 - 맨 앞에 삽입';
 }
 
 // Path: main.tray
@@ -915,7 +915,7 @@ extension on TranslationsKo {
 			'profilePatchMode.noOverwrite' => '내장 - 덮어쓰지 않음',
 			'overwriteMode.overwrite' => '덮어쓰기',
 			'overwriteMode.noOverwrite' => '덮어쓰지 않음',
-			'overwriteMode.overwriteInsert' => '덮어쓰기 - 맨 앞에 삽입',
+			'overwriteMode.overwriteAppendToHead' => '덮어쓰기 - 맨 앞에 삽입',
 			'protocolSniff' => '프로토콜 스니핑',
 			'protocolSniffOverrideDestination' => '스니핑된 도메인 이름으로 연결 대상 주소 덮어쓰기',
 			'sendOrReceiveNotMatch' => ({required Object p}) => '[${p}]를 사용하십시오',

@@ -372,7 +372,7 @@
     "overwriteMode": {
         "overwrite": "覆寫",
         "noOverwrite": "不覆寫",
-        "overwriteInsert": "覆寫-插入到頂部"
+        "overwriteAppendToHead": "覆寫-插入到頂部"
     },
     "protocolSniff": "協議探測",
     "protocolSniffOverrideDestination": "探測的域名覆蓋連接目標地址",

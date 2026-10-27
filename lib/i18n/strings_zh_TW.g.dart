@@ -553,7 +553,7 @@ class Translations$overwriteMode$zh_TW implements Translations$overwriteMode$en 
 	// Translations
 	@override String get overwrite => '覆寫';
 	@override String get noOverwrite => '不覆寫';
-	@override String get overwriteInsert => '覆寫-插入到頂部';
+	@override String get overwriteAppendToHead => '覆寫-插入到頂部';
 }
 
 // Path: main.tray
@@ -915,7 +915,7 @@ extension on TranslationsZhTw {
 			'profilePatchMode.noOverwrite' => '內置-不覆寫',
 			'overwriteMode.overwrite' => '覆寫',
 			'overwriteMode.noOverwrite' => '不覆寫',
-			'overwriteMode.overwriteInsert' => '覆寫-插入到頂部',
+			'overwriteMode.overwriteAppendToHead' => '覆寫-插入到頂部',
 			'protocolSniff' => '協議探測',
 			'protocolSniffOverrideDestination' => '探測的域名覆蓋連接目標地址',
 			'sendOrReceiveNotMatch' => ({required Object p}) => '請使用 [${p}]',

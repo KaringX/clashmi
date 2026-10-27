@@ -210,8 +210,8 @@ class _ProxyGroupsScreenState extends LasyRenderingState<ProxyGroupsScreen> {
     List<Tuple2<String?, String>> overwrite = [
       Tuple2(OverwriteMode.overwrite.name, tcontext.overwriteMode.overwrite),
       Tuple2(
-        OverwriteMode.overwriteInsert.name,
-        tcontext.overwriteMode.overwriteInsert,
+        OverwriteMode.overwriteAppendToHead.name,
+        tcontext.overwriteMode.overwriteAppendToHead,
       ),
       Tuple2(
         OverwriteMode.noOverwrite.name,

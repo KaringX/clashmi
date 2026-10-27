@@ -169,10 +169,9 @@ class VPNService {
     await ClashSettingManager.saveCorePatchFinal(
       profile.id,
       overwriteFinal,
-      profile.proxyGroupsOverwriteMethod,
       profile.rulesOverwriteMethod,
       profile.rules,
-      profile.rulesForProxyGroups,
+      profile.proxyGroupsOverwriteMethod,
       profile.proxyGroups,
       appendRules,
       profile.decryptPasswordAGE,

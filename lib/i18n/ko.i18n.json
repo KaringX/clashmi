@@ -372,7 +372,7 @@
     "overwriteMode": {
         "overwrite": "덮어쓰기",
         "noOverwrite": "덮어쓰지 않음",
-        "overwriteInsert": "덮어쓰기 - 맨 앞에 삽입"
+        "overwriteAppendToHead": "덮어쓰기 - 맨 앞에 삽입"
     },
     "protocolSniff": "프로토콜 스니핑",
     "protocolSniffOverrideDestination": "스니핑된 도메인 이름으로 연결 대상 주소 덮어쓰기",

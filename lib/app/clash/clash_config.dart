@@ -456,6 +456,12 @@ class RawExtensionTun {
 
 @JsonSerializable(explicitToJson: true)
 class RawExtension {
+  @JsonKey(name: 'proxy-groups')
+  List<dynamic>? ProxyGroups;
+  @JsonKey(name: 'rule-providers')
+  Map<String, dynamic>? RuleProviders;
+  @JsonKey(name: 'rules')
+  List<String>? Rules;
   @JsonKey(name: 'append_rules')
   List<String>? AppendRules;
   @JsonKey(name: 'geo-rule-set')
@@ -473,6 +479,9 @@ class RawExtension {
   @JsonKey(name: 'runtime-profile-save-path')
   String? RuntimeProfileSavePath;
   RawExtension.by({
+    this.ProxyGroups,
+    this.RuleProviders,
+    this.Rules,
     this.AppendRules,
     required this.Ruleset,
     required this.Tun,
@@ -482,6 +491,9 @@ class RawExtension {
     this.RuntimeProfileSavePath,
   });
   RawExtension(
+    this.ProxyGroups,
+    this.RuleProviders,
+    this.Rules,
     this.AppendRules,
     this.Ruleset,
     this.Tun,

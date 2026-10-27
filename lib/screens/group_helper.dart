@@ -1951,9 +1951,8 @@ class GroupHelper {
               currentPatch.id.isEmpty ||
                   currentPatch.id == kProfilePatchBuildinOverwrite,
               profile?.proxyGroupsOverwriteMethod,
-              profile?.rulesOverwriteMethod,
               profile?.rules,
-              profile?.rulesForProxyGroups,
+              profile?.rulesOverwriteMethod,
               profile?.proxyGroups,
               appendRules,
               profile?.decryptPasswordAGE,

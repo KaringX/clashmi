@@ -553,7 +553,7 @@ class _Translations$overwriteMode$es implements Translations$overwriteMode$en {
 	// Translations
 	@override String get overwrite => 'Sobrescribir';
 	@override String get noOverwrite => 'No sobrescribir';
-	@override String get overwriteInsert => 'Sobrescribir - insertar al principio';
+	@override String get overwriteAppendToHead => 'Sobrescribir - insertar al principio';
 }
 
 // Path: main.tray
@@ -915,7 +915,7 @@ extension on TranslationsEs {
 			'profilePatchMode.noOverwrite' => 'Integrado - sin sobrescritura',
 			'overwriteMode.overwrite' => 'Sobrescribir',
 			'overwriteMode.noOverwrite' => 'No sobrescribir',
-			'overwriteMode.overwriteInsert' => 'Sobrescribir - insertar al principio',
+			'overwriteMode.overwriteAppendToHead' => 'Sobrescribir - insertar al principio',
 			'protocolSniff' => 'Sniff de Protocolo',
 			'protocolSniffOverrideDestination' => 'El nombre de dominio Sniff sobrescribe la dirección de destino de la conexión',
 			'sendOrReceiveNotMatch' => ({required Object p}) => 'Utilice [${p}]',

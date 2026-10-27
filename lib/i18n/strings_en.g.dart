@@ -1245,7 +1245,7 @@ class Translations$overwriteMode$en {
 	String get noOverwrite => 'Do not overwrite';
 
 	/// en: 'Overwrite - Insert at Beginning'
-	String get overwriteInsert => 'Overwrite - Insert at Beginning';
+	String get overwriteAppendToHead => 'Overwrite - Insert at Beginning';
 }
 
 // Path: main.tray
@@ -1611,7 +1611,7 @@ extension on Translations {
 			'profilePatchMode.noOverwrite' => 'Built-in - no Overwrite',
 			'overwriteMode.overwrite' => 'Overwrite',
 			'overwriteMode.noOverwrite' => 'Do not overwrite',
-			'overwriteMode.overwriteInsert' => 'Overwrite - Insert at Beginning',
+			'overwriteMode.overwriteAppendToHead' => 'Overwrite - Insert at Beginning',
 			'protocolSniff' => 'Protocol Sniff',
 			'protocolSniffOverrideDestination' => 'The Sniff domain name override the connection target address',
 			'sendOrReceiveNotMatch' => ({required Object p}) => 'Please use [${p}]',

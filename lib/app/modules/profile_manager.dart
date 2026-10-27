@@ -34,7 +34,7 @@ const String kArmorFooter = "-----END AGE ENCRYPTED FILE-----";
 
 enum OverwriteMode {
   overwrite(name: "overwrite"),
-  overwriteInsert(name: "overwriteInsert"),
+  overwriteAppendToHead(name: "overwriteAppendToHead"),
   noOverwrite(name: "noOverwrite");
 
   const OverwriteMode({required this.name});
@@ -101,7 +101,6 @@ class ProfileSetting {
   OverwriteMode rulesOverwriteMethod = OverwriteMode.overwrite;
   Map<String, ProfileSettingProxyGroup> proxyGroups = {};
   Map<String, String> rules = {};
-  Map<String, String> rulesForProxyGroups = {};
 
   bool appendApplePushRules = false;
 
@@ -127,7 +126,6 @@ class ProfileSetting {
     'rules_overwrite_method': rulesOverwriteMethod.name,
     'proxy_groups': proxyGroups,
     'rules': rules,
-    'rules_for_proxy_groups': rulesForProxyGroups,
     'append_apple_push_rules': appendApplePushRules,
   };
   void fromJson(Map<String, dynamic>? map) {
@@ -191,15 +189,15 @@ class ProfileSetting {
         proxyGroups[key] = pg;
       });
     }
-    rules = ConvertUtils.convertMap(map["rules"]) ?? {};
+    rules =
+        ConvertUtils.convertMap(
+          map["rules"] ?? map["rules_for_proxy_groups"],
+        ) ??
+        {};
     rules.removeWhere((key, value) {
       return key.isEmpty || value.isEmpty;
     });
-    rulesForProxyGroups =
-        ConvertUtils.convertMap(map["rules_for_proxy_groups"]) ?? {};
-    rulesForProxyGroups.removeWhere((key, value) {
-      return key.isEmpty || value.isEmpty;
-    });
+
     appendApplePushRules = map['append_apple_push_rules'] ?? false;
   }
 
@@ -310,9 +308,6 @@ class ProfileSetting {
     });
     rules.forEach((key, value) {
       ps.rules[key] = value;
-    });
-    rulesForProxyGroups.forEach((key, value) {
-      ps.rulesForProxyGroups[key] = value;
     });
     ps.appendApplePushRules = appendApplePushRules;
     return ps;

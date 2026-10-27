@@ -414,10 +414,9 @@ class ClashSettingManager {
   static Future<ReturnResult<String>> getPatchContent(
     String profileId,
     bool overwrite,
-    OverwriteMode? proxyGroupsOverwriteMethod,
     OverwriteMode? rulesOverwriteMethod,
     Map<String, String>? overwriteRule,
-    Map<String, String>? overwriteRuleForProxyGroups,
+    OverwriteMode? proxyGroupsOverwriteMethod,
     Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
     List<String>? appendRules,
     String? ageSecretKey,
@@ -456,10 +455,11 @@ class ClashSettingManager {
       _setting.FindProcessMode = ClashFindProcessMode.off.name;
     }
 
-    if (overwriteRule != null && overwriteRule.isNotEmpty) {
-      _setting.OverWriteRuleProviders = true;
-      _setting.OverWriteRules = true;
-      _setting.OverWriteSubRules = true;
+    if (rulesOverwriteMethod != OverwriteMode.noOverwrite &&
+        overwriteRule != null &&
+        overwriteRule.isNotEmpty) {
+      List<String> newRules = [];
+      Map<String, dynamic> newRuleProviders = {};
 
       List<RuleProvider> newAllProviders = [];
       final allProviders = DiversionTemplateManager.getRuleProviders();
@@ -469,7 +469,7 @@ class ClashSettingManager {
         final target = overwriteRule[template.name];
         if (target != null && target.isNotEmpty) {
           targets.add(target);
-          _setting.Rules ??= [];
+
           final providers = allProviders.where((ele) {
             return template.getProviders().contains(ele.name);
           });
@@ -483,22 +483,35 @@ class ClashSettingManager {
               ruleWithTarget = "$rule,$target";
             }
 
-            if (!_setting.Rules!.contains(ruleWithTarget)) {
-              _setting.Rules!.add(ruleWithTarget);
+            if (!newRules.contains(ruleWithTarget)) {
+              newRules.add(ruleWithTarget);
             }
           }
         }
       }
       if (newAllProviders.isNotEmpty) {
-        _setting.RuleProviders ??= {};
         for (var provider in newAllProviders) {
-          _setting.RuleProviders![provider.name] = provider.toJsonNoName();
+          newRuleProviders[provider.name] = provider.toJsonNoName();
         }
       }
-      if (overwriteProxyGroups != null && overwriteProxyGroups.isNotEmpty) {
+
+      if (rulesOverwriteMethod == OverwriteMode.overwrite) {
+        _setting.OverWriteRuleProviders = true;
+        _setting.OverWriteRules = true;
+        _setting.OverWriteSubRules = true;
+        _setting.Rules = newRules;
+        _setting.RuleProviders = newRuleProviders;
+      } else {
+        _setting.Extension?.Rules = newRules;
+        _setting.Extension?.RuleProviders = newRuleProviders;
+      }
+
+      if (proxyGroupsOverwriteMethod != OverwriteMode.noOverwrite &&
+          overwriteProxyGroups != null &&
+          overwriteProxyGroups.isNotEmpty) {
         _setting.OverWriteProxyGroups = true;
         final pgTemplates = DiversionTemplateManager.getProxyGroupTemplates();
-        _setting.ProxyGroups ??= [];
+        List<dynamic> newProxyGroups = [];
         for (var template in pgTemplates) {
           final pg = overwriteProxyGroups[template.name];
           if (pg == null) {
@@ -517,7 +530,13 @@ class ClashSettingManager {
           }
           var newTemplate = template.clone();
           newTemplate.proxies = pg.proxies;
-          _setting.ProxyGroups!.add(newTemplate.toJson());
+          newProxyGroups.add(newTemplate.toJson());
+        }
+
+        if (proxyGroupsOverwriteMethod == OverwriteMode.overwrite) {
+          _setting.ProxyGroups = newProxyGroups;
+        } else {
+          _setting.Extension?.ProxyGroups = newProxyGroups;
         }
       }
     }
@@ -545,10 +564,9 @@ class ClashSettingManager {
   static Future<ReturnResultError?> saveCorePatchFinal(
     String profileId,
     bool overwrite,
-    OverwriteMode proxyGroupsOverwriteMethod,
     OverwriteMode rulesOverwriteMethod,
     Map<String, String>? overwriteRule,
-    Map<String, String>? overwriteRuleForProxyGroups,
+    OverwriteMode proxyGroupsOverwriteMethod,
     Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
     List<String>? appendRules,
     String? ageSecretKey,
@@ -556,10 +574,9 @@ class ClashSettingManager {
     final result = await getPatchContent(
       profileId,
       overwrite,
-      proxyGroupsOverwriteMethod,
       rulesOverwriteMethod,
       overwriteRule,
-      overwriteRuleForProxyGroups,
+      proxyGroupsOverwriteMethod,
       overwriteProxyGroups,
       appendRules,
       ageSecretKey,

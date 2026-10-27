@@ -553,7 +553,7 @@ class _Translations$overwriteMode$ja implements Translations$overwriteMode$en {
 	// Translations
 	@override String get overwrite => '上書き';
 	@override String get noOverwrite => '上書きしない';
-	@override String get overwriteInsert => '上書き - 先頭に挿入';
+	@override String get overwriteAppendToHead => '上書き - 先頭に挿入';
 }
 
 // Path: main.tray
@@ -915,7 +915,7 @@ extension on TranslationsJa {
 			'profilePatchMode.noOverwrite' => '内蔵 - 上書きなし',
 			'overwriteMode.overwrite' => '上書き',
 			'overwriteMode.noOverwrite' => '上書きしない',
-			'overwriteMode.overwriteInsert' => '上書き - 先頭に挿入',
+			'overwriteMode.overwriteAppendToHead' => '上書き - 先頭に挿入',
 			'protocolSniff' => 'プロトコル検知',
 			'protocolSniffOverrideDestination' => '検知されたドメイン名で接続先アドレスを上書きする',
 			'sendOrReceiveNotMatch' => ({required Object p}) => '[${p}] を使用してください',

@@ -372,7 +372,7 @@
     "overwriteMode": {
         "overwrite": "تجاوز",
         "noOverwrite": "لا تكتب فوق",
-        "overwriteInsert": "تجاوز - إدراج في البداية"
+        "overwriteAppendToHead": "تجاوز - إدراج في البداية"
     },
     "protocolSniff": "الكشف عن البروتوكول",
     "protocolSniffOverrideDestination": "يغطي اسم المجال المكتشف عنوان هدف الاتصال",

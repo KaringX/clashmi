@@ -372,7 +372,7 @@
     "overwriteMode": {
         "overwrite": "Sobrescribir",
         "noOverwrite": "No sobrescribir",
-        "overwriteInsert": "Sobrescribir - insertar al principio"
+        "overwriteAppendToHead": "Sobrescribir - insertar al principio"
     },
     "protocolSniff": "Sniff de Protocolo",
     "protocolSniffOverrideDestination": "El nombre de dominio Sniff sobrescribe la dirección de destino de la conexión",

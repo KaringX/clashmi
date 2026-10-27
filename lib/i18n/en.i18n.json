@@ -372,7 +372,7 @@
     "overwriteMode": {
         "overwrite": "Overwrite",
         "noOverwrite": "Do not overwrite",
-        "overwriteInsert": "Overwrite - Insert at Beginning"
+        "overwriteAppendToHead": "Overwrite - Insert at Beginning"
     },
     "protocolSniff": "Protocol Sniff",
     "protocolSniffOverrideDestination": "The Sniff domain name override the connection target address",
