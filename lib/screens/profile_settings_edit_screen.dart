@@ -390,16 +390,19 @@ class _ProfilesSettingsEditScreenState
 
   Future<void> showClashSettingsProxyGroups() async {
     final current = ProfileManager.getCurrent();
+    if (current == null || current.id != _profile.id) {
+      final tcontext = Translations.of(context);
+      await DialogUtils.showAlertDialog(
+        context,
+        tcontext.meta.profileNeedActive,
+      );
+      return;
+    }
     final connected = await VPNService.getStarted();
     if (!mounted) {
       return;
     }
-    if (!connected || current == null || current.id != _profile.id) {
-      final tcontext = Translations.of(context);
-      DialogUtils.showAlertDialog(context, tcontext.meta.profileNeedActive);
-      return;
-    }
-    if (_nodes.isEmpty) {
+    if (connected && _nodes.isEmpty) {
       _nodes = await getProxies();
     }
     var newNodes = _nodes.toList();
@@ -496,16 +499,19 @@ class _ProfilesSettingsEditScreenState
 
   Future<void> onTapRule(String ruleName, SetStateCallback? setstate) async {
     final current = ProfileManager.getCurrent();
+    if (current == null || current.id != _profile.id) {
+      final tcontext = Translations.of(context);
+      await DialogUtils.showAlertDialog(
+        context,
+        tcontext.meta.profileNeedActive,
+      );
+      return;
+    }
     final connected = await VPNService.getStarted();
     if (!mounted) {
       return;
     }
-    if (!connected || current == null || current.id != _profile.id) {
-      final tcontext = Translations.of(context);
-      DialogUtils.showAlertDialog(context, tcontext.meta.profileNeedActive);
-      return;
-    }
-    if (_nodes.isEmpty) {
+    if (connected && _nodes.isEmpty) {
       _nodes = await getProxies();
     }
     var newNodes = _nodes.toList();
@@ -524,7 +530,25 @@ class _ProfilesSettingsEditScreenState
       newNodes.insertAll(0, pgNodes);
     }
 
+    if (!mounted) {
+      return;
+    }
+    final tcontext = Translations.of(context);
     var widgets = [];
+    if (!connected) {
+      widgets.add(
+        ListTile(
+          title: Text(
+            tcontext.meta.profileNeedActive,
+            style: TextStyle(
+              fontFamily: Platform.isWindows ? 'Emoji' : null,
+              color: Colors.red,
+            ),
+          ),
+        ),
+      );
+    }
+
     for (int i = 0; i < newNodes.length; ++i) {
       final node = newNodes[i];
       String subtitle = "";

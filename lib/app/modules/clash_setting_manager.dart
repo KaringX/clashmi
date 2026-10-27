@@ -450,6 +450,9 @@ class ClashSettingManager {
     _setting.Rules = null;
     _setting.RuleProviders = null;
     _setting.ProxyGroups = null;
+    _setting.Extension?.Rules = null;
+    _setting.Extension?.RuleProviders = null;
+    _setting.Extension?.ProxyGroups = null;
     _setting.Extension?.ProfileStoreSelectedPrefix = profileId;
     _setting.Extension?.AgeSecretKey = ageSecretKey;
     if (Platform.isIOS) {
