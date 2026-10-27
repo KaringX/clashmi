@@ -40,7 +40,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:tray_manager/legacy.dart';
+import 'package:tray_manager/tray_manager.dart';
 import 'package:clashmi/app/modules/clash_setting_manager.dart';
 
 List<String> processArgs = [];
