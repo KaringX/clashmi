@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:clashmi/app/clash/clash_http_api.dart';
+import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/diversion_template_manager.dart';
 import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/i18n/strings.g.dart';
+import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/group_item_creator.dart';
 import 'package:clashmi/screens/group_item_options.dart';
 import 'package:clashmi/screens/proxygroup_select_screen.dart';
@@ -244,6 +246,20 @@ class _ProxyGroupsScreenState extends LasyRenderingState<ProxyGroupsScreen> {
   }
 
   void onTapEdit(String name) async {
+    final current = ProfileManager.getCurrent();
+    final connected = await VPNService.getStarted();
+    if (!mounted) {
+      return;
+    }
+    if (!connected || current == null || current.id != widget.profile.id) {
+      final tcontext = Translations.of(context);
+      await DialogUtils.showAlertDialog(
+        context,
+        tcontext.meta.profileNeedActive,
+      );
+      return;
+    }
+
     List<ClashProxiesNode> nodes = [];
     final proxyGroups = DiversionTemplateManager.getProxyGroupTemplates();
     for (var pg in proxyGroups) {
