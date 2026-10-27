@@ -431,27 +431,31 @@ class _ProfilesSettingsEditScreenState
       BuildContext context,
       SetStateCallback? setstate,
     ) async {
+      List<Tuple2<String?, String>> overwrite = [
+        Tuple2(OverwriteMode.overwrite.name, tcontext.overwriteMode.overwrite),
+        Tuple2(
+          OverwriteMode.overwriteInsert.name,
+          tcontext.overwriteMode.overwriteInsert,
+        ),
+        Tuple2(
+          OverwriteMode.noOverwrite.name,
+          tcontext.overwriteMode.noOverwrite,
+        ),
+      ];
+
       List<GroupItemOptions> options = [
         GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-            name: "${tcontext.meta.overwrite} [${tcontext.meta.rule}]",
-            switchValue: _profile.overwriteRules,
-            onSwitch: (bool value) async {
-              _profile.overwriteRules = value;
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: tcontext.meta.overwriteMethod,
+            selected: _profile.rulesOverwriteMethod.name,
+            tupleStrings: overwrite,
+            onPicker: (String? selected) async {
+              _profile.rulesOverwriteMethod = OverwriteMode.values.firstWhere(
+                (e) => e.name == selected,
+                orElse: () => OverwriteMode.overwrite,
+              );
               setState(() {});
             },
-          ),
-        ),
-        GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-            name: "${tcontext.meta.overwrite} [${tcontext.meta.proxyGroups}]",
-            switchValue: _profile.overwriteProxyGroups,
-            onSwitch: !_profile.overwriteRules
-                ? null
-                : (bool value) async {
-                    _profile.overwriteProxyGroups = value;
-                    setState(() {});
-                  },
           ),
         ),
       ];
@@ -466,7 +470,7 @@ class _ProfilesSettingsEditScreenState
             pushOptions: GroupItemPushOptions(
               name: name,
               text: target,
-              onPush: !_profile.overwriteRules
+              onPush: _profile.rulesOverwriteMethod == OverwriteMode.noOverwrite
                   ? null
                   : () async {
                       onTapRule(name, setstate);
