@@ -268,7 +268,8 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get user => 'Пользователь';
 	@override String get account => 'Аккаунт';
 	@override String get password => 'Пароль';
-	@override String get decryptPassword => 'Пароль расшифровки';
+	@override String get decryptPasswordAES => 'AES Пароль расшифровки';
+	@override String get decryptPasswordAGE => 'AGE Пароль расшифровки';
 	@override String get required => 'Необходимо';
 	@override String get go => 'Продолжить';
 	@override String get sudoPassword => 'Пароль sudo (требуется для режима TUN)';
@@ -692,7 +693,8 @@ extension on TranslationsRu {
 			'meta.user' => 'Пользователь',
 			'meta.account' => 'Аккаунт',
 			'meta.password' => 'Пароль',
-			'meta.decryptPassword' => 'Пароль расшифровки',
+			'meta.decryptPasswordAES' => 'AES Пароль расшифровки',
+			'meta.decryptPasswordAGE' => 'AGE Пароль расшифровки',
 			'meta.required' => 'Необходимо',
 			'meta.go' => 'Продолжить',
 			'meta.sudoPassword' => 'Пароль sudo (требуется для режима TUN)',

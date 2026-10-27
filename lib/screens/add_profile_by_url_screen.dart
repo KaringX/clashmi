@@ -50,7 +50,8 @@ class _AddProfileByUrlScreenState
   String _userAgent = "";
   bool _xhwid = false;
   String _boardProviderId = "";
-  String _decryptPassword = "";
+  String _decryptPasswordAES = "";
+  String _decryptPasswordAGE = "";
   String _patch = "";
   bool _loading = false;
   @override
@@ -94,7 +95,8 @@ class _AddProfileByUrlScreenState
       patch: _patch,
       userAgent: _userAgent,
       xhwid: _xhwid,
-      decryptPassword: _decryptPassword,
+      decryptPasswordAES: _decryptPasswordAES,
+      decryptPasswordAGE: _decryptPasswordAGE,
       updateInterval: _updateInterval,
       updateIntervalPreferByProfile: _updateIntervalPreferByProfile,
       boardProviderId: _boardProviderId,
@@ -364,11 +366,21 @@ class _AddProfileByUrlScreenState
       ),
       GroupItemOptions(
         textFormFieldOptions: GroupItemTextFieldOptions(
-          name: tcontext.meta.decryptPassword,
-          text: _decryptPassword,
+          name: tcontext.meta.decryptPasswordAES,
+          text: _decryptPasswordAES,
           textWidthPercent: 0.6,
           onChanged: (String value) {
-            _decryptPassword = value;
+            _decryptPasswordAES = value;
+          },
+        ),
+      ),
+      GroupItemOptions(
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: tcontext.meta.decryptPasswordAGE,
+          text: _decryptPasswordAGE,
+          textWidthPercent: 0.6,
+          onChanged: (String value) {
+            _decryptPasswordAGE = value;
           },
         ),
       ),

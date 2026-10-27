@@ -268,7 +268,8 @@ class Translations$meta$zh_CN implements Translations$meta$en {
 	@override String get user => '用户';
 	@override String get account => '账号';
 	@override String get password => '密码';
-	@override String get decryptPassword => '解密密码';
+	@override String get decryptPasswordAES => 'AES解密密码';
+	@override String get decryptPasswordAGE => 'AGE解密密码';
 	@override String get required => '必填';
 	@override String get go => '继续';
 	@override String get sudoPassword => 'sudo 密码(TUN模式需要)';
@@ -692,7 +693,8 @@ extension on TranslationsZhCn {
 			'meta.user' => '用户',
 			'meta.account' => '账号',
 			'meta.password' => '密码',
-			'meta.decryptPassword' => '解密密码',
+			'meta.decryptPasswordAES' => 'AES解密密码',
+			'meta.decryptPasswordAGE' => 'AGE解密密码',
 			'meta.required' => '必填',
 			'meta.go' => '继续',
 			'meta.sudoPassword' => 'sudo 密码(TUN模式需要)',

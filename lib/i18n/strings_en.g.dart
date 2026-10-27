@@ -515,8 +515,11 @@ class Translations$meta$en {
 	/// en: 'Password'
 	String get password => 'Password';
 
-	/// en: 'Decrypt Password'
-	String get decryptPassword => 'Decrypt Password';
+	/// en: 'AES Decrypt Password'
+	String get decryptPasswordAES => 'AES Decrypt Password';
+
+	/// en: 'AGE Decrypt Password'
+	String get decryptPasswordAGE => 'AGE Decrypt Password';
 
 	/// en: 'Required'
 	String get required => 'Required';
@@ -1386,7 +1389,8 @@ extension on Translations {
 			'meta.user' => 'User',
 			'meta.account' => 'Account',
 			'meta.password' => 'Password',
-			'meta.decryptPassword' => 'Decrypt Password',
+			'meta.decryptPasswordAES' => 'AES Decrypt Password',
+			'meta.decryptPasswordAGE' => 'AGE Decrypt Password',
 			'meta.required' => 'Required',
 			'meta.go' => 'Continue',
 			'meta.sudoPassword' => 'sudo password (required for TUN mode)',

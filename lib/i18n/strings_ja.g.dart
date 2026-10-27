@@ -268,7 +268,8 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get user => 'ユーザー';
 	@override String get account => 'アカウント';
 	@override String get password => 'パスワード';
-	@override String get decryptPassword => '複号化パスワード';
+	@override String get decryptPasswordAES => 'AES 複号化パスワード';
+	@override String get decryptPasswordAGE => 'AGE 複号化パスワード';
 	@override String get required => '必須';
 	@override String get go => '続行';
 	@override String get sudoPassword => 'sudo パスワード (TUNモードで必要)';
@@ -692,7 +693,8 @@ extension on TranslationsJa {
 			'meta.user' => 'ユーザー',
 			'meta.account' => 'アカウント',
 			'meta.password' => 'パスワード',
-			'meta.decryptPassword' => '複号化パスワード',
+			'meta.decryptPasswordAES' => 'AES 複号化パスワード',
+			'meta.decryptPasswordAGE' => 'AGE 複号化パスワード',
 			'meta.required' => '必須',
 			'meta.go' => '続行',
 			'meta.sudoPassword' => 'sudo パスワード (TUNモードで必要)',

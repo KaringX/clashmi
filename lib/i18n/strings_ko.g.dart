@@ -268,7 +268,8 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get user => '사용자';
 	@override String get account => '계정';
 	@override String get password => '비밀번호';
-	@override String get decryptPassword => '복호화 비밀번호';
+	@override String get decryptPasswordAES => 'AES 복호화 비밀번호';
+	@override String get decryptPasswordAGE => 'AGE 복호화 비밀번호';
 	@override String get required => '필수';
 	@override String get go => '계속';
 	@override String get sudoPassword => 'sudo 비밀번호 (TUN 모드에 필요)';
@@ -692,7 +693,8 @@ extension on TranslationsKo {
 			'meta.user' => '사용자',
 			'meta.account' => '계정',
 			'meta.password' => '비밀번호',
-			'meta.decryptPassword' => '복호화 비밀번호',
+			'meta.decryptPasswordAES' => 'AES 복호화 비밀번호',
+			'meta.decryptPasswordAGE' => 'AGE 복호화 비밀번호',
 			'meta.required' => '필수',
 			'meta.go' => '계속',
 			'meta.sudoPassword' => 'sudo 비밀번호 (TUN 모드에 필요)',

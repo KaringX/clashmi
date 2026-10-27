@@ -268,7 +268,8 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get user => 'Usuario';
 	@override String get account => 'Cuenta';
 	@override String get password => 'Contraseña';
-	@override String get decryptPassword => 'Descifrar Contraseña';
+	@override String get decryptPasswordAES => 'AES Descifrar Contraseña';
+	@override String get decryptPasswordAGE => 'AGE Descifrar Contraseña';
 	@override String get required => 'Requerido';
 	@override String get go => 'Continuar';
 	@override String get sudoPassword => 'contraseña sudo (requerida para el modo TUN)';
@@ -692,7 +693,8 @@ extension on TranslationsEs {
 			'meta.user' => 'Usuario',
 			'meta.account' => 'Cuenta',
 			'meta.password' => 'Contraseña',
-			'meta.decryptPassword' => 'Descifrar Contraseña',
+			'meta.decryptPasswordAES' => 'AES Descifrar Contraseña',
+			'meta.decryptPasswordAGE' => 'AGE Descifrar Contraseña',
 			'meta.required' => 'Requerido',
 			'meta.go' => 'Continuar',
 			'meta.sudoPassword' => 'contraseña sudo (requerida para el modo TUN)',

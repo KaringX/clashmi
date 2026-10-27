@@ -279,11 +279,21 @@ class _ProfilesSettingsEditScreenState
       ),
       GroupItemOptions(
         textFormFieldOptions: GroupItemTextFieldOptions(
-          name: tcontext.meta.decryptPassword,
-          text: _profile.decryptPassword,
+          name: tcontext.meta.decryptPasswordAES,
+          text: _profile.decryptPasswordAES,
           textWidthPercent: 0.6,
           onChanged: (String value) {
-            _profile.decryptPassword = value;
+            _profile.decryptPasswordAES = value;
+          },
+        ),
+      ),
+      GroupItemOptions(
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: tcontext.meta.decryptPasswordAGE,
+          text: _profile.decryptPasswordAGE,
+          textWidthPercent: 0.6,
+          onChanged: (String value) {
+            _profile.decryptPasswordAGE = value;
           },
         ),
       ),

@@ -29,6 +29,8 @@ import 'package:path/path.dart' as path;
 import 'package:tuple/tuple.dart';
 
 const int kRemarkMaxLength = 32;
+const String kArmorHeader = "-----BEGIN AGE ENCRYPTED FILE-----";
+const String kArmorFooter = "-----END AGE ENCRYPTED FILE-----";
 
 enum OverwriteMode {
   overwrite(name: "overwrite"),
@@ -70,7 +72,8 @@ class ProfileSetting {
     this.updateFailed,
     this.url = "",
     this.xhwid = false,
-    this.decryptPassword = "",
+    this.decryptPasswordAES = "",
+    this.decryptPasswordAGE = "",
     this.userAgent = "",
     this.patch = "",
     this.boardProviderId = "",
@@ -86,7 +89,8 @@ class ProfileSetting {
   String url;
   String userAgent;
   bool xhwid = false;
-  String decryptPassword = "";
+  String decryptPasswordAES = "";
+  String decryptPasswordAGE = "";
   num upload = 0;
   num download = 0;
   num total = 0;
@@ -114,7 +118,8 @@ class ProfileSetting {
     'url': url,
     'user_agent': userAgent,
     'xhwid': xhwid,
-    'decrypt_password': decryptPassword,
+    'decrypt_password': decryptPasswordAES,
+    'decrypt_password_age': decryptPasswordAGE,
     'upload': upload,
     'download': download,
     'total': total,
@@ -161,12 +166,12 @@ class ProfileSetting {
     url = map['url'] ?? '';
     userAgent = map['user_agent'] ?? '';
     xhwid = map['xhwid'] ?? false;
-    decryptPassword = map['decrypt_password'] ?? '';
+    decryptPasswordAES = map['decrypt_password'] ?? '';
+    decryptPasswordAGE = map['decrypt_password_age'] ?? '';
     upload = map['upload'] ?? 0;
     download = map['download'] ?? 0;
     total = map['total'] ?? 0;
     expire = map['expire'] ?? "";
-    decryptPassword = map['decrypt_password'] ?? "";
     boardProviderId = map['board_provider_id'] ?? "";
     overwriteProxyGroups = map['overwrite_proxy_groups'] ?? false;
     overwriteRules = map['overwrite_rules'] ?? false;
@@ -295,7 +300,8 @@ class ProfileSetting {
     ps.url = url;
     ps.userAgent = userAgent;
     ps.xhwid = xhwid;
-    ps.decryptPassword = decryptPassword;
+    ps.decryptPasswordAES = decryptPasswordAES;
+    ps.decryptPasswordAGE = decryptPasswordAGE;
     ps.upload = upload;
     ps.download = download;
     ps.total = total;
@@ -596,6 +602,9 @@ class ProfileManager {
     if (content.startsWith("<!DOCTYPE html>") || content.startsWith("<html")) {
       return ReturnResultError("Invalid format: html");
     }
+    if (content.startsWith(kArmorHeader) && content.contains(kArmorFooter)) {
+      return null;
+    }
     if (!content.contains("proxies") && !content.contains("proxy-providers")) {
       return ReturnResultError(
         "Invalid Clash Yaml file: proxies and proxy-providers not found",
@@ -610,7 +619,8 @@ class ProfileManager {
     String patch = "",
     String userAgent = "",
     bool xhwid = false,
-    String decryptPassword = "",
+    String decryptPasswordAES = "",
+    String decryptPasswordAGE = "",
     Duration? updateInterval,
     bool updateIntervalPreferByProfile = false,
     String boardProviderId = "",
@@ -683,7 +693,12 @@ class ProfileManager {
     }
     Duration? updateIntervalByProfile;
     if (result.data != null) {
-      final err = await decryptProfile(result.data, savePath, decryptPassword);
+      final err = await decryptProfile(
+        result.data,
+        savePath,
+        decryptPasswordAES,
+        decryptPasswordAGE,
+      );
       if (err != null) {
         await FileUtils.deletePath(savePath);
         return ReturnResult(error: err);
@@ -758,7 +773,8 @@ class ProfileManager {
       url: url,
       userAgent: userAgent,
       xhwid: xhwid,
-      decryptPassword: decryptPassword,
+      decryptPasswordAES: decryptPasswordAES,
+      decryptPasswordAGE: decryptPasswordAGE,
       patch: patch,
       boardProviderId: boardProviderId == BoardProviderManager.unknownProviderId
           ? ""
@@ -912,7 +928,8 @@ class ProfileManager {
       final err1 = await decryptProfile(
         result.data,
         savePathTmp,
-        profile.decryptPassword,
+        profile.decryptPasswordAES,
+        profile.decryptPasswordAGE,
       );
       if (err1 != null) {
         updating.remove(id);
@@ -1139,7 +1156,8 @@ class ProfileManager {
   static Future<ReturnResultError?> decryptProfile(
     HttpHeaders? headers,
     String filePath,
-    String password,
+    String passwordAES,
+    String passwordAGE,
   ) async {
     if (headers == null) {
       return null;
@@ -1150,7 +1168,7 @@ class ProfileManager {
         subscriptionEncryption.first.trim() != "true") {
       return null;
     }
-    if (password.isEmpty) {
+    if (passwordAES.isEmpty) {
       return ReturnResultError("profile is encrypted but no password provided");
     }
     final file = File(filePath);
@@ -1159,7 +1177,7 @@ class ProfileManager {
     }
     final content = await file.readAsString();
     final decodedContent = ProfileDecryptUtils.decryptProfileContent(
-      password,
+      passwordAES,
       content,
     );
     if (decodedContent == null) {

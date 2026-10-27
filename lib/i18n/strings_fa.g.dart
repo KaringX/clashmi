@@ -268,7 +268,8 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get user => 'کاربر';
 	@override String get account => 'نام‌کاربری';
 	@override String get password => 'رمز‌عبور';
-	@override String get decryptPassword => 'دکريپت رمز‌عبور';
+	@override String get decryptPasswordAES => 'دکريپت رمز‌عبور AES';
+	@override String get decryptPasswordAGE => 'دکريپت رمز‌عبور AGE';
 	@override String get required => 'الزامی';
 	@override String get go => 'ادامه';
 	@override String get sudoPassword => 'رمز عبور sudo (برای حالت TUN لازم است)';
@@ -692,7 +693,8 @@ extension on TranslationsFa {
 			'meta.user' => 'کاربر',
 			'meta.account' => 'نام‌کاربری',
 			'meta.password' => 'رمز‌عبور',
-			'meta.decryptPassword' => 'دکريپت رمز‌عبور',
+			'meta.decryptPasswordAES' => 'دکريپت رمز‌عبور AES',
+			'meta.decryptPasswordAGE' => 'دکريپت رمز‌عبور AGE',
 			'meta.required' => 'الزامی',
 			'meta.go' => 'ادامه',
 			'meta.sudoPassword' => 'رمز عبور sudo (برای حالت TUN لازم است)',

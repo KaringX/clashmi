@@ -268,7 +268,8 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get user => 'مستخدم';
 	@override String get account => 'حساب';
 	@override String get password => 'كلمة المرور';
-	@override String get decryptPassword => 'فك تشفير كلمة المرور';
+	@override String get decryptPasswordAES => 'فك تشفير كلمة المرور AES';
+	@override String get decryptPasswordAGE => 'فك تشفير كلمة المرور AGE';
 	@override String get required => 'مطلوب';
 	@override String get go => 'متابعة';
 	@override String get sudoPassword => 'كلمة مرور sudo (مطلوبة لوضع TUN)';
@@ -692,7 +693,8 @@ extension on TranslationsAr {
 			'meta.user' => 'مستخدم',
 			'meta.account' => 'حساب',
 			'meta.password' => 'كلمة المرور',
-			'meta.decryptPassword' => 'فك تشفير كلمة المرور',
+			'meta.decryptPasswordAES' => 'فك تشفير كلمة المرور AES',
+			'meta.decryptPasswordAGE' => 'فك تشفير كلمة المرور AGE',
 			'meta.required' => 'مطلوب',
 			'meta.go' => 'متابعة',
 			'meta.sudoPassword' => 'كلمة مرور sudo (مطلوبة لوضع TUN)',
