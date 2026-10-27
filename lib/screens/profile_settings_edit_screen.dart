@@ -505,7 +505,7 @@ class _ProfilesSettingsEditScreenState
       _nodes = await getProxies();
     }
     var newNodes = _nodes.toList();
-    if (_profile.proxyGroupsOverwriteMethod == OverwriteMode.noOverwrite) {
+    if (_profile.proxyGroupsOverwriteMethod != OverwriteMode.noOverwrite) {
       newNodes.removeWhere((ClashProxiesNode node) {
         return ClashProtocolType.GroupToList().contains(node.type);
       });
@@ -523,7 +523,7 @@ class _ProfilesSettingsEditScreenState
     if (!mounted) {
       return;
     }
-    final tcontext = Translations.of(context);
+
     var widgets = [];
 
     for (int i = 0; i < newNodes.length; ++i) {
