@@ -2,16 +2,16 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:ffi' as ffi;
+import 'dart:io';
 
 import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/diversion_template_manager.dart';
-import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
 import 'package:clashmi/app/utils/download_utils.dart';
+import 'package:clashmi/app/utils/emoji_utils.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
 import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
@@ -19,11 +19,9 @@ import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_js/flutter_js.dart';
 import 'package:libclash_vpn_service/state.dart';
 import 'package:path/path.dart' as path;
-import 'package:flutter_js/flutter_js.dart';
-import 'package:clashmi/app/utils/emoji_utils.dart';
-import 'package:tuple/tuple.dart';
 import 'package:yaml/yaml.dart';
 import 'package:yaml_writer/yaml_writer.dart';
 
