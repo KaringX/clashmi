@@ -174,7 +174,7 @@ class RuleTemplate {
       "RULE-SET",
       "GEOSITE",
       "GEOIP",
-      "IP-ASN",
+      if (!Platform.isIOS && !Platform.isMacOS) "IP-ASN",
       "DOMAIN",
       "DOMAIN-SUFFIX",
       "DOMAIN-KEYWORD",
