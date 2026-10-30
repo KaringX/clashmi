@@ -1,3 +1,4 @@
+/*
 import 'dart:io';
 
 import 'package:clashmi/app/clash/clash_config.dart';
@@ -9,7 +10,7 @@ import 'package:clashmi/app/utils/vpn_action_handler.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:tray_manager/tray_manager.dart';
 
-/*
+
 class TrayConnected {
   Future<void> Function()? onOpen;
   Future<void> Function()? onExit;
