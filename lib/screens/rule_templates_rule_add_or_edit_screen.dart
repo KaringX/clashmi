@@ -15,6 +15,7 @@ import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:clashmi/screens/widgets/sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class RuleTemplatesRuleAddOrEditScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routeSettings() {
@@ -226,12 +227,13 @@ class _RuleTemplatesRuleAddOrEditScreenState
                   return;
                 }
                 final data = _type == "GEOSITE" ? _geosite : _geoip;
+                final ndata = data.map((e) => Tuple2(e, "")).toList();
                 final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     settings: StringSelectScreen.routeSettings(),
                     builder: (context) =>
-                        StringSelectScreen(current: _value, data: data),
+                        StringSelectScreen(current: _value, data: ndata),
                   ),
                 );
                 if (result != null && result is String) {
@@ -266,7 +268,7 @@ class _RuleTemplatesRuleAddOrEditScreenState
                     return;
                   }
                   final data = _installedApps
-                      .map((e) => e.info.packageName ?? "")
+                      .map((e) => Tuple2(e.info.packageName ?? "", e.name))
                       .toList();
                   final result = await Navigator.push(
                     context,

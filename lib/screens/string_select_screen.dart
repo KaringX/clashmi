@@ -5,6 +5,7 @@ import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:clashmi/screens/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class StringSelectScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routeSettings() {
@@ -12,7 +13,7 @@ class StringSelectScreen extends LasyRenderingStatefulWidget {
   }
 
   final String current;
-  final List<String> data;
+  final List<Tuple2<String, String>> data;
   const StringSelectScreen({
     super.key,
     required this.current,
@@ -24,14 +25,14 @@ class StringSelectScreen extends LasyRenderingStatefulWidget {
 }
 
 class _StringSelectScreenState extends LasyRenderingState<StringSelectScreen> {
-  final List<String> _data = [];
-  List<String> _searchedData = [];
+  final List<Tuple2<String, String>> _data = [];
+  List<Tuple2<String, String>> _searchedData = [];
 
   final _searchController = TextEditingController();
 
   @override
   void initState() {
-    _data.addAll(widget.data);
+    _data.addAll(widget.data.map((e) => e));
     _searchedData = _data;
     super.initState();
   }
@@ -39,7 +40,8 @@ class _StringSelectScreenState extends LasyRenderingState<StringSelectScreen> {
   void _loadSearch(String? textVal) {
     if ((textVal != null) && textVal.isNotEmpty) {
       final data = _data.where((item) {
-        return item.toLowerCase().contains(textVal.toLowerCase());
+        return item.item1.toLowerCase().contains(textVal.toLowerCase()) ||
+            item.item2.toLowerCase().contains(textVal.toLowerCase());
       }).toList();
       _searchedData = data;
       setState(() {});
@@ -157,7 +159,7 @@ class _StringSelectScreenState extends LasyRenderingState<StringSelectScreen> {
     );
   }
 
-  Widget createWidget(String current) {
+  Widget createWidget(Tuple2<String, String> current) {
     return Container(
       margin: const EdgeInsets.only(bottom: 2),
       child: Material(
@@ -181,16 +183,16 @@ class _StringSelectScreenState extends LasyRenderingState<StringSelectScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              current,
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
-                              ),
-                            ),
-                          ],
+                        Text(
+                          current.item2.isNotEmpty
+                              ? current.item2
+                              : current.item1,
+                          style: TextStyle(
+                            fontSize: ThemeConfig.kFontSizeGroupItem,
+                          ),
                         ),
+                        if (current.item2.isNotEmpty)
+                          Text(current.item1, style: TextStyle(fontSize: 10)),
                       ],
                     ),
                   ],
@@ -203,7 +205,7 @@ class _StringSelectScreenState extends LasyRenderingState<StringSelectScreen> {
     );
   }
 
-  Future<void> onTapItem(String current) async {
-    Navigator.pop(context, current);
+  Future<void> onTapItem(Tuple2<String, String> current) async {
+    Navigator.pop(context, current.item1);
   }
 }
