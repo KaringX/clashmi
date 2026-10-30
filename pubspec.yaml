@@ -67,7 +67,7 @@ dependencies:
   http: 1.6.0
   http_parser: 4.1.2
   icloud_storage: 2.2.0 #https://github.com/lollipopkit/flutter_server_box/blob/d94b2a7805891da3e652a9a65cc0c774a2ec6db4/lib/core/utils/sync/icloud.dart#L32
-  archive: 4.3.0
+  archive: 4.5.2
   #detect_proxy_setting: 0.0.10
   flutter_js: 0.8.7
   quick_actions: 1.1.1
