@@ -141,6 +141,8 @@ flutter:
     - assets/images/
     - path: assets/datas/geoip.zip
     - path: assets/datas/geosite.zip
+    - path: assets/datas/geosite_codes.txt
+    - path: assets/datas/geoip_codes.txt
       platforms: [windows, linux, macos, android, ios]
     - path: assets/datas/ASN.mmdb
       platforms: [windows, linux, macos, android]

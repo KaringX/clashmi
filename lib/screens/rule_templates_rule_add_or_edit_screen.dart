@@ -1,8 +1,15 @@
+import 'dart:io';
+
+import 'package:android_package_manager/android_package_manager.dart';
 import 'package:clashmi/app/modules/diversion_template_manager.dart';
+import 'package:clashmi/app/utils/app_utils.dart';
+import 'package:clashmi/app/utils/package_manager_android.dart';
+import 'package:clashmi/app/utils/ruleset_codes_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/group_item_creator.dart';
 import 'package:clashmi/screens/group_item_options.dart';
+import 'package:clashmi/screens/string_select_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
@@ -27,6 +34,9 @@ class _RuleTemplatesRuleAddOrEditScreenState
   String _type = RuleTemplate.getTypes().first;
   String _value = "";
   bool _noResolve = false;
+  final List<PackageInfoEx> _installedApps = [];
+  List<String> _geosite = [];
+  List<String> _geoip = [];
   @override
   void initState() {
     List<String> parts = RuleTemplate.parseRule(widget.rule);
@@ -42,6 +52,9 @@ class _RuleTemplatesRuleAddOrEditScreenState
 
   @override
   void dispose() {
+    _geosite.clear();
+    _geoip.clear();
+    _installedApps.clear();
     super.dispose();
   }
 
@@ -196,20 +209,98 @@ class _RuleTemplatesRuleAddOrEditScreenState
       } else {
         hint = tcontext.meta.required;
       }
-      options1.add(
-        GroupItemOptions(
-          textFormFieldOptions: GroupItemTextFieldOptions(
-            name: _type,
-            text: _value,
-            hint: hint,
-            textWidthPercent: 0.6,
-            textInputAction: TextInputAction.next,
-            onChanged: (String value) {
-              _value = value;
-            },
+      if (_type == "GEOSITE" || _type == "GEOIP") {
+        options1.add(
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+              name: _type,
+              text: _value,
+              onPush: () async {
+                if (_type == "GEOSITE" && _geosite.isEmpty) {
+                  _geosite = await RulesetCodesUtils.siteCodes();
+                }
+                if (_type == "GEOIP" && _geoip.isEmpty) {
+                  _geoip = await RulesetCodesUtils.ipCodes();
+                }
+                if (!mounted) {
+                  return;
+                }
+                final data = _type == "GEOSITE" ? _geosite : _geoip;
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: StringSelectScreen.routeSettings(),
+                    builder: (context) =>
+                        StringSelectScreen(current: _value, data: data),
+                  ),
+                );
+                if (result != null && result is String) {
+                  _value = result;
+                  setState(() {});
+                }
+              },
+            ),
           ),
-        ),
-      );
+        );
+      } else {
+        if (_type == "PROCESS-NAME" && Platform.isAndroid) {
+          options1.add(
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                name: _type,
+                text: _value,
+                onPush: () async {
+                  if (_installedApps.isEmpty) {
+                    _installedApps.addAll(
+                      await PackageManagerAndroid.getInstalledPackages(
+                        onValid: (PackageInfo info) {
+                          if (info.packageName == AppUtils.getId()) {
+                            return false;
+                          }
+                          return true;
+                        },
+                      ),
+                    );
+                  }
+                  if (!mounted) {
+                    return;
+                  }
+                  final data = _installedApps
+                      .map((e) => e.info.packageName ?? "")
+                      .toList();
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      settings: StringSelectScreen.routeSettings(),
+                      builder: (context) =>
+                          StringSelectScreen(current: _value, data: data),
+                    ),
+                  );
+                  if (result != null && result is String) {
+                    _value = result;
+                    setState(() {});
+                  }
+                },
+              ),
+            ),
+          );
+        } else {
+          options1.add(
+            GroupItemOptions(
+              textFormFieldOptions: GroupItemTextFieldOptions(
+                name: _type,
+                text: _value,
+                hint: hint,
+                textWidthPercent: 0.6,
+                textInputAction: TextInputAction.next,
+                onChanged: (String value) {
+                  _value = value;
+                },
+              ),
+            ),
+          );
+        }
+      }
     }
 
     if (options1.isNotEmpty) {
