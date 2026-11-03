@@ -21,6 +21,7 @@ import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:clashmi/screens/widgets/sheet.dart';
 import 'package:clashmi/screens/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tuple/tuple.dart';
 
 class ProfilesSettingsEditScreen extends LasyRenderingStatefulWidget {
@@ -348,6 +349,33 @@ class _ProfilesSettingsEditScreenState
           ),
         ),
       ],
+
+      GroupItemOptions(
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: tcontext.meta.delayTestUrl,
+          text:
+              _profile.delayTestUrl ?? SettingManager.getConfig().delayTestUrl,
+          textWidthPercent: 0.5,
+          onChanged: (String value) {
+            _profile.delayTestUrl = value;
+          },
+        ),
+      ),
+      GroupItemOptions(
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: tcontext.meta.delayTestTimeout,
+          text:
+              _profile.delayTestTimeout?.toString() ??
+              SettingManager.getConfig().delayTestTimeout.toString(),
+          textWidthPercent: 0.3,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          onChanged: (String value) {
+            _profile.delayTestTimeout =
+                int.tryParse(value) ??
+                SettingManager.getConfig().delayTestTimeout;
+          },
+        ),
+      ),
     ];
 
     List<GroupItemOptions> options1 = [

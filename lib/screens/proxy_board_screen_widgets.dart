@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:clashmi/app/clash/clash_config.dart';
 import 'package:clashmi/app/clash/clash_http_api.dart';
+import 'package:clashmi/app/modules/profile_manager.dart' show ProfileManager;
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
@@ -369,6 +370,7 @@ class _ProxyScreenProxiesNodeWidget
   }
 
   Future<void> delayTest({String nodeName = ""}) async {
+    final profile = ProfileManager.getCurrent();
     final setting = SettingManager.getConfig();
     _nodesTesting.clear();
     for (var node in _nodes) {
@@ -395,8 +397,11 @@ class _ProxyScreenProxiesNodeWidget
         if (canDelayTest(node.type)) {
           final result = await ClashHttpApi.getDelay(
             node.name,
-            url: setting.delayTestUrl,
-            timeout: Duration(milliseconds: setting.delayTestTimeout),
+            url: profile?.delayTestUrl ?? setting.delayTestUrl,
+            timeout: Duration(
+              milliseconds:
+                  profile?.delayTestTimeout ?? setting.delayTestTimeout,
+            ),
           );
 
           node.delay = result.data;

@@ -74,6 +74,8 @@ class ProfileSetting {
     this.xhwid = false,
     this.decryptPasswordAES = "",
     this.decryptPasswordAGE = "",
+    this.delayTestUrl,
+    this.delayTestTimeout,
     this.userAgent = "",
     this.patch = "",
     this.boardProviderId = "",
@@ -91,6 +93,8 @@ class ProfileSetting {
   bool xhwid = false;
   String decryptPasswordAES = "";
   String decryptPasswordAGE = "";
+  String? delayTestUrl;
+  int? delayTestTimeout;
   num upload = 0;
   num download = 0;
   num total = 0;
@@ -114,8 +118,10 @@ class ProfileSetting {
     'url': url,
     'user_agent': userAgent,
     'xhwid': xhwid,
-    'decrypt_password': decryptPasswordAES,
+    'decrypt_password_aes': decryptPasswordAES,
     'decrypt_password_age': decryptPasswordAGE,
+    'delay_test_url': delayTestUrl,
+    'delay_test_timeout': delayTestTimeout,
     'upload': upload,
     'download': download,
     'total': total,
@@ -159,8 +165,11 @@ class ProfileSetting {
     url = map['url'] ?? '';
     userAgent = map['user_agent'] ?? '';
     xhwid = map['xhwid'] ?? false;
-    decryptPasswordAES = map['decrypt_password'] ?? '';
+    decryptPasswordAES =
+        map['decrypt_password_aes'] ?? map['decrypt_password'] ?? '';
     decryptPasswordAGE = map['decrypt_password_age'] ?? '';
+    delayTestUrl = map['delay_test_url'];
+    delayTestTimeout = map['delay_test_timeout'];
     upload = map['upload'] ?? 0;
     download = map['download'] ?? 0;
     total = map['total'] ?? 0;
@@ -296,6 +305,8 @@ class ProfileSetting {
     ps.xhwid = xhwid;
     ps.decryptPasswordAES = decryptPasswordAES;
     ps.decryptPasswordAGE = decryptPasswordAGE;
+    ps.delayTestUrl = delayTestUrl;
+    ps.delayTestTimeout = delayTestTimeout;
     ps.upload = upload;
     ps.download = download;
     ps.total = total;
@@ -1165,10 +1176,7 @@ class ProfileManager {
       return null;
     }
     final content = await file.readAsString();
-    final decodedContent = ProfileDecryptUtils.aesDecrypt(
-      passwordAES,
-      content,
-    );
+    final decodedContent = ProfileDecryptUtils.aesDecrypt(passwordAES, content);
     if (decodedContent == null) {
       return ReturnResultError("decrypt profile failed");
     }
