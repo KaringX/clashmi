@@ -51,6 +51,7 @@ import 'package:clashmi/screens/rule_templates_screen.dart';
 import 'package:clashmi/screens/proxygroup_templates_screen.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/themes.dart';
+import 'package:clashmi/screens/uwp_loopback_exemption_windows_screen.dart';
 import 'package:clashmi/screens/version_update_screen.dart';
 import 'package:clashmi/screens/webview_helper.dart';
 import 'package:clashmi/screens/widgets/sheet.dart';
@@ -1070,7 +1071,31 @@ class GroupHelper {
           ),
         ),
       ];
-      return [GroupItem(options: options), GroupItem(options: options1)];
+
+      List<GroupItemOptions> options2 = [
+        if (Platform.isWindows) ...[
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.uwpExemption,
+              onPush: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: UWPLoopbackExemptionWindowsScreen.routeSettings(),
+                    builder: (context) =>
+                        const UWPLoopbackExemptionWindowsScreen(),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ];
+      return [
+        GroupItem(options: options),
+        GroupItem(options: options1),
+        if (Platform.isWindows) GroupItem(options: options2),
+      ];
     }
 
     final tcontext = Translations.of(context);
