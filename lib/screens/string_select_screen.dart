@@ -163,9 +163,7 @@ class _StringSelectScreenState extends LasyRenderingState<StringSelectScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 2),
       child: Material(
-        color: LocaleSettings.currentLocale == current
-            ? ThemeDefine.kColorBlue
-            : null,
+        color: widget.current == current.item1 ? ThemeDefine.kColorBlue : null,
         borderRadius: ThemeDefine.kBorderRadius,
         child: InkWell(
           onTap: () {
