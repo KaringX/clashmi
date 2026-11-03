@@ -58,7 +58,6 @@ class PathUtils {
       if (!await sharedDirectory.exists()) {
         await sharedDirectory.create(recursive: true);
       }
-
       return sharedDirectory.path;
     }
     return "";

@@ -82,7 +82,7 @@ class ZipUtils {
       return null;
     } catch (err, stacktrace) {
       await FileUtils.deletePath(zipPath);
-      return ReturnResultError(err.toString());
+      return ReturnResultError(err.toString(), stacktrace: stacktrace);
     }
   }
 
@@ -109,7 +109,7 @@ class ZipUtils {
         }
       }
     } catch (err, stacktrace) {
-      return ReturnResultError(err.toString());
+      return ReturnResultError(err.toString(), stacktrace: stacktrace);
     }
 
     return null;
@@ -127,7 +127,9 @@ class ZipUtils {
       }
       return ReturnResult(data: filelist);
     } catch (err, stacktrace) {
-      return ReturnResult(error: ReturnResultError(err.toString()));
+      return ReturnResult(
+        error: ReturnResultError(err.toString(), stacktrace: stacktrace),
+      );
     }
   }
 }

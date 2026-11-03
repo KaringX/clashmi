@@ -425,9 +425,11 @@ class FileSaver {
     _saving = false;
     if (_dirtyObject != null) {
       Future.delayed(const Duration(milliseconds: 50), () async {
-        final Object dirtyObject = _dirtyObject!;
-        _dirtyObject = null;
-        await saveAsJson(dirtyObject, report: !hasErr);
+        if (_dirtyObject != null) {
+          final Object dirtyObject = _dirtyObject!;
+          _dirtyObject = null;
+          await saveAsJson(dirtyObject, report: !hasErr);
+        }
       });
     }
   }

@@ -1165,7 +1165,7 @@ class ProfileManager {
       return null;
     }
     final content = await file.readAsString();
-    final decodedContent = ProfileDecryptUtils.decryptProfileContent(
+    final decodedContent = ProfileDecryptUtils.aesDecrypt(
       passwordAES,
       content,
     );

@@ -40,7 +40,7 @@ class FileLogOutput extends LogOutput {
   }
 
   @override
-  void output(OutputEvent event) async {
+  void output(OutputEvent event) {
     if (_file == null || _raf == null) {
       return;
     }
@@ -53,6 +53,10 @@ class FileLogOutput extends LogOutput {
     }
 
     _write();
+  }
+
+  Future<void> flush() async {
+    await _write();
   }
 
   Future<void> _write() async {
@@ -177,5 +181,9 @@ class Log {
 
   static void e(dynamic message) {
     _logger.e(message);
+  }
+
+  static Future<void> flush() async {
+    await _fileLogOutput.flush();
   }
 }

@@ -69,20 +69,15 @@ class AppLifecycleStateNofity {
     _isPaused = false;
     Log.d("stateResumed:$detail");
 
-    Future.delayed(const Duration(milliseconds: 10), () async {
-      _onStateResumed.forEach((key, value) {
-        value();
-      });
+    _onStateResumed.forEach((key, value) {
+      value();
     });
   }
 
   static void stateInactive(String detail) {
     Log.d("stateInactive:$detail");
-
-    Future.delayed(const Duration(milliseconds: 10), () {
-      _onStateInactive.forEach((key, value) {
-        value();
-      });
+    _onStateInactive.forEach((key, value) {
+      value();
     });
   }
 
@@ -90,10 +85,8 @@ class AppLifecycleStateNofity {
     _isPaused = true;
     Log.d("statePaused:$detail");
 
-    Future.delayed(const Duration(milliseconds: 10), () async {
-      _onStatePaused.forEach((key, value) {
-        value();
-      });
+    _onStatePaused.forEach((key, value) {
+      value();
     });
   }
 

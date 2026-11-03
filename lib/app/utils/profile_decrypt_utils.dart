@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:crypto/crypto.dart';
+import 'package:crypto/crypto.dart' as crypto;
 import 'package:encrypt/encrypt.dart';
 
 abstract final class ProfileDecryptUtils {
@@ -9,10 +9,10 @@ abstract final class ProfileDecryptUtils {
   /// Key: MD5(password) as 32-char hex -> 16 bytes
   /// IV: first 16 bytes of base64 decoded data
   /// Cipher: bytes 16.. of base64 decoded data
-  static String? decryptProfileContent(String password, String base64Data) {
+  static String? aesDecrypt(String password, String base64Data) {
     if (base64Data.isEmpty || password.isEmpty) return null;
 
-    final passHash = md5.convert(utf8.encode(password)).toString();
+    final passHash = crypto.md5.convert(utf8.encode(password)).toString();
     if (passHash.length != 32) return null;
 
     Uint8List keyBytes;

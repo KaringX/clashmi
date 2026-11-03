@@ -1367,7 +1367,7 @@ class GroupHelper {
         ),
       ];
       List<GroupItemOptions> options5 = [
-        if (Platform.isWindows) ...[
+        if (PlatformUtils.isPC()) ...[
           GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
               name: tcontext.meta.hideAfterLaunch,

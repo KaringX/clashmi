@@ -19,9 +19,9 @@ class UrlLauncherUtils {
         webOnlyWindowName: webOnlyWindowName,
       );
       return ret ? null : ReturnResultError("launchUrl failed $url");
-    } catch (err, _) {
+    } catch (err, stacktrace) {
       Log.w('UrlLauncherUtils.loadUrl exception: $url\n ${err.toString()}');
-      return ReturnResultError(err.toString());
+      return ReturnResultError(err.toString(), stacktrace: stacktrace);
     }
   }
 

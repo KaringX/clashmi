@@ -1,5 +1,5 @@
 class StackTraceUtils {
-  static String trim(StackTrace stackTrace, int? depth) {
+  static String trim(StackTrace stackTrace, {int? depth}) {
     String stack = stackTrace
         .toString()
         .split("\n")

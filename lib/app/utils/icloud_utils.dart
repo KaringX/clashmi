@@ -78,7 +78,7 @@ abstract final class ICloudUtils {
       );
       return null;
     } catch (err, stacktrace) {
-      return ReturnResultError(err.toString());
+      return ReturnResultError(err.toString(), stacktrace: stacktrace);
     }
   }
 
