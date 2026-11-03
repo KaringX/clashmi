@@ -20,6 +20,7 @@ import 'package:clashmi/app/utils/windows_version_helper.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/my_app.dart';
 import 'package:clashmi/screens/launch_failed_screen.dart';
+import 'package:clashmi/windows_bounds.dart';
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -134,14 +135,14 @@ Future<void> run(List<String> args) async {
       if (inProduction) {
         //await windowManager.setResizable(false);
         //await windowManager.setMaximizable(false);
-        if (Platform.isLinux) {
-          await windowManager.setMinimumSize(Size(400, 740));
-        } else {
-          await windowManager.setMinimumSize(Size(400, 700));
-        }
+        await windowManager.setMinimumSize(
+          SettingConfigItemWindow.kMinWindowSize,
+        );
       }
 
-      await windowManager.center();
+      if (!await WindowBounds.loadWindowBounds()) {
+        await windowManager.center();
+      }
     }
 
     await AutoUpdateManager.init();

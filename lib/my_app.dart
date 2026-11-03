@@ -22,6 +22,7 @@ import 'package:clashmi/screens/launch_failed_screen.dart';
 import 'package:clashmi/screens/theme_data_dark.dart';
 import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/widgets/routes.dart';
+import 'package:clashmi/windows_bounds.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -256,16 +257,36 @@ class MyAppState extends State<MyApp>
   @override
   void onWindowClose() async {
     Log.d("onWindowClose");
+    await WindowBounds.saveWindowBounds();
     await windowManager.hide();
     _windowVisibleForMac = false;
     AppLifecycleStateNofity.statePaused("close");
   }
 
   @override
-  void onWindowMinimize() {
+  void onWindowResize() => WindowBounds.updateWindowBounds();
+
+  @override
+  void onWindowResized() => WindowBounds.updateWindowBounds();
+
+  @override
+  void onWindowMove() => WindowBounds.updateWindowBounds();
+
+  @override
+  void onWindowMoved() => WindowBounds.updateWindowBounds();
+
+  @override
+  void onWindowMaximize() => WindowBounds.updateWindowBounds();
+
+  @override
+  void onWindowUnmaximize() => WindowBounds.updateWindowBounds();
+
+  @override
+  void onWindowMinimize() async {
     _windowVisibleForMac = false;
     Log.d("onWindowMinimize");
     AppLifecycleStateNofity.statePaused("minimize");
+    await WindowBounds.saveWindowBounds();
   }
 
   @override
@@ -348,6 +369,7 @@ class MyAppState extends State<MyApp>
 
   Future<void> _uninit() async {
     if (PlatformUtils.isPC()) {
+      await WindowBounds.saveWindowBounds();
       await windowManager.hide();
     }
     if (widget.startFailedReason == null) {

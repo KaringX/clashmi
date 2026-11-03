@@ -182,6 +182,38 @@ class SettingConfigItemUI {
   }
 }
 
+class SettingConfigItemWindow {
+  static Size kMinWindowSize = Platform.isLinux
+      ? const Size(400, 740)
+      : const Size(400, 700);
+  double x = 0;
+  double y = 0;
+  double width = 0;
+  double height = 0;
+
+  Map<String, dynamic> toJson() => {
+    'x': x.toInt(),
+    'y': y.toInt(),
+    'width': width.toInt(),
+    'height': height.toInt(),
+  };
+  void fromJson(Map<String, dynamic>? map) {
+    if (map == null) {
+      return;
+    }
+    x = (map["x"] ?? 0).toDouble();
+    y = (map["y"] ?? 0).toDouble();
+    width = (map["width"] ?? 0).toDouble();
+    height = (map["height"] ?? 0).toDouble();
+  }
+
+  static SettingConfigItemWindow fromJsonStatic(Map<String, dynamic>? map) {
+    SettingConfigItemWindow config = SettingConfigItemWindow();
+    config.fromJson(map);
+    return config;
+  }
+}
+
 class SettingConfigItemWebDev {
   String url = "";
   String user = "";
@@ -216,6 +248,7 @@ class SettingConfig {
   String languageTag = "";
   SettingConfigItemUI ui = SettingConfigItemUI();
   SettingConfigItemUIScreen uiScreen = SettingConfigItemUIScreen();
+  SettingConfigItemWindow window = SettingConfigItemWindow();
   SettingConfigItemWebDev webdav = SettingConfigItemWebDev();
   bool devMode = false;
   bool alwayOn = false;
@@ -245,6 +278,7 @@ class SettingConfig {
     'language_tag': languageTag,
     'ui': ui,
     'screen': uiScreen,
+    'window': window,
     'webdav': webdav,
     'alway_on': alwayOn,
     'log_level': logLevel,
@@ -275,6 +309,7 @@ class SettingConfig {
     languageTag = map["language_tag"] ?? "";
     ui = SettingConfigItemUI.fromJsonStatic(map["ui"]);
     uiScreen = SettingConfigItemUIScreen.fromJsonStatic(map["screen"]);
+    window = SettingConfigItemWindow.fromJsonStatic(map["window"]);
     webdav = SettingConfigItemWebDev.fromJsonStatic(map["webdav"]);
     alwayOn = map["alway_on"] ?? false;
     logLevel =
@@ -418,7 +453,7 @@ class SettingManager {
     }
   }
 
-  static void save() async {
+  static Future<void> save() async {
     await _fileSaver.saveAsJson(_config);
   }
 
