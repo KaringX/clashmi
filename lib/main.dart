@@ -29,8 +29,6 @@ import 'package:libclash_vpn_service/vpn_service.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
-StartFailedReason? startFailedReason;
-String? startFailedReasonDesc;
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,6 +47,9 @@ void main(List<String> args) async {
 }
 
 Future<void> run(List<String> args) async {
+  StartFailedReason? startFailedReason;
+  String? startFailedReasonDesc;
+
   try {
     do {
       String profileDir = await PathUtils.profileDir();

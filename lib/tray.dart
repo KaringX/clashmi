@@ -1,4 +1,3 @@
-/*
 import 'dart:io';
 
 import 'package:clashmi/app/clash/clash_config.dart';
@@ -10,472 +9,315 @@ import 'package:clashmi/app/utils/vpn_action_handler.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:tray_manager/tray_manager.dart';
 
-class TrayConnected {
-  Future<void> Function()? onOpen;
-  Future<void> Function()? onExit;
-  TrayIcon? _trayIcon;
-  Menu? _menu;
-
-  MenuItem? _menuItemDisconnect;
-
-  MenuItem? _menuItemRule;
-  MenuItem? _menuItemGlobal;
-  MenuItem? _menuItemDirect;
-
-  MenuItem? _menuItemOpen;
-  MenuItem? _menuItemExit;
-  void init({
-    Future<void> Function()? onOpen,
-    Future<void> Function()? onExit,
-  }) {
-    this.onOpen = onOpen;
-    this.onExit = onExit;
-    try {
-      _trayIcon = TrayIcon.create();
-      if (_trayIcon == null) {
-        Log.w(" Tray Icon creation failed");
-        return;
-      }
-      _trayIcon!.icon = ImageAsset.fromAsset(_getIcon());
-
-      _trayIcon!.addListener((event) {
-        if (event is TrayIconClickedEvent) {
-          onOpen?.call();
-        } else if (event is TrayIconRightClickedEvent) {
-          _trayIcon!.closeContextMenu();
-          _updateTrayMenu();
-          _trayIcon!.openContextMenu();
-        }
-      });
-
-      if (!Platform.isLinux) {
-        _trayIcon!.setTooltip(AppUtils.getName());
-      }
-
-      _intiTrayMenu();
-      _updateTrayMenu();
-    } catch (e) {
-      Log.e("Tray Icon initialization exception: $e");
-    }
-  }
-
-  void dispose() {
-    _trayIcon?.dispose();
-    _menu?.dispose();
-    _menuItemDisconnect?.dispose();
-    _menuItemRule?.dispose();
-    _menuItemGlobal?.dispose();
-    _menuItemDirect?.dispose();
-    _menuItemOpen?.dispose();
-    _menuItemExit?.dispose();
-  }
-
-  void setIconVisible(bool visible) {
-    _trayIcon?.setVisible(visible);
-  }
-
-  void setIconTitle(String title) {
-    _trayIcon?.setTitle(title);
-  }
-
-  String _getIcon() {
-    if (Platform.isWindows) {
-      return 'assets/images/tray.ico';
-    }
-    return 'assets/images/tray.png';
-  }
-
-  void _intiTrayMenu() {
-    if (_trayIcon == null) {
-      return;
-    }
-    _menu = Menu.create();
-
-    if (_menu == null) {
-      Log.w("Tray Menu creation failed");
-      return;
-    }
-    final mode = ClashSettingManager.getConfigsMode();
-
-    _menuItemDisconnect = MenuItem.createWithLabelAndType(
-      t.meta.disconnect,
-      MenuItemType.normal,
-    )!;
-    _menuItemRule = MenuItem.createWithLabelAndType(
+class TrayMenuMode {
+  static List<MenuItem> getModeItem() {
+    var menuItemRule = MenuItem.createWithLabelAndType(
       t.meta.rule,
       MenuItemType.checkbox,
     )!;
-    _menuItemRule!.state = mode == ClashConfigsMode.rule
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
-
-    _menuItemGlobal = MenuItem.createWithLabelAndType(
+    var menuItemGlobal = MenuItem.createWithLabelAndType(
       t.meta.global,
       MenuItemType.checkbox,
     )!;
-    _menuItemGlobal!.state = mode == ClashConfigsMode.global
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
-    _menuItemDirect = MenuItem.createWithLabelAndType(
+    var menuItemDirect = MenuItem.createWithLabelAndType(
       t.meta.direct,
       MenuItemType.checkbox,
     )!;
-    _menuItemDirect!.state = mode == ClashConfigsMode.direct
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
-    _menuItemOpen = MenuItem.createWithLabelAndType(
-      t.main.tray.menuOpen,
-      MenuItemType.normal,
-    )!;
-    _menuItemExit = MenuItem.createWithLabelAndType(
-      t.main.tray.menuExit,
-      MenuItemType.normal,
-    )!;
 
-    _menuItemDisconnect!.addListener((event) {
+    menuItemRule.addListener((event) async {
       if (event is MenuItemClickedEvent) {
-        VpnActionHandler.vpnDisconnect?.call("menu", false);
-      }
-    });
-    _menuItemRule!.addListener((event) async {
-      if (event is MenuItemClickedEvent) {
-        final item = _menu!.getItemById(event.itemId);
-        if (item == null) {
-          return;
-        }
-        item.state = MenuItemState.checked;
-        _menu!.getItemById(_menuItemGlobal!.id)?.state =
-            MenuItemState.unchecked;
-        _menu!.getItemById(_menuItemDirect!.id)?.state =
-            MenuItemState.unchecked;
+        menuItemRule.state = MenuItemState.checked;
+        menuItemGlobal.state = MenuItemState.unchecked;
+        menuItemDirect.state = MenuItemState.unchecked;
         await ClashSettingManager.setConfigsMode(ClashConfigsMode.rule);
       }
     });
-    _menuItemGlobal!.addListener((event) async {
+    menuItemGlobal.addListener((event) async {
       if (event is MenuItemClickedEvent) {
-        final item = _menu!.getItemById(event.itemId);
-        if (item == null) {
-          return;
-        }
-        item.state = MenuItemState.checked;
-        _menu!.getItemById(_menuItemRule!.id)?.state = MenuItemState.unchecked;
-        _menu!.getItemById(_menuItemDirect!.id)?.state =
-            MenuItemState.unchecked;
+        menuItemGlobal.state = MenuItemState.checked;
+        menuItemRule.state = MenuItemState.unchecked;
+        menuItemDirect.state = MenuItemState.unchecked;
         await ClashSettingManager.setConfigsMode(ClashConfigsMode.global);
       }
     });
-    _menuItemDirect!.addListener((event) async {
+    menuItemDirect.addListener((event) async {
       if (event is MenuItemClickedEvent) {
-        final item = _menu!.getItemById(event.itemId);
-        if (item == null) {
-          return;
-        }
-        item.state = MenuItemState.checked;
-        _menu!.getItemById(_menuItemGlobal!.id)?.state =
-            MenuItemState.unchecked;
-        _menu!.getItemById(_menuItemRule!.id)?.state = MenuItemState.unchecked;
+        menuItemDirect.state = MenuItemState.checked;
+        menuItemGlobal.state = MenuItemState.unchecked;
+        menuItemRule.state = MenuItemState.unchecked;
         await ClashSettingManager.setConfigsMode(ClashConfigsMode.direct);
       }
     });
-    _menuItemOpen!.addListener((event) async {
-      if (event is MenuItemClickedEvent) {
-        await onOpen?.call();
-      }
-    });
-    _menuItemExit!.addListener((event) async {
-      if (event is MenuItemClickedEvent) {
-        await onExit?.call();
-      }
-    });
 
-    _menu!.addItem(_menuItemDisconnect!);
-    _menu!.addSeparator();
-    _menu!.addItem(_menuItemRule!);
-    _menu!.addItem(_menuItemGlobal!);
-    _menu!.addItem(_menuItemDirect!);
-    _menu!.addSeparator();
-    _menu!.addItem(_menuItemOpen!);
-    _menu!.addItem(_menuItemExit!);
-
-    _trayIcon!.setContextMenu(_menu);
-  }
-
-  void _updateTrayMenu() {
-    if (_menuItemRule == null ||
-        _menuItemGlobal == null ||
-        _menuItemDirect == null) {
-      return;
+    void updateMenu() {
+      final mode = ClashSettingManager.getConfigsMode();
+      menuItemRule.state = mode == ClashConfigsMode.rule
+          ? MenuItemState.checked
+          : MenuItemState.unchecked;
+      menuItemGlobal.state = mode == ClashConfigsMode.global
+          ? MenuItemState.checked
+          : MenuItemState.unchecked;
+      menuItemDirect.state = mode == ClashConfigsMode.direct
+          ? MenuItemState.checked
+          : MenuItemState.unchecked;
     }
-    final mode = ClashSettingManager.getConfigsMode();
 
-    _menuItemRule!.state = mode == ClashConfigsMode.rule
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
-
-    _menuItemGlobal!.state = mode == ClashConfigsMode.global
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
-
-    _menuItemDirect!.state = mode == ClashConfigsMode.direct
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
+    updateMenu();
+    ClashSettingManager.onEventModeChanged.add(() async {
+      updateMenu();
+    });
+    return [menuItemRule, menuItemGlobal, menuItemDirect];
   }
 }
 
-class TrayDisconnected {
+class TrayMenuConnected {
+  Future<void> Function()? onDisconnect;
   Future<void> Function()? onOpen;
   Future<void> Function()? onExit;
-  TrayIcon? _trayIcon;
   Menu? _menu;
 
-  MenuItem? _menuItemConnect;
-
-  MenuItem? _menuItemRule;
-  MenuItem? _menuItemGlobal;
-  MenuItem? _menuItemDirect;
-
-  MenuItem? _menuItemOpen;
-  MenuItem? _menuItemExit;
   void init({
+    bool openExitOnly = false,
     Future<void> Function()? onOpen,
     Future<void> Function()? onExit,
+    Future<void> Function()? onDisconnect,
   }) {
     this.onOpen = onOpen;
     this.onExit = onExit;
-    try {
-      _trayIcon = TrayIcon.create();
-      if (_trayIcon == null) {
-        Log.w(" Tray Icon creation failed");
-        return;
-      }
-      _trayIcon!.icon = ImageAsset.fromAsset(_getIcon());
-
-      _trayIcon!.addListener((event) {
-        if (event is TrayIconClickedEvent) {
-          onOpen?.call();
-        } else if (event is TrayIconRightClickedEvent) {
-          _trayIcon!.closeContextMenu();
-          _updateTrayMenu();
-          _trayIcon!.openContextMenu();
-        }
-      });
-
-      if (!Platform.isLinux) {
-        _trayIcon!.setTooltip(AppUtils.getName());
-      }
-
-      _intiTrayMenu();
-      _updateTrayMenu();
-    } catch (e) {
-      Log.e("Tray Icon initialization exception: $e");
-    }
-  }
-
-  void dispose() {
-    _trayIcon?.dispose();
-    _menu?.dispose();
-    _menuItemConnect?.dispose();
-    _menuItemRule?.dispose();
-    _menuItemGlobal?.dispose();
-    _menuItemDirect?.dispose();
-    _menuItemOpen?.dispose();
-    _menuItemExit?.dispose();
-  }
-
-  void setIconVisible(bool visible) {
-    _trayIcon?.setVisible(visible);
-  }
-
-  void setIconTitle(String title) {
-    _trayIcon?.setTitle(title);
-  }
-
-  String _getIcon() {
-    if (Platform.isWindows) {
-      return 'assets/images/grey_tray.ico';
-    }
-    return 'assets/images/grey_tray.png';
-  }
-
-  void _intiTrayMenu() {
-    if (_trayIcon == null) {
-      return;
-    }
+    this.onDisconnect = onDisconnect;
     _menu = Menu.create();
-
     if (_menu == null) {
       Log.w("Tray Menu creation failed");
       return;
     }
-    final mode = ClashSettingManager.getConfigsMode();
-    _menuItemConnect = MenuItem.createWithLabelAndType(
-      t.meta.connect,
+
+    final menuItemDisconnect = MenuItem.createWithLabelAndType(
+      t.meta.disconnect,
       MenuItemType.normal,
     )!;
-    _menuItemRule = MenuItem.createWithLabelAndType(
-      t.meta.rule,
-      MenuItemType.checkbox,
-    )!;
-    _menuItemRule!.state = mode == ClashConfigsMode.rule
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
-    _menuItemGlobal = MenuItem.createWithLabelAndType(
-      t.meta.global,
-      MenuItemType.checkbox,
-    )!;
-    _menuItemGlobal!.state = mode == ClashConfigsMode.global
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
-    _menuItemDirect = MenuItem.createWithLabelAndType(
-      t.meta.direct,
-      MenuItemType.checkbox,
-    )!;
-    _menuItemDirect!.state = mode == ClashConfigsMode.direct
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
 
-    _menuItemOpen = MenuItem.createWithLabelAndType(
+    final menuItemOpen = MenuItem.createWithLabelAndType(
       t.main.tray.menuOpen,
       MenuItemType.normal,
     )!;
-    _menuItemExit = MenuItem.createWithLabelAndType(
+    final menuItemExit = MenuItem.createWithLabelAndType(
       t.main.tray.menuExit,
       MenuItemType.normal,
     )!;
 
-    _menuItemConnect!.addListener((event) {
+    menuItemDisconnect.addListener((event) async {
       if (event is MenuItemClickedEvent) {
-        VpnActionHandler.vpnConnect?.call("menu", false);
+        await onDisconnect?.call();
       }
     });
-    _menuItemRule!.addListener((event) async {
-      if (event is MenuItemClickedEvent) {
-        final item = _menu!.getItemById(event.itemId);
-        if (item == null) {
-          return;
-        }
-        item.state = MenuItemState.checked;
-        _menu!.getItemById(_menuItemGlobal!.id)?.state =
-            MenuItemState.unchecked;
-        _menu!.getItemById(_menuItemDirect!.id)?.state =
-            MenuItemState.unchecked;
-        await ClashSettingManager.setConfigsMode(ClashConfigsMode.rule);
-      }
-    });
-    _menuItemGlobal!.addListener((event) async {
-      if (event is MenuItemClickedEvent) {
-        final item = _menu!.getItemById(event.itemId);
-        if (item == null) {
-          return;
-        }
-        item.state = MenuItemState.checked;
-        _menu!.getItemById(_menuItemRule!.id)?.state = MenuItemState.unchecked;
-        _menu!.getItemById(_menuItemDirect!.id)?.state =
-            MenuItemState.unchecked;
-        await ClashSettingManager.setConfigsMode(ClashConfigsMode.global);
-      }
-    });
-    _menuItemDirect!.addListener((event) async {
-      if (event is MenuItemClickedEvent) {
-        final item = _menu!.getItemById(event.itemId);
-        if (item == null) {
-          return;
-        }
-        item.state = MenuItemState.checked;
-        _menu!.getItemById(_menuItemGlobal!.id)?.state =
-            MenuItemState.unchecked;
-        _menu!.getItemById(_menuItemRule!.id)?.state = MenuItemState.unchecked;
-        await ClashSettingManager.setConfigsMode(ClashConfigsMode.direct);
-      }
-    });
-    _menuItemOpen!.addListener((event) async {
+
+    menuItemOpen.addListener((event) async {
       if (event is MenuItemClickedEvent) {
         await onOpen?.call();
       }
     });
-    _menuItemExit!.addListener((event) async {
+    menuItemExit.addListener((event) async {
       if (event is MenuItemClickedEvent) {
         await onExit?.call();
       }
     });
 
-    _menu!.addItem(_menuItemConnect!);
-    _menu!.addSeparator();
-    _menu!.addItem(_menuItemRule!);
-    _menu!.addItem(_menuItemGlobal!);
-    _menu!.addItem(_menuItemDirect!);
-    _menu!.addSeparator();
-    _menu!.addItem(_menuItemOpen!);
-    _menu!.addItem(_menuItemExit!);
+    if (!openExitOnly) {
+      _menu!.addItem(menuItemDisconnect);
+      _menu!.addSeparator();
+      final items = TrayMenuMode.getModeItem();
+      for (var item in items) {
+        _menu!.addItem(item);
+      }
+      _menu!.addSeparator();
+    }
 
-    _trayIcon!.setContextMenu(_menu);
+    _menu!.addItem(menuItemOpen);
+    _menu!.addItem(menuItemExit);
   }
 
-  void _updateTrayMenu() {
-    if (_menuItemRule == null ||
-        _menuItemGlobal == null ||
-        _menuItemDirect == null) {
+  void uninit() {
+    _menu?.dispose();
+  }
+
+  Menu? getMenu() {
+    return _menu;
+  }
+}
+
+class TrayMenuDisconnected {
+  Future<void> Function()? onConnect;
+  Future<void> Function()? onOpen;
+  Future<void> Function()? onExit;
+  Menu? _menu;
+
+  void init({
+    bool openExitOnly = false,
+    Future<void> Function()? onOpen,
+    Future<void> Function()? onExit,
+    Future<void> Function()? onConnect,
+  }) {
+    this.onOpen = onOpen;
+    this.onExit = onExit;
+    this.onConnect = onConnect;
+
+    _menu = Menu.create();
+    if (_menu == null) {
+      Log.w("Tray Menu creation failed");
       return;
     }
-    final mode = ClashSettingManager.getConfigsMode();
 
-    _menuItemRule!.state = mode == ClashConfigsMode.rule
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
+    final menuItemConnect = MenuItem.createWithLabelAndType(
+      t.meta.connect,
+      MenuItemType.normal,
+    )!;
 
-    _menuItemGlobal!.state = mode == ClashConfigsMode.global
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
+    final menuItemOpen = MenuItem.createWithLabelAndType(
+      t.main.tray.menuOpen,
+      MenuItemType.normal,
+    )!;
+    final menuItemExit = MenuItem.createWithLabelAndType(
+      t.main.tray.menuExit,
+      MenuItemType.normal,
+    )!;
 
-    _menuItemDirect!.state = mode == ClashConfigsMode.direct
-        ? MenuItemState.checked
-        : MenuItemState.unchecked;
+    menuItemConnect.addListener((event) async {
+      if (event is MenuItemClickedEvent) {
+        await onConnect?.call();
+      }
+    });
+
+    menuItemOpen.addListener((event) async {
+      if (event is MenuItemClickedEvent) {
+        await onOpen?.call();
+      }
+    });
+    menuItemExit.addListener((event) async {
+      if (event is MenuItemClickedEvent) {
+        await onExit?.call();
+      }
+    });
+
+    if (!openExitOnly) {
+      _menu!.addItem(menuItemConnect);
+      _menu!.addSeparator();
+      final items = TrayMenuMode.getModeItem();
+      for (var item in items) {
+        _menu!.addItem(item);
+      }
+      _menu!.addSeparator();
+    }
+
+    _menu!.addItem(menuItemOpen);
+    _menu!.addItem(menuItemExit);
+  }
+
+  void uninit() {
+    _menu?.dispose();
+  }
+
+  Menu? getMenu() {
+    return _menu;
   }
 }
 
 class Tray {
-  TrayConnected? trayConnected;
-  TrayDisconnected? trayDisconnected;
+  TrayIcon? _trayIcon;
+  TrayMenuConnected trayConnected = TrayMenuConnected();
+  TrayMenuDisconnected trayDisconnected = TrayMenuDisconnected();
+  bool _isConnected = false;
 
   void init({
+    bool openExitOnly = false,
     Future<void> Function()? onOpen,
     Future<void> Function()? onExit,
   }) {
     if (!PlatformUtils.isPC()) {
       return;
     }
-    trayConnected = TrayConnected();
-    trayDisconnected = TrayDisconnected();
-    trayConnected!.init(onOpen: onOpen, onExit: onExit);
-    trayDisconnected!.init(onOpen: onOpen, onExit: onExit);
 
-    trayConnected!.setIconVisible(false);
-    trayDisconnected!.setIconVisible(true);
+    try {
+      _trayIcon = TrayIcon.create();
+      if (_trayIcon == null) {
+        Log.w(" Tray Icon creation failed");
+        return;
+      }
+      _trayIcon!.addListener((event) {
+        if (event is TrayIconClickedEvent) {
+          onOpen?.call();
+        } else if (event is TrayIconRightClickedEvent) {
+          _trayIcon!.closeContextMenu();
+          _trayIcon!.setContextMenu(
+            _isConnected ? trayConnected.getMenu() : trayDisconnected.getMenu(),
+          );
+          _trayIcon!.openContextMenu();
+        }
+      });
+      _trayIcon!.icon = ImageAsset.fromAsset(_getIconDisconnected());
+      _trayIcon!.setVisible(true);
+
+      if (!Platform.isLinux) {
+        _trayIcon!.setTooltip(AppUtils.getName());
+      }
+    } catch (e) {
+      Log.e("Tray Icon initialization exception: $e");
+    }
+
+    trayConnected.init(
+      openExitOnly: openExitOnly,
+      onOpen: onOpen,
+      onExit: onExit,
+      onDisconnect: () async {
+        VpnActionHandler.vpnDisconnect?.call("menu", false);
+      },
+    );
+
+    trayDisconnected.init(
+      openExitOnly: openExitOnly,
+      onOpen: onOpen,
+      onExit: onExit,
+      onConnect: () async {
+        VpnActionHandler.vpnConnect?.call("menu", false);
+      },
+    );
   }
 
   void dispose() {
-    trayConnected?.dispose();
-    trayDisconnected?.dispose();
-    trayConnected = null;
-    trayDisconnected = null;
+    trayConnected.uninit();
+    trayDisconnected.uninit();
   }
 
-  void setIconDisconneted(bool disconnected) {
-    if (disconnected) {
-      trayConnected?.setIconVisible(false);
-      trayDisconnected?.setIconVisible(true);
-    } else {
-      trayConnected?.setIconVisible(true);
-      trayDisconnected?.setIconVisible(false);
+  String _getIconConnected() {
+    if (Platform.isWindows) {
+      return 'assets/images/tray.ico';
     }
+    return 'assets/images/tray.png';
   }
 
-  void setIconTitleForConnected(String title) {
-    trayConnected?.setIconTitle(title);
+  String _getIconDisconnected() {
+    if (Platform.isWindows) {
+      return 'assets/images/grey_tray.ico';
+    }
+    return 'assets/images/grey_tray.png';
   }
 
-  void setIconTitleForDisconnected(String title) {
-    trayDisconnected?.setIconTitle(title);
+  void setConnected(bool connected) {
+    if (_trayIcon == null) {
+      return;
+    }
+    if (connected == _isConnected) {
+      return;
+    }
+    _isConnected = connected;
+    _trayIcon!.icon = ImageAsset.fromAsset(
+      _isConnected ? _getIconConnected() : _getIconDisconnected(),
+    );
+  }
+
+  void setTitle(String title) {
+    if (_trayIcon == null) {
+      return;
+    }
+    _trayIcon!.setTitle(title);
   }
 }
-*/
