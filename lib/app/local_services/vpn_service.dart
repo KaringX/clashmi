@@ -35,6 +35,7 @@ class VPNServiceSetServerOptions {
 
 class VPNService {
   static const localhost = "127.0.0.1";
+  static final Set<int> _firewallPortAdded = {};
   static bool _runAsAdmin = false;
   static final bool _systemExtension = true;
   static List<String> _abis = [];
@@ -330,9 +331,13 @@ class VPNService {
     if (Platform.isWindows) {
       final controlPort = ClashSettingManager.getControlPort();
       final mixedPort = ClashSettingManager.getMixedPort();
-      var ports = [controlPort, mixedPort];
-
-      FlutterVpnService.firewallAddPorts(ports, PathUtils.serviceExeName());
+      if (!_firewallPortAdded.contains(controlPort) ||
+          !_firewallPortAdded.contains(mixedPort)) {
+        _firewallPortAdded.add(controlPort);
+        _firewallPortAdded.add(mixedPort);
+        var ports = [controlPort, mixedPort];
+        FlutterVpnService.firewallAddPorts(ports, PathUtils.serviceExeName());
+      }
     }
     if (Platform.isIOS || Platform.isMacOS) {
       await FlutterVpnService.setAlwaysOn(false);
@@ -390,9 +395,13 @@ class VPNService {
     if (Platform.isWindows) {
       final controlPort = ClashSettingManager.getControlPort();
       final mixedPort = ClashSettingManager.getMixedPort();
-      var ports = [controlPort, mixedPort];
-
-      FlutterVpnService.firewallAddPorts(ports, PathUtils.serviceExeName());
+      if (!_firewallPortAdded.contains(controlPort) ||
+          !_firewallPortAdded.contains(mixedPort)) {
+        _firewallPortAdded.add(controlPort);
+        _firewallPortAdded.add(mixedPort);
+        var ports = [controlPort, mixedPort];
+        FlutterVpnService.firewallAddPorts(ports, PathUtils.serviceExeName());
+      }
     }
     VpnServiceWaitResult result = await FlutterVpnService.start(timeout);
     if (result.type == VpnServiceWaitType.timeout) {
