@@ -247,9 +247,7 @@ class Tray {
           onOpen?.call();
         } else if (event is TrayIconRightClickedEvent) {
           _trayIcon!.closeContextMenu();
-          _trayIcon!.setContextMenu(
-            _isConnected ? trayConnected.getMenu() : trayDisconnected.getMenu(),
-          );
+          _updateContextMenu();
           _trayIcon!.openContextMenu();
         }
       });
@@ -258,6 +256,11 @@ class Tray {
 
       if (!Platform.isLinux) {
         _trayIcon!.setTooltip(AppUtils.getName());
+      }
+      if (Platform.isLinux) {
+        _updateContextMenu();
+        _trayIcon!.setContextMenuTrigger(ContextMenuTrigger.clicked);
+        _trayIcon!.setContextMenuTrigger(ContextMenuTrigger.rightClicked);
       }
     } catch (e) {
       Log.e("Tray Icon initialization exception: $e");
@@ -285,6 +288,12 @@ class Tray {
   void dispose() {
     trayConnected.uninit();
     trayDisconnected.uninit();
+  }
+
+  void _updateContextMenu() {
+    _trayIcon?.setContextMenu(
+      _isConnected ? trayConnected.getMenu() : trayDisconnected.getMenu(),
+    );
   }
 
   String _getIconConnected() {
