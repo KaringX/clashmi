@@ -1,4 +1,4 @@
-import 'dart:io';
+/*import 'dart:io';
 
 import 'package:clashmi/app/clash/clash_config.dart';
 import 'package:clashmi/app/modules/clash_setting_manager.dart';
@@ -330,3 +330,4 @@ class Tray {
     _trayIcon!.setTitle(title);
   }
 }
+*/
