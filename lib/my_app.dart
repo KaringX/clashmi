@@ -19,6 +19,7 @@ import 'package:clashmi/app/utils/vpn_action_handler.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/home_screen.dart';
 import 'package:clashmi/screens/launch_failed_screen.dart';
+import 'package:clashmi/screens/scheme_handler.dart';
 import 'package:clashmi/screens/theme_data_dark.dart';
 import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/widgets/routes.dart';
