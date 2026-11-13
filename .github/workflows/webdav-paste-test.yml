@@ -20,6 +20,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: 3.44.0
           cache: true
       # The full application requires sibling packages not shipped in this repo.
       # Exercise the clipboard widget independently of those VPN dependencies.
