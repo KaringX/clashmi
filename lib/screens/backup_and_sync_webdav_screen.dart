@@ -20,6 +20,7 @@ import 'package:clashmi/screens/group_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
+import 'package:clashmi/screens/widgets/paste_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:webdav_client_plus/webdav_client_plus.dart';
@@ -45,6 +46,9 @@ class _BackupAndSyncWebdavScreenState
 
   WebdavClient? _webdavClient;
   List<String> _fileList = [];
+  final FocusNode _urlFocusNode = FocusNode();
+  final FocusNode _userFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
   final TextEditingController _urlController = TextEditingController();
   final TextEditingController _userController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -66,6 +70,9 @@ class _BackupAndSyncWebdavScreenState
 
   @override
   void dispose() {
+    _urlFocusNode.dispose();
+    _userFocusNode.dispose();
+    _passwordFocusNode.dispose();
     _urlController.dispose();
     _userController.dispose();
     _passwordController.dispose();
@@ -461,8 +468,14 @@ class _BackupAndSyncWebdavScreenState
             hint: "${tcontext.meta.required}[https://xxxx/webdav]",
             textWidthPercent: 0.6,
             controller: _urlController,
+            focusNode: _urlFocusNode,
+            suffixIcon: PasteTextButton(
+              controller: _urlController,
+              focusNode: _urlFocusNode,
+            ),
             autoFocus: true,
             textInputAction: TextInputAction.next,
+            onSubmitted: (_) => _userFocusNode.requestFocus(),
           ),
         ),
         GroupItemOptions(
@@ -471,7 +484,13 @@ class _BackupAndSyncWebdavScreenState
             hint: tcontext.meta.required,
             textWidthPercent: 0.6,
             controller: _userController,
+            focusNode: _userFocusNode,
+            suffixIcon: PasteTextButton(
+              controller: _userController,
+              focusNode: _userFocusNode,
+            ),
             textInputAction: TextInputAction.next,
+            onSubmitted: (_) => _passwordFocusNode.requestFocus(),
           ),
         ),
         GroupItemOptions(
@@ -481,6 +500,11 @@ class _BackupAndSyncWebdavScreenState
             textWidthPercent: 0.6,
             obscureText: true,
             controller: _passwordController,
+            focusNode: _passwordFocusNode,
+            suffixIcon: PasteTextButton(
+              controller: _passwordController,
+              focusNode: _passwordFocusNode,
+            ),
             textInputAction: TextInputAction.done,
             onSubmitted: (String value) {
               FocusScope.of(context).nextFocus();

@@ -44,6 +44,7 @@ class GroupItemTextFieldOptions {
     this.textStyle,
     this.hint,
     this.errorText,
+    this.suffixIcon,
     this.enabled,
     this.readOnly = false,
     this.autoFocus = false,
@@ -64,6 +65,7 @@ class GroupItemTextFieldOptions {
   final TextStyle? textStyle;
   final String? hint;
   final String? errorText;
+  final Widget? suffixIcon;
   final bool readOnly;
   final bool? enabled;
   final bool autoFocus;
