@@ -297,24 +297,31 @@ class _ProxyScreenProxiesNodeWidget
                   children: [
                     Text(node.type),
                     SizedBox(width: 5),
-                    Tooltip(
-                      message: node.delayErr ?? "",
-                      child: InkWell(
-                        onTap: !canDelayTest(node.type)
-                            ? null
-                            : () async {
-                                Navigator.of(context).pop();
-                                delayTest(nodeName: node.name);
-                                if (node.delayErr != null &&
-                                    node.delayErr!.isNotEmpty) {
-                                  try {
-                                    await Clipboard.setData(
-                                      ClipboardData(text: node.delayErr!),
-                                    );
-                                  } catch (e) {}
-                                }
-                              },
-                        child: Text(subtitle, style: TextStyle(color: color)),
+                    Flexible(
+                      child: Tooltip(
+                        message: node.delayErr ?? "",
+                        child: InkWell(
+                          onTap: !canDelayTest(node.type)
+                              ? null
+                              : () async {
+                                  Navigator.of(context).pop();
+                                  delayTest(nodeName: node.name);
+                                  if (node.delayErr != null &&
+                                      node.delayErr!.isNotEmpty) {
+                                    try {
+                                      await Clipboard.setData(
+                                        ClipboardData(text: node.delayErr!),
+                                      );
+                                    } catch (e) {}
+                                  }
+                                },
+                          child: Text(
+                            subtitle,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: color),
+                          ),
+                        ),
                       ),
                     ),
                   ],
