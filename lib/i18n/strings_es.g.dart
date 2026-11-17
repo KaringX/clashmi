@@ -319,7 +319,7 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get launchAtStartup => 'Ejecutar al Inicio';
 	@override String get launchAtStartupRunAsAdmin => 'Por favor, reinicie Clash Mi como administrador';
-	@override String get tunModeRunAsAdmin => 'El modo TUN requiere permisos de administrador del sistema, por favor reinicie la aplicación como administrador';
+	@override String get needRunAsAdmin => 'Esta función requiere permisos de administrador del sistema, reinicie la aplicación como administrador';
 	@override String get portableMode => 'Modo Portátil';
 	@override String get portableModeDisableTips => 'Si necesita salir del modo portátil, cierre [clashmi] y elimine manualmente la carpeta [portable] en el mismo directorio que [clashmi.exe]';
 	@override String get systemProxy => 'Proxy del Sistema';
@@ -744,7 +744,7 @@ extension on TranslationsEs {
 			'meta.userAgent' => 'UserAgent',
 			'meta.launchAtStartup' => 'Ejecutar al Inicio',
 			'meta.launchAtStartupRunAsAdmin' => 'Por favor, reinicie Clash Mi como administrador',
-			'meta.tunModeRunAsAdmin' => 'El modo TUN requiere permisos de administrador del sistema, por favor reinicie la aplicación como administrador',
+			'meta.needRunAsAdmin' => 'Esta función requiere permisos de administrador del sistema, reinicie la aplicación como administrador',
 			'meta.portableMode' => 'Modo Portátil',
 			'meta.portableModeDisableTips' => 'Si necesita salir del modo portátil, cierre [clashmi] y elimine manualmente la carpeta [portable] en el mismo directorio que [clashmi.exe]',
 			'meta.systemProxy' => 'Proxy del Sistema',

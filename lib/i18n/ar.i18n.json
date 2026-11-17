@@ -187,7 +187,7 @@
         "userAgent": "UserAgent",
         "launchAtStartup": "إطلاق عند بدء التشغيل",
         "launchAtStartupRunAsAdmin": "يرجى إعادة تشغيل Clash Mi كمسؤول",
-        "tunModeRunAsAdmin": "يتطلب وضع TUN أذونات مسؤول النظام ، يرجى إعادة تشغيل التطبيق كمسؤول",
+        "needRunAsAdmin": "تتطلب هذه الميزة أذونات مسؤول النظام، يرجى إعادة تشغيل التطبيق كمسؤول",
         "portableMode": "الوضع المحمول",
         "portableModeDisableTips": "إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [clashmi] وحذف المجلد [portable] يدويًا في نفس الدليل مثل [clashmi.exe]",
         "systemProxy": "وكيل النظام",

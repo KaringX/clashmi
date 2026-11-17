@@ -319,7 +319,7 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get launchAtStartup => 'スタートアップ時に起動';
 	@override String get launchAtStartupRunAsAdmin => 'Clash Miを管理者として再起動してください';
-	@override String get tunModeRunAsAdmin => 'TUNモードにはシステム管理者権限が必要です。アプリを管理者として再起動してください';
+	@override String get needRunAsAdmin => 'この機能にはシステム管理者権限が必要です。アプリを管理者として再起動してください';
 	@override String get portableMode => 'ポータブルモード';
 	@override String get portableModeDisableTips => 'ポータブルモードを終了する必要がある場合は、[clashmi]を終了し、[clashmi.exe]と同じディレクトリにある[portable]フォルダを手動で削除してください';
 	@override String get systemProxy => 'システムプロキシ';
@@ -744,7 +744,7 @@ extension on TranslationsJa {
 			'meta.userAgent' => 'UserAgent',
 			'meta.launchAtStartup' => 'スタートアップ時に起動',
 			'meta.launchAtStartupRunAsAdmin' => 'Clash Miを管理者として再起動してください',
-			'meta.tunModeRunAsAdmin' => 'TUNモードにはシステム管理者権限が必要です。アプリを管理者として再起動してください',
+			'meta.needRunAsAdmin' => 'この機能にはシステム管理者権限が必要です。アプリを管理者として再起動してください',
 			'meta.portableMode' => 'ポータブルモード',
 			'meta.portableModeDisableTips' => 'ポータブルモードを終了する必要がある場合は、[clashmi]を終了し、[clashmi.exe]と同じディレクトリにある[portable]フォルダを手動で削除してください',
 			'meta.systemProxy' => 'システムプロキシ',

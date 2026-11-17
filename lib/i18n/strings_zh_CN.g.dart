@@ -319,7 +319,7 @@ class Translations$meta$zh_CN implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get launchAtStartup => '开机启动';
 	@override String get launchAtStartupRunAsAdmin => '请以管理员身份重新启动Clash Mi';
-	@override String get tunModeRunAsAdmin => 'TUN模式需要系统管理员权限,请以管理员身份重新启动应用';
+	@override String get needRunAsAdmin => '本功能需要系统管理员权限,请以管理员身份重新启动应用';
 	@override String get portableMode => '便携模式';
 	@override String get portableModeDisableTips => '如需退出便携模式,请退出[clashmi]后,手动删除[clashmi.exe]同目录下的[portable]文件夹即可';
 	@override String get systemProxy => '系统代理';
@@ -744,7 +744,7 @@ extension on TranslationsZhCn {
 			'meta.userAgent' => 'UserAgent',
 			'meta.launchAtStartup' => '开机启动',
 			'meta.launchAtStartupRunAsAdmin' => '请以管理员身份重新启动Clash Mi',
-			'meta.tunModeRunAsAdmin' => 'TUN模式需要系统管理员权限,请以管理员身份重新启动应用',
+			'meta.needRunAsAdmin' => '本功能需要系统管理员权限,请以管理员身份重新启动应用',
 			'meta.portableMode' => '便携模式',
 			'meta.portableModeDisableTips' => '如需退出便携模式,请退出[clashmi]后,手动删除[clashmi.exe]同目录下的[portable]文件夹即可',
 			'meta.systemProxy' => '系统代理',

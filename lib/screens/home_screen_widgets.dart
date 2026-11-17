@@ -779,7 +779,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       } else if (err.message.contains(
         "configure tun interface: Access is denied",
       )) {
-        err.message += "\n${t.meta.tunModeRunAsAdmin}";
+        err.message += "\n${t.meta.needRunAsAdmin}";
       }
 
       DialogUtils.showAlertDialog(context, err.message, withVersion: true);

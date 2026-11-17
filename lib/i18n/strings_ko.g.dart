@@ -319,7 +319,7 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get launchAtStartup => '시작 시 실행';
 	@override String get launchAtStartupRunAsAdmin => 'Clash Mi를 관리자 권한으로 다시 시작하십시오';
-	@override String get tunModeRunAsAdmin => 'TUN 모드는 시스템 관리자 권한이 필요합니다. 앱을 관리자 권한으로 다시 시작하십시오';
+	@override String get needRunAsAdmin => '이 기능은 시스템 관리자 권한이 필요합니다. 관리자 권한으로 앱을 다시 시작하십시오';
 	@override String get portableMode => '포터블 모드';
 	@override String get portableModeDisableTips => '포터블 모드를 종료해야 하는 경우 [clashmi]를 종료하고 [clashmi.exe]와 동일한 디렉토리에 있는 [portable] 폴더를 수동으로 삭제하십시오';
 	@override String get systemProxy => '시스템 프록시';
@@ -744,7 +744,7 @@ extension on TranslationsKo {
 			'meta.userAgent' => 'UserAgent',
 			'meta.launchAtStartup' => '시작 시 실행',
 			'meta.launchAtStartupRunAsAdmin' => 'Clash Mi를 관리자 권한으로 다시 시작하십시오',
-			'meta.tunModeRunAsAdmin' => 'TUN 모드는 시스템 관리자 권한이 필요합니다. 앱을 관리자 권한으로 다시 시작하십시오',
+			'meta.needRunAsAdmin' => '이 기능은 시스템 관리자 권한이 필요합니다. 관리자 권한으로 앱을 다시 시작하십시오',
 			'meta.portableMode' => '포터블 모드',
 			'meta.portableModeDisableTips' => '포터블 모드를 종료해야 하는 경우 [clashmi]를 종료하고 [clashmi.exe]와 동일한 디렉토리에 있는 [portable] 폴더를 수동으로 삭제하십시오',
 			'meta.systemProxy' => '시스템 프록시',

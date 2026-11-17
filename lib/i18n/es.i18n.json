@@ -187,7 +187,7 @@
         "userAgent": "UserAgent",
         "launchAtStartup": "Ejecutar al Inicio",
         "launchAtStartupRunAsAdmin": "Por favor, reinicie Clash Mi como administrador",
-        "tunModeRunAsAdmin": "El modo TUN requiere permisos de administrador del sistema, por favor reinicie la aplicación como administrador",
+        "needRunAsAdmin": "Esta función requiere permisos de administrador del sistema, reinicie la aplicación como administrador",
         "portableMode": "Modo Portátil",
         "portableModeDisableTips": "Si necesita salir del modo portátil, cierre [clashmi] y elimine manualmente la carpeta [portable] en el mismo directorio que [clashmi.exe]",
         "systemProxy": "Proxy del Sistema",

@@ -319,7 +319,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get launchAtStartup => 'Запуск при включении';
 	@override String get launchAtStartupRunAsAdmin => 'Пожалуйста, перезапустите Clash Mi от имени администратора.';
-	@override String get tunModeRunAsAdmin => 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора';
+	@override String get needRunAsAdmin => 'Для этой функции требуются права администратора. Перезапустите приложение от имени администратора';
 	@override String get portableMode => 'Портативный режим';
 	@override String get portableModeDisableTips => 'Если вам нужно выйти из портативного режима, выйдите из [clashmi] и вручную удалите папку [portable] в том же каталоге, что и [clashmi.exe]';
 	@override String get systemProxy => 'Системный прокси';
@@ -744,7 +744,7 @@ extension on TranslationsRu {
 			'meta.userAgent' => 'UserAgent',
 			'meta.launchAtStartup' => 'Запуск при включении',
 			'meta.launchAtStartupRunAsAdmin' => 'Пожалуйста, перезапустите Clash Mi от имени администратора.',
-			'meta.tunModeRunAsAdmin' => 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора',
+			'meta.needRunAsAdmin' => 'Для этой функции требуются права администратора. Перезапустите приложение от имени администратора',
 			'meta.portableMode' => 'Портативный режим',
 			'meta.portableModeDisableTips' => 'Если вам нужно выйти из портативного режима, выйдите из [clashmi] и вручную удалите папку [portable] в том же каталоге, что и [clashmi.exe]',
 			'meta.systemProxy' => 'Системный прокси',

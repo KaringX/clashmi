@@ -187,7 +187,7 @@
         "userAgent": "UserAgent",
         "launchAtStartup": "开机启动",
         "launchAtStartupRunAsAdmin": "请以管理员身份重新启动Clash Mi",
-        "tunModeRunAsAdmin": "TUN模式需要系统管理员权限,请以管理员身份重新启动应用",
+        "needRunAsAdmin": "本功能需要系统管理员权限,请以管理员身份重新启动应用",
         "portableMode": "便携模式",
         "portableModeDisableTips": "如需退出便携模式,请退出[clashmi]后,手动删除[clashmi.exe]同目录下的[portable]文件夹即可",
         "systemProxy": "系统代理",
