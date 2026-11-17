@@ -55,14 +55,16 @@ class VPNService {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     if (Platform.isWindows) {
       _runAsAdmin = await FlutterVpnService.isRunAsAdmin();
-      FlutterVpnService.firewallAddApp(
-        Platform.resolvedExecutable,
-        PathUtils.getExeName(),
-      );
-      FlutterVpnService.firewallAddApp(
-        PathUtils.serviceExePath(),
-        PathUtils.serviceExeName(),
-      );
+      if (_runAsAdmin) {
+        FlutterVpnService.firewallAddApp(
+          Platform.resolvedExecutable,
+          PathUtils.getExeName(),
+        );
+        FlutterVpnService.firewallAddApp(
+          PathUtils.serviceExePath(),
+          PathUtils.serviceExeName(),
+        );
+      }
     }
 
     launchAtStartup.setup(
@@ -328,7 +330,7 @@ class VPNService {
       return ReturnResultError(err.toString());
     }
     var setting = SettingManager.getConfig();
-    if (Platform.isWindows) {
+    if (Platform.isWindows && _runAsAdmin) {
       final controlPort = ClashSettingManager.getControlPort();
       final mixedPort = ClashSettingManager.getMixedPort();
       if (!_firewallPortAdded.contains(controlPort) ||
@@ -392,7 +394,7 @@ class VPNService {
       return ReturnResultError(err.toString());
     }
     var setting = SettingManager.getConfig();
-    if (Platform.isWindows) {
+    if (Platform.isWindows && _runAsAdmin) {
       final controlPort = ClashSettingManager.getControlPort();
       final mixedPort = ClashSettingManager.getMixedPort();
       if (!_firewallPortAdded.contains(controlPort) ||
