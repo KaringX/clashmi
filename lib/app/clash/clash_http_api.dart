@@ -209,6 +209,7 @@ class ClashLog {
 
 class ClashProxiesNode {
   List<String> all = [];
+  String providerName = "";
   String name = "";
   String now = "";
   String type = "";
@@ -219,6 +220,7 @@ class ClashProxiesNode {
 
   Map<String, dynamic> toJson() => {
     'all': all,
+    'provider-name': providerName,
     'name': name,
     'now': now,
     'type': type,
@@ -231,6 +233,7 @@ class ClashProxiesNode {
       return;
     }
 
+    providerName = map['provider-name'] ?? "";
     name = map['name'] ?? "";
     now = map['now'] ?? "";
     type = map['type'] ?? "";
@@ -385,6 +388,7 @@ class ClashHttpApi {
 
   static Future<ReturnResult<int>> getDelay(
     String node, {
+    String providerName = "",
     String url = "https://www.gstatic.com",
     Duration timeout = const Duration(seconds: 5),
   }) async {
@@ -393,8 +397,12 @@ class ClashHttpApi {
 
     final encodeNode = Uri.encodeComponent(node);
     final encodeUrl = Uri.encodeComponent(url);
+    final fullUrl = providerName.isEmpty
+        ? "$host:${getControlPort?.call()}/proxies/$encodeNode/delay?url=$encodeUrl&timeout=${timeout.inMilliseconds}"
+        : "$host:${getControlPort?.call()}/providers/proxies/$providerName/$encodeNode/healthcheck?url=$encodeUrl&timeout=${timeout.inMilliseconds}";
+
     var result = await HttpUtils.httpGetRequest(
-      "$host:${getControlPort?.call()}/proxies/$encodeNode/delay?url=$encodeUrl&timeout=${timeout.inMilliseconds}",
+      fullUrl,
       null,
       headers,
       timeout,

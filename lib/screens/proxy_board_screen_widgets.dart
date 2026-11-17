@@ -397,6 +397,7 @@ class _ProxyScreenProxiesNodeWidget
         if (canDelayTest(node.type)) {
           final result = await ClashHttpApi.getDelay(
             node.name,
+            providerName: node.providerName,
             url: profile?.delayTestUrl ?? setting.delayTestUrl,
             timeout: Duration(
               milliseconds:
