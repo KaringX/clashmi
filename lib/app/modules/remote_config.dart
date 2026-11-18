@@ -110,6 +110,8 @@ class RemoteConfig {
   String doc = kDefaultDoc;
   String htmlTools = kDefaultHtmlTools;
   String connect = kDefaultConnect;
+  dynamic lifeline;
+  Map<String, List<String>> lifelineMap = {};
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> ret = {
@@ -144,7 +146,9 @@ class RemoteConfig {
     if (connect != kDefaultConnect) {
       ret["connect"] = connect;
     }
-
+    if (lifeline != null) {
+      ret["lifeline"] = lifeline;
+    }
     return ret;
   }
 
@@ -179,6 +183,7 @@ class RemoteConfig {
     doc = map["doc"] ?? kDefaultDoc;
     htmlTools = map["htmltools"] ?? kDefaultHtmlTools;
     connect = map["connect"] ?? kDefaultConnect;
+    lifeline = map["lifeline"];
   }
 
   static bool isSelfHost(String url, String host) {
