@@ -74,6 +74,32 @@ abstract final class AutoupdateUtils {
         break;
       }
     }
+    if (response.error != null) {
+      final uri = Uri.tryParse(url);
+      if (uri != null) {
+        final backDomain =
+            RemoteConfigManager.getConfig().lifelineMap[uri.host] ?? [];
+        for (var domain in backDomain) {
+          final newUrl = Uri.base.resolve(url).replace(host: domain).toString();
+          for (var port in ports) {
+            response = await HttpUtils.httpGetRequest(
+              newUrl,
+              port,
+              null,
+              const Duration(seconds: 10),
+              null,
+              null,
+            );
+            if (response.error == null) {
+              break;
+            }
+          }
+          if (response.error == null) {
+            break;
+          }
+        }
+      }
+    }
     List<AutoupdateItem> items = [];
     if (response.error != null) {
       return ReturnResult(error: response.error);
@@ -115,7 +141,32 @@ abstract final class AutoupdateUtils {
         break;
       }
     }
-
+    if (response.error != null) {
+      final uri = Uri.tryParse(url);
+      if (uri != null) {
+        final backDomain =
+            RemoteConfigManager.getConfig().lifelineMap[uri.host] ?? [];
+        for (var domain in backDomain) {
+          final newUrl = Uri.base.resolve(url).replace(host: domain).toString();
+          for (var port in ports) {
+            response = await HttpUtils.httpGetRequest(
+              newUrl,
+              port,
+              null,
+              const Duration(seconds: 10),
+              null,
+              null,
+            );
+            if (response.error == null) {
+              break;
+            }
+          }
+          if (response.error == null) {
+            break;
+          }
+        }
+      }
+    }
     if (response.error != null) {
       return ReturnResult(error: response.error);
     }

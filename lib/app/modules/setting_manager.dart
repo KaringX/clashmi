@@ -316,9 +316,9 @@ class SettingConfig {
         map["log_level"] ??
         (bool.fromEnvironment("dart.vm.product") ? "warning" : "info");
     ignoreBadCertificate = map["ignore_bad_certificate"] ?? true;
-    autoUpdateChannel = map["auto_update_channel"] ?? "stable";
+    autoUpdateChannel = map["auto_update_channel"] ?? "";
     if (autoUpdateChannel.isEmpty) {
-      autoUpdateChannel = Random().nextInt(10) < 5 ? "beta" : "stable";
+      autoUpdateChannel = Random().nextInt(10) < 3 ? "beta" : "stable";
     }
     autoDownloadUpdatePkg = map["auto_download_udpate_pkg"] ?? true;
     autoConnectAfterLaunch = map["auto_connect_after_launch"] ?? false;
