@@ -9,6 +9,9 @@ import 'package:clashmi/screens/theme_define.dart';
 class Themes with ChangeNotifier {
   String _theme = '';
   void setTheme(String theme, bool notify) {
+    if (_theme == theme) {
+      return;
+    }
     switch (theme) {
       case ThemeDefine.kThemeSystem:
       case ThemeDefine.kThemeLight:
