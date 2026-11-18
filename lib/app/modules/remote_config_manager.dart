@@ -77,9 +77,9 @@ class RemoteConfigManager {
       if (content.isNotEmpty) {
         var config = jsonDecode(content);
         _config.fromJson(config);
-        _config.lifelineMap = await AppUrlUtilsPrivate.parseLifeline(
+        /*_config.lifelineMap = await AppUrlUtilsPrivate.parseLifeline(
           _config.lifeline,
-        );
+        );*/
       }
     } catch (err, stacktrace) {}
   }
@@ -113,9 +113,9 @@ class RemoteConfigManager {
       }
       _duration = const Duration(hours: 1);
       _config = gConfig.data!;
-      _config.lifelineMap = await AppUrlUtilsPrivate.parseLifeline(
+      /*_config.lifelineMap = await AppUrlUtilsPrivate.parseLifeline(
         _config.lifeline,
-      );
+      );*/
       _config.latestCheck = now.toString();
 
       _saveConfig();
