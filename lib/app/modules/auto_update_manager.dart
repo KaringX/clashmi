@@ -351,7 +351,10 @@ class AutoUpdateManager {
     if (_checking) {
       return;
     }
-
+    final connected = await VPNService.getStarted();
+    if (!connected) {
+      return;
+    }
     var last = DateTime.tryParse(_versionCheck.latestCheck);
     DateTime now = DateTime.now();
     if (last != null) {

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:clashmi/app/local_services/vpn_service.dart';
+import 'package:clashmi/app/modules/clash_setting_manager.dart';
 import 'package:clashmi/app/modules/remote_config.dart';
 import 'package:clashmi/app/modules/remote_config_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
@@ -60,7 +61,7 @@ abstract final class AutoupdateUtils {
     }
 
     late ReturnResult<Tuple2<int, String>> response;
-    List<int?> ports = await VPNService.getPortsByPrefer(true);
+    List<int> ports = [ClashSettingManager.getMixedPort()];
     for (var port in ports) {
       response = await HttpUtils.httpGetRequest(
         url,
@@ -127,7 +128,7 @@ abstract final class AutoupdateUtils {
     RemoteConfig rc = RemoteConfig();
     String url = RemoteConfigManager.getConfig().config;
     late ReturnResult<Tuple2<int, String>> response;
-    List<int?> ports = await VPNService.getPortsByPrefer(true);
+    List<int> ports = [ClashSettingManager.getMixedPort()];
     for (var port in ports) {
       response = await HttpUtils.httpGetRequest(
         url,

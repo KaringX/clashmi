@@ -95,7 +95,10 @@ class RemoteConfigManager {
     if (_checking) {
       return;
     }
-
+    final connected = await VPNService.getStarted();
+    if (!connected) {
+      return;
+    }
     var last = DateTime.tryParse(_config.latestCheck);
     DateTime now = DateTime.now();
     if (last != null) {
