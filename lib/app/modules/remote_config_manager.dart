@@ -6,8 +6,10 @@ import 'dart:io';
 
 import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/remote_config.dart';
+import 'package:clashmi/app/private/app_url_utils_private.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
+import 'package:clashmi/app/utils/app_utils.dart';
 import 'package:clashmi/app/utils/auto_update_utils.dart';
 import 'package:clashmi/app/utils/did.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
@@ -77,9 +79,10 @@ class RemoteConfigManager {
       if (content.isNotEmpty) {
         var config = jsonDecode(content);
         _config.fromJson(config);
-        /*_config.lifelineMap = await AppUrlUtilsPrivate.parseLifeline(
+        _config.lifelineMap = await AppUrlUtilsPrivate.parseLifeline(
+          AppUtils.getName(),
           _config.lifeline,
-        );*/
+        );
       }
     } catch (err, stacktrace) {}
   }
@@ -113,9 +116,10 @@ class RemoteConfigManager {
       }
       _duration = const Duration(hours: 1);
       _config = gConfig.data!;
-      /*_config.lifelineMap = await AppUrlUtilsPrivate.parseLifeline(
+      _config.lifelineMap = await AppUrlUtilsPrivate.parseLifeline(
+        AppUtils.getName(),
         _config.lifeline,
-      );*/
+      );
       _config.latestCheck = now.toString();
 
       _saveConfig();
