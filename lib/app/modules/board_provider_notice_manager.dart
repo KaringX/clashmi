@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/board_provider_manager.dart';
+import 'package:clashmi/app/modules/clash_setting_manager.dart';
 import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/app/private/app_url_utils_private.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
@@ -230,7 +231,7 @@ class BoardProviderNoticeLoadAndCheck {
       );
       var result = await HttpUtils.httpPostRequest(
         urlAndbody.item1,
-        null,
+        ClashSettingManager.getMixedPort(),
         headers,
         urlAndbody.item3,
         const Duration(seconds: 10),
