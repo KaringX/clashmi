@@ -191,6 +191,10 @@ class BoardProviderNoticeLoadAndCheck {
   }
 
   Future<void> check() async {
+    final connected = await VPNService.getStarted();
+    if (!connected) {
+      return;
+    }
     final currentProfile = ProfileManager.getCurrent();
     final provider = BoardProviderManager.getProviderById(
       currentProfile?.boardProviderId ?? "",
