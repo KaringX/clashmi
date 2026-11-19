@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/clash_setting_manager.dart';
 import 'package:clashmi/app/modules/remote_config.dart';
 import 'package:clashmi/app/modules/remote_config_manager.dart';
