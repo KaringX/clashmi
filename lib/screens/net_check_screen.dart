@@ -131,6 +131,10 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         lines.add('A: <empty>');
       } else {
         for (var i in aList) {
+          if (!NetworkUtils.isIpv4(i) && !NetworkUtils.isIpv6(i)) {
+            lines.add('A: $i');
+            continue;
+          }
           if (NetworkUtils.isPublicIp(i)) {
             lines.add('A: $i');
           } else {
@@ -150,6 +154,10 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         lines.add('AAAA: <empty>');
       } else {
         for (var i in aaaaList) {
+          if (!NetworkUtils.isIpv4(i) && !NetworkUtils.isIpv6(i)) {
+            lines.add('AAAA: $i');
+            continue;
+          }
           if (NetworkUtils.isPublicIp(i)) {
             lines.add('AAAA: $i');
           } else {
