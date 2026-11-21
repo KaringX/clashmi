@@ -1,0 +1,51 @@
+name: WebDAV paste widget
+on:
+  push:
+    paths:
+      - lib/screens/widgets/paste_text_button.dart
+      - test/paste_text_button_test.dart
+      - .github/workflows/webdav-paste-test.yml
+  pull_request:
+    paths:
+      - lib/screens/widgets/paste_text_button.dart
+      - test/paste_text_button_test.dart
+      - .github/workflows/webdav-paste-test.yml
+permissions:
+  contents: read
+jobs:
+  widget-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.44.0
+          cache: true
+      # The full application requires sibling packages not shipped in this repo.
+      # Exercise the clipboard widget independently of those VPN dependencies.
+      - name: Create isolated Flutter test package
+        shell: bash
+        run: |
+          fixture="$RUNNER_TEMP/webdav-paste-test"
+          mkdir -p "$fixture/lib/screens/widgets" "$fixture/test"
+          cp lib/screens/widgets/paste_text_button.dart "$fixture/lib/screens/widgets/"
+          cp test/paste_text_button_test.dart "$fixture/test/"
+          cat > "$fixture/pubspec.yaml" <<'PUBSPEC'
+          name: webdav_paste_test
+          environment:
+            sdk: '>=3.8.0 <4.0.0'
+          dependencies:
+            flutter:
+              sdk: flutter
+          dev_dependencies:
+            flutter_test:
+              sdk: flutter
+          PUBSPEC
+      - name: Analyze and test clipboard widget
+        shell: bash
+        run: |
+          cd "$RUNNER_TEMP/webdav-paste-test"
+          flutter pub get
+          flutter analyze
+          flutter test
