@@ -356,7 +356,6 @@ class ProfileConfig {
 
 class ProfileManager {
   static const String yamlExtension = "yaml";
-  static const String urlComment = "#url:";
   static final ProfileConfig _config = ProfileConfig();
 
   static final List<void Function(String)> onEventCurrentChanged = [];
@@ -448,34 +447,6 @@ class ProfileManager {
     } else {
       await save();
     }
-
-    Map<String, String?> existProfiles = {};
-    String dir = await PathUtils.profilesDir();
-    var files = FileUtils.recursionFile(
-      dir,
-      extensionFilter: {".yaml", ".yml"},
-    );
-    for (var file in files) {
-      String? line = await FileUtils.readLastLineStartWith(file, urlComment);
-      existProfiles[path.basename(file)] = line
-          ?.substring(urlComment.length)
-          .trim();
-    }
-    for (int i = 0; i < _config.profiles.length; ++i) {
-      if (!existProfiles.containsKey(_config.profiles[i].id) &&
-          !_config.profiles[i].isRemote()) {
-        _config.profiles.removeAt(i);
-        --i;
-      }
-    }
-    existProfiles.forEach((key, existValue) {
-      int index = _config.profiles.indexWhere((value) {
-        return value.id == key;
-      });
-      if (index < 0) {
-        _config.profiles.add(ProfileSetting(id: key, url: existValue ?? ""));
-      }
-    });
 
     if (_config._currentId.isNotEmpty) {
       int index = _config.profiles.indexWhere((value) {
@@ -741,7 +712,6 @@ class ProfileManager {
       return ReturnResult(error: err);
     }
 
-    await FileUtils.append(savePath, "\n$urlComment$url\n");
     if (remark.isEmpty ||
         boardProviderId.startsWith(
           BoardProviderManager.unknownProviderIdPrefix,
@@ -978,7 +948,6 @@ class ProfileManager {
         );
       }
 
-      await FileUtils.append(savePath, "\n$urlComment${profile.url}\n");
       profile.updateSubscriptionTraffic(result.data);
     }
     await save();
