@@ -498,7 +498,7 @@ RawSniffer _$RawSnifferFromJson(Map<String, dynamic> json) => RawSniffer(
       ?.map((e) => e as String)
       .toList(),
   (json['skip-domain'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  (json['port-whitelist'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  ClashConvertHelper.IntOrStringListFromJson(json['port-whitelist'] as List?),
   json['force-dns-mapping'] as bool?,
   json['parse-pure-ip'] as bool?,
   (json['sniff'] as Map<String, dynamic>?)?.map(
@@ -525,7 +525,7 @@ Map<String, dynamic> _$RawSnifferToJson(RawSniffer instance) =>
 
 RawSniffingConfig _$RawSniffingConfigFromJson(Map<String, dynamic> json) =>
     RawSniffingConfig(
-      (json['ports'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      ClashConvertHelper.IntOrStringListFromJson(json['ports'] as List?),
       json['override-destination'] as bool?,
     );
 

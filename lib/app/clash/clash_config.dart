@@ -327,6 +327,11 @@ enum ClashFindProcessMode {
   }
 }
 
+class ClashConvertHelper {
+  static List<String>? IntOrStringListFromJson(List<dynamic>? list) =>
+      list?.map((e) => e.toString()).toList();
+}
+
 ///Extension
 @JsonSerializable(explicitToJson: true)
 class RawExtensionTunHttpProxy {
@@ -671,7 +676,7 @@ class RawFallbackFilter {
   List<String>? IPCIDR;
   @JsonKey(name: 'domain')
   List<String>? Domain;
-  @JsonKey(name: 'domageositein')
+  @JsonKey(name: 'geosite')
   List<String>? GeoSite;
 
   RawFallbackFilter.by({
@@ -1108,7 +1113,10 @@ class RawSniffer {
   List<String>? SkipDstAddress;
   @JsonKey(name: 'skip-domain')
   List<String>? SkipDomain;
-  @JsonKey(name: 'port-whitelist')
+  @JsonKey(
+    name: 'port-whitelist',
+    fromJson: ClashConvertHelper.IntOrStringListFromJson,
+  )
   List<String>? Ports;
   @JsonKey(name: 'force-dns-mapping')
   bool? ForceDnsMapping;
@@ -1152,7 +1160,7 @@ class RawSniffer {
 
 @JsonSerializable(explicitToJson: true)
 class RawSniffingConfig {
-  @JsonKey(name: 'ports')
+  @JsonKey(name: 'ports', fromJson: ClashConvertHelper.IntOrStringListFromJson)
   List<String>? Ports;
   @JsonKey(name: 'override-destination')
   bool? OverrideDest;
