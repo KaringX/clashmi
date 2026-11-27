@@ -4,10 +4,6 @@ PODS:
   - flutter_js (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
-  - HotKey (0.2.1)
-  - hotkey_manager_macos (0.0.1):
-    - FlutterMacOS
-    - HotKey
   - icloud_storage (0.0.1):
     - FlutterMacOS
   - libclash_vpn_service (0.1.0):
@@ -26,17 +22,12 @@ DEPENDENCIES:
   - app_installer (from `Flutter/ephemeral/.symlinks/plugins/app_installer/macos`)
   - flutter_js (from `Flutter/ephemeral/.symlinks/plugins/flutter_js/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
-  - hotkey_manager_macos (from `Flutter/ephemeral/.symlinks/plugins/hotkey_manager_macos/macos`)
   - icloud_storage (from `Flutter/ephemeral/.symlinks/plugins/icloud_storage/macos`)
   - libclash_vpn_service (from `Flutter/ephemeral/.symlinks/plugins/libclash_vpn_service/macos`)
   - open_dir_macos (from `Flutter/ephemeral/.symlinks/plugins/open_dir_macos/macos`)
   - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
   - protocol_handler (from `Flutter/ephemeral/.symlinks/plugins/protocol_handler/macos`)
   - screen_capturer_macos (from `Flutter/ephemeral/.symlinks/plugins/screen_capturer_macos/macos`)
-
-SPEC REPOS:
-  trunk:
-    - HotKey
 
 EXTERNAL SOURCES:
   app_installer:
@@ -45,8 +36,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_js/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
-  hotkey_manager_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/hotkey_manager_macos/macos
   icloud_storage:
     :path: Flutter/ephemeral/.symlinks/plugins/icloud_storage/macos
   libclash_vpn_service:
@@ -64,8 +53,6 @@ SPEC CHECKSUMS:
   app_installer: 9a51509d3e3526fad6fb3d615c5e78621a1b08a1
   flutter_js: 79c3c70d33ba464c67d8eb88639a61aa718cd8b8
   FlutterMacOS: c232990155153907050900a2e175c7773903ba4e
-  HotKey: 400beb7caa29054ea8d864c96f5ba7e5b4852277
-  hotkey_manager_macos: a4317849af96d2430fa89944d3c58977ca089fbe
   icloud_storage: eb5b0f20687cf5a4fabc0b541f3b079cd6df7dcb
   libclash_vpn_service: ca1c41aac8340fe2982c7a67b7527b06d9be61d1
   open_dir_macos: 79810d7921d777f8732bf6358b3a0839a8fad9b5
