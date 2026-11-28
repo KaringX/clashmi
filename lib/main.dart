@@ -29,10 +29,28 @@ import 'package:libclash_vpn_service/vpn_service.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
-
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocaleSettings.useDeviceLocale();
+  if (Platform.isMacOS) {
+    try {
+      // Finish (or fail) migration before any manager can create fresh settings
+      // in the destination. Display the existing failure screen on I/O errors.
+      await PathUtils.profileDir();
+    } catch (err) {
+      await windowManager.ensureInitialized();
+      runApp(
+        TranslationProvider(
+          child: MyApp(
+            args: args,
+            startFailedReason: StartFailedReason.exception,
+            startFailedReasonDesc: err.toString(),
+          ),
+        ),
+      );
+      return;
+    }
+  }
   await VPNService.initABI();
   await RemoteConfigManager.init();
   await SettingManager.init();

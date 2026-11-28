@@ -2,6 +2,8 @@ import Cocoa
 import FlutterMacOS
 
 class MainFlutterWindow: NSWindow {
+    private var profileStorageChannel: FlutterMethodChannel?
+
     override func awakeFromNib() {
         let flutterViewController = FlutterViewController()
         let windowFrame = self.frame
@@ -11,6 +13,7 @@ class MainFlutterWindow: NSWindow {
         //let window: NSWindow! = self.contentView?.window
         //window.styleMask.remove(.resizable)
         RegisterGeneratedPlugins(registry: flutterViewController)
+        profileStorageChannel = ProfileStorage.register(with: flutterViewController.engine.binaryMessenger)
 
         super.awakeFromNib()
     }
