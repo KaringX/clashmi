@@ -113,12 +113,14 @@ class GroupItemTextField extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: options.hint,
                 errorText: options.errorText,
+                suffixIcon: options.suffixIcon,
                 border: InputBorder.none,
               ),
               textAlign: TextAlign.right,
               keyboardType: options.keyboardType,
               inputFormatters: options.inputFormatters,
               focusNode: options.focusNode,
+              autofocus: options.autoFocus,
               autocorrect: false,
               enableSuggestions:
                   true, //Non-English input methods cannot be used after disabling
