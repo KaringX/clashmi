@@ -185,25 +185,25 @@ open class ExtensionProvider: NEPacketTunnelProvider {
 
 extension ExtensionProvider {
     fileprivate func setupService() async throws {
-        guard let conf = (protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration
+        guard let tunnelProtocol = protocolConfiguration as? NETunnelProviderProtocol,
+              let conf = tunnelProtocol.providerConfiguration,
+              let configFilePath = conf["configFilePath"] as? String,
+              !configFilePath.isEmpty
         else {
             throw VpnError.Error("providerConfiguration invalid")
         }
-        let configFilePath = conf["configFilePath"] as! String
-#if os(macOS) 
-        if !FileManager.default.isReadableFile(atPath: configFilePath) {
-            try await Task.sleep(nanoseconds: NSEC_PER_MSEC * 100)
-            throw VpnError.Error("FullDiskAccessPermissionRequired")
-        }
-#endif
-        if !FileManager.default.fileExists(atPath: configFilePath) {
-            throw VpnError.Error("file not exist \(configFilePath)")
-        }
-        let text = try! String(contentsOfFile: configFilePath, encoding: String.Encoding.utf8)
-        let jsonData: Data = text.data(using: String.Encoding.utf8)!
-        config = try! JSONDecoder().decode(VpnServiceConfig.self, from: jsonData)
-        if config == nil {
-            throw VpnError.Error("decode VpnServiceConfig failed: \(configFilePath)")
+        do {
+            let jsonData = try Data(contentsOf: URL(fileURLWithPath: configFilePath))
+            config = try JSONDecoder().decode(VpnServiceConfig.self, from: jsonData)
+        } catch {
+            // A missing/malformed file is not evidence that Full Disk Access is
+            // needed. Preserve the actual failure instead of crashing with try!.
+            let underlying = error as NSError
+            throw NSError(domain: "VpnServiceConfiguration", code: underlying.code, userInfo: [
+                NSLocalizedDescriptionKey: "Unable to load VPN configuration: \(underlying.localizedDescription)",
+                NSUnderlyingErrorKey: underlying,
+                NSFilePathErrorKey: configFilePath,
+            ])
         }
         let setupOptions = LibclashSetupOptions()
         setupOptions.homeDir = config!.base_dir

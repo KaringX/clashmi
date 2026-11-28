@@ -4,6 +4,7 @@ import "dart:io";
 
 import "package:clashmi/app/utils/app_utils.dart";
 import "package:clashmi/app/utils/file_utils.dart";
+import "package:clashmi/app/utils/macos_profile_storage.dart";
 import "package:path/path.dart" as path;
 import "package:libclash_vpn_service/vpn_service.dart";
 
@@ -54,6 +55,12 @@ class PathUtils {
     Directory? sharedDirectory = await FlutterVpnService.getAppGroupDirectory(
       AppUtils.getGroupId(),
     );
+    if (Platform.isMacOS) {
+      if (sharedDirectory == null) {
+        throw StateError('Unable to locate existing Clash Mi profiles.');
+      }
+      return MacOSProfileStorage.directory(sharedDirectory);
+    }
     if (sharedDirectory != null) {
       if (!await sharedDirectory.exists()) {
         await sharedDirectory.create(recursive: true);

@@ -15,6 +15,7 @@ import 'package:clashmi/app/utils/error_reporter_utils.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
 import 'package:clashmi/app/utils/install_referrer_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
+import 'package:clashmi/app/utils/macos_profile_storage.dart';
 import 'package:clashmi/app/utils/network_utils.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:clashmi/app/utils/platform_utils.dart';
@@ -283,6 +284,7 @@ class VPNService {
       await confFile.writeAsString(content, flush: true);
     } catch (err) {
       ErrorReporterUtils.tryReportNoSpace(err.toString());
+      rethrow;
     }
 
     if (Platform.isMacOS) {
@@ -344,8 +346,19 @@ class VPNService {
     if (Platform.isIOS || Platform.isMacOS) {
       await FlutterVpnService.setAlwaysOn(false);
     }
+    bool stoppedForMigration = false;
+    if (Platform.isMacOS) {
+      try {
+        stoppedForMigration =
+            await MacOSProfileStorage.updateTunnelConfiguration();
+      } catch (err) {
+        return ReturnResultError(err.toString());
+      }
+    }
     final enable = await getSystemProxyEnable();
-    VpnServiceWaitResult result = await FlutterVpnService.restart(timeout);
+    VpnServiceWaitResult result = stoppedForMigration
+        ? await FlutterVpnService.start(timeout)
+        : await FlutterVpnService.restart(timeout);
     if (result.type == VpnServiceWaitType.timeout) {
       await stop();
       return ReturnResultError("service restart timeout");
@@ -403,6 +416,13 @@ class VPNService {
         _firewallPortAdded.add(mixedPort);
         var ports = [controlPort, mixedPort];
         FlutterVpnService.firewallAddPorts(ports, PathUtils.serviceExeName());
+      }
+    }
+    if (Platform.isMacOS) {
+      try {
+        await MacOSProfileStorage.updateTunnelConfiguration();
+      } catch (err) {
+        return ReturnResultError(err.toString());
       }
     }
     VpnServiceWaitResult result = await FlutterVpnService.start(timeout);

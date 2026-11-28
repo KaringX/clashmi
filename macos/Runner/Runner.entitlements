@@ -28,6 +28,10 @@
 	<array>
 		<string>group.com.nebula.clashmi</string>
 	</array>
+	<key>com.apple.security.temporary-exception.files.home-relative-path.read-write</key>
+	<array>
+		<string>/Library/Application Support/com.nebula.clashmi/</string>
+	</array>
 	<key>com.apple.security.files.user-selected.read-only</key>
 	<true/>
 	<key>com.apple.security.files.user-selected.read-write</key>
